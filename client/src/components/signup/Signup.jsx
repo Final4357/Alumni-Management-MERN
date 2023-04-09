@@ -7,10 +7,14 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
+    const [fname, setfName] = useState("");
+    const [lname, setlName] = useState("");
+    const [sid, setSid] = useState("");
+    
     const [password, setPassword] = useState("");
+    const [cpassword, setCPassword] = useState("");
     const [visible, setVisible] = useState(false);
-    // const [avatar, setAvatar] = useState(null);
+   
     const handleSubmit = () => {
         console.log("ffff");
 
@@ -23,30 +27,53 @@ const Signup = () => {
           Register as a User
         </h2>
       </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="mt-8  lg:mx-auto lg:w-full lg:max-w-xl">
+        <div className="bg-white py-8 px-4 shadow lg:rounded-lg lg:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="flex gap-20 ">
             <div>
               <label
-                htmlFor="email"
+                htmlFor="text"
                 className="block text-sm font-medium text-gray-700"
               >
-                Full Name
+                First Name
               </label>
               <div className="mt-1">
                 <input
                   type="text"
                   name="text"
-                  autoComplete="name"
+                  autoComplete="fist name"
                   required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={fname}
+                  onChange={(e) => setfName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div><div>
+              <label
+                htmlFor="text"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Last Name
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="text"
+                  autoComplete="last name"
+                  required
+                  value={lname}
+                  onChange={(e) => setlName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
             </div>
 
-            <div>
+            </div>
+
+
+            <div className="flex gap-20">
+              <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -65,8 +92,29 @@ const Signup = () => {
                 />
               </div>
             </div>
-
             <div>
+              <label
+                htmlFor="text"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Student ID
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="text"
+                  autoComplete="name"
+                  required
+                  value={sid}
+                  onChange={(e) => setSid(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            </div>
+
+            <div className="flex gap-20">
+              <div>
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
@@ -98,40 +146,41 @@ const Signup = () => {
                 )}
               </div>
             </div>
-
-            {/* <div>
+            <div>
               <label
-                htmlFor="avatar"
+                htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
-              ></label>
-              <div className="mt-2 flex items-center">
-                <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
-                  {avatar ? (
-                    <img
-                      src={URL.createObjectURL(avatar)}
-                      alt="avatar"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                  ) : (
-                    <RxAvatar className="h-8 w-8" />
-                  )}
-                </span>
-                <label
-                  htmlFor="file-input"
-                  className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                >
-                  <span>Upload a file</span>
-                  <input
-                    type="file"
-                    name="avatar"
-                    id="file-input"
-                    accept=".jpg,.jpeg,.png"
-                    onChange={handleFileInputChange}
-                    className="sr-only"
+              >
+                Confirm Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  type={visible ? "text" : "password"}
+                  name="password"
+                  autoComplete="current-password"
+                  required
+                  value={cpassword}
+                  onChange={(e) => setCPassword(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+                {visible ? (
+                  <AiOutlineEye
+                    className="absolute right-2 top-2 cursor-pointer"
+                    size={25}
+                    onClick={() => setVisible(false)}
                   />
-                </label>
+                ) : (
+                  <AiOutlineEyeInvisible
+                    className="absolute right-2 top-2 cursor-pointer"
+                    size={25}
+                    onClick={() => setVisible(true)}
+                  />
+                )}
               </div>
-            </div> */}
+            </div>
+            </div>
+
+          
 
             <div>
               <button
