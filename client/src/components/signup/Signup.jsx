@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
-// import { RxAvatar } from "react-icons/rx";
+
 
 
 const Signup = () => {
@@ -24,7 +24,7 @@ const Signup = () => {
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Register as a User
+          Register as an User
         </h2>
       </div>
       <div className="mt-8  lg:mx-auto lg:w-full lg:max-w-xl">
@@ -190,6 +190,13 @@ const Signup = () => {
                 Submit
               </button>
             </div>
+            <div className={`${styles.noramlFlex} w-full`}>
+              <h4>Sign Up as an allumni</h4>
+              <Link to="/sign-upAL" className="text-blue-600 pl-2">
+                Sign Up
+              </Link>
+            </div>
+
             <div className={`${styles.noramlFlex} w-full`}>
               <h4>Already have an account?</h4>
               <Link to="/login" className="text-blue-600 pl-2">
