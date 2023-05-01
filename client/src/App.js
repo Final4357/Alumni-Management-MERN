@@ -22,8 +22,8 @@ const App = () => {
         <Route path='/login' element={<Loginpage /> }/>
         <Route path='/sign-up' element={<Signuppage /> }/>
         <Route path='/sign-upAL' element={<SignuppageAL /> }/>
-        <Route path='/forgot=password' element={<Forgotpage /> }/>
-        <Route path='/reset-password' element={<Resetpage /> }/>
+        <Route path='/forgot-password' element={<Forgotpage /> }/>
+        <Route path='/resetpassword/:resetToken' element={<Resetpage /> }/>
         <Route path='/404' element={<Notfoundpage /> }/>
 
 

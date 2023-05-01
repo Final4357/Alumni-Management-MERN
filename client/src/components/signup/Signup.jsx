@@ -1,16 +1,19 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
-import { ErrorToast, IsEmail, IsEmpty, IsPassword, } from "../../helper/formHelper";
+import { ErrorToast, IsEmail, IsEmpty, IsPassword, getBase64} from "../../helper/formHelper";
 import { studentRegister } from "../../api_req/auth.js";
 
 const Signup = () => {
-  let fnameRef, lnameRef, emailRef, passwordRef, sidRef = useRef();
-  let navigate = useNavigate();
-
-  const [cpassword, setCPassword] = useState("");
+  let fnameRef, lnameRef, emailRef, passwordRef,cpasswordRef, sidRef ,userImgRef, userImgView= useRef();
+  let navigate = useNavigate();  
   const [visible, setVisible] = useState(false);
+  const previewImage = () => {
+    let ImgFile = userImgRef.files[0];
+    getBase64(ImgFile).then((base64Img) => {
+        userImgView.src = base64Img;
+    })
+}
 
   const onRegistration = () => {
     let fname = fnameRef.value;
@@ -18,6 +21,7 @@ const Signup = () => {
     let email = emailRef.value;
     let password = passwordRef.value;
     let sid = sidRef.value;
+    let photo = userImgView.src;
 
     if (IsEmpty(fname)) {
       ErrorToast("First Name required !");
@@ -32,7 +36,7 @@ const Signup = () => {
     } else if (IsEmpty(sid)) {
       ErrorToast("Student Id Required !");
     } else {
-      if (studentRegister(fname, lname, email, password, sid)) {
+      if (studentRegister(fname, lname, email, password, sid,photo)) {
         navigate("/login");
       } else navigate("/sign-up");
     }
@@ -223,6 +227,22 @@ const Signup = () => {
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create and account
             </h1>
+            <div class="profile flex justify-center ">
+                         <img class="w-48 h-48 rounded-full " src ="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" ref={(input) => userImgView = input} alt="" />
+                                                    
+
+                            <div class="w-48 h-48 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
+
+                                <img class="hidden absolute group-hover:block w-12" for="file-input" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
+                                <input
+                                    type="file"
+                                    id='file-input'
+                                    className='absolute opacity-0'
+                                    onChange={previewImage}
+                                    ref={(input) => userImgRef = input}
+                                />
+                            </div>
+                        </div>
             <div class="space-y-2 md:space-y-6 " action="#">
               
               <div className="flex justify-between gap-4 ">
@@ -242,26 +262,68 @@ const Signup = () => {
               </div>
               </div >
               <div className="flex justify-between gap-4">
-              <div className="w-1/2">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
-              </div>
-              <div className="w-1/2">
-                <label for="sid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student ID</label>
-                <input type="text" name="sid" id="sid" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="C183057" required />
-              </div>
-              </div>
+                                <div className="w-1/2">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                    <input type="email" name="email" id="email" ref={(input) => (emailRef = input)} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                                </div>
+                                <div className="w-1/2">
+                                    <label for="sid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student ID</label>
+                                    <input type="text" name="sid" id="sid" ref={(input) => (sidRef = input)} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="C183057" required />
+                                </div>
+                            </div>
               <div className="flex justify-between gap-4">
-              <div className="w-1/2">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
-              </div>
-              <div className="w-1/2">
-                <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
-              </div>
-              </div>
+                                <div className="w-1/2">
+                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                    <div className="mt-1 relative">
+                                        <input
+                                            type={visible ? "text" : "password"}
+                                            placeholder="••••••••" name="current-password" id="cpassword"
+                                            required
+                                            ref={(input) => (passwordRef = input)}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        />
+                                        {visible ? (
+                                            <AiOutlineEye
+                                                className="absolute right-2 top-2 cursor-pointer"
+                                                size={25}
+                                                onClick={() => setVisible(false)}
+                                            />
+                                        ) : (
+                                            <AiOutlineEyeInvisible
+                                                className="absolute right-2 top-2 cursor-pointer"
+                                                size={25}
+                                                onClick={() => setVisible(true)}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="w-1/2">
+                                    <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                                    <div className="mt-1 relative">
+                                        <input
+                                            type={visible ? "text" : "password"}
+                                            placeholder="••••••••" name="current-password" id="current-password"
+                                            required
+                                            ref={(input) => (cpasswordRef = input)}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        />
+                                        {visible ? (
+                                            <AiOutlineEye
+                                                className="absolute right-2 top-2 cursor-pointer"
+                                                size={25}
+                                                onClick={() => setVisible(false)}
+                                            />
+                                        ) : (
+                                            <AiOutlineEyeInvisible
+                                                className="absolute right-2 top-2 cursor-pointer"
+                                                size={25}
+                                                onClick={() => setVisible(true)}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
              
               <div class="flex items-start">
                 <div class="flex items-center h-5">
