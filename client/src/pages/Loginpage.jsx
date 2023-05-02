@@ -5,7 +5,6 @@ import Header from '../components/Layout/Header.jsx'
 const Loginpage = () => {
   return (
     <div >
-      <Header activeHeading={1}/>
       <Login />
     </div>
   )

@@ -25,6 +25,7 @@ const App = () => {
         <Route path='/forgot-password' element={<Forgotpage /> }/>
         <Route path='/resetpassword/:resetToken' element={<Resetpage /> }/>
         <Route path='/404' element={<Notfoundpage /> }/>
+        <Route path='/404' element={<Notfoundpage /> }/>
 
 
 

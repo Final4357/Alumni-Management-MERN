@@ -6,16 +6,20 @@ export const navItems = [
     },
     
     {
-      title: "Gallery",
-      url: "/gallery",
+      title: "Alumni",
+      url: "/alumni",
     },
     {
       title: "Events",
       url: "/events",
     },
     {
-      title: "FAQ",
-      url: "/faq",
+      title: "About",
+      url: "/about",
+    },
+    {
+      title: "Contact",
+      url: "/contact",
     },
   ];
   
