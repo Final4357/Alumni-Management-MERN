@@ -9,6 +9,7 @@ import xss from'xss-clean'
 import hpp from'hpp'
 
 import authRouter from './routes/auth.js'
+import alumniRouter from './routes/alumni.js'
 
 const app = express()
 dotenv.config()
@@ -25,6 +26,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use('/api/auth', authRouter);
+app.use('/api/alumni', alumniRouter);
 
 app.use((err, req, res, next)=>{
     const errorStatus = err.status || 500

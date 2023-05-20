@@ -56,6 +56,10 @@ const UserSchema = new mongoose.Schema({
     degree:{
         type: String,
     },
+    canView:[{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User"
+    }],
   },{timestamps: true, versionKey: false}
   );
 
