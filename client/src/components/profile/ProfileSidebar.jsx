@@ -45,7 +45,7 @@ const ProfileSidebar = ({ setActive, active }) => {
           Profile
         </span>
       </div>
-      <div
+      {/* <div
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(2)}
       >
@@ -70,7 +70,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Refunds
         </span>
-      </div>
+      </div> */}
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"
@@ -96,7 +96,7 @@ const ProfileSidebar = ({ setActive, active }) => {
             active === 5 ? "text-[red]" : ""
           } md:block hidden`}
         >
-          Track Order
+          Post Jobs
         </span>
       </div>
 
@@ -114,20 +114,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         </span>
       </div>
 
-      <div
-        className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(7)}
-      >
-        <TbAddressBook size={20} color={active === 7 ? "red" : ""} />
-        <span
-          className={`pl-3 ${
-            active === 7 ? "text-[red]" : ""
-          } md:block hidden`}
-        >
-          Address
-        </span>
-      </div>
-
+      
       {/* {user && user?.role === "Admin" && (
         <Link to="/admin/dashboard">
           <div

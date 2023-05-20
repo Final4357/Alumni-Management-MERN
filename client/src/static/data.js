@@ -10,6 +10,10 @@ export const navItems = [
       url: "/alumni",
     },
     {
+      title: "Jobs",
+      url: "/Jobs",
+    },
+    {
       title: "Events",
       url: "/events",
     },

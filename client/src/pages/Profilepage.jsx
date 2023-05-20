@@ -17,7 +17,7 @@ const Profilepage = () => {
                     <Header/>
                     <div className='py-16 bg-gray-50'>
             <div class="container mx-auto">
-                    <div className={` w-full  flex gap-2 bg-[#f5f5f5] `}>
+                    <div className={` w-full  flex gap-2 bg-gray-50 `}>
                         <div className="w-[50px] md:w-[335px] sticky md:mt-0 mt-[18%]">
                             <ProfileSidebar active={active} setActive={setActive} />
                         </div>

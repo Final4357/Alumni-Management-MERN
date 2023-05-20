@@ -76,8 +76,8 @@ const Header = ({ activeHeading }) => {
                             <div className="dropdown dropdown-bottom dropdown-end">
                                 <label tabIndex={0} className=" m-1">Korim</label>
                                 <ul tabIndex={0} className="dropdown-content text-black menu p-2 mt-3 shadow bg-base-100 rounded-box w-52">
-                                    <li><a href="/profile">Profile</a></li>
-                                    <li><a></a></li>
+                                    <li><a href="/profile">My Account</a></li>
+                                    <li><a> Log out</a></li>
                                 </ul>
                             </div>
                         </ul>
@@ -87,7 +87,7 @@ const Header = ({ activeHeading }) => {
             </header>
 
             <div
-                className={`${active === true ? "shadow-sm fixed top-0  z-10" : null
+                className={`${active === true ? "shadow fixed top-0  z-10" : null
                     } transition   w-full mx-auto md:flex items-center justify-between shadow bg-[#ffffff] h-16`}
             >
                 <div className="md:container md:mx-auto mx-auto py-1 flex justify-between items-center">

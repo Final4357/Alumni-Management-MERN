@@ -12,7 +12,8 @@ import Notfoundpage from './pages/Notfoundpage'
 import Alumnipage from './pages/Alumnipage'
 import Alumnidetailspage from './pages/Alumnidetailspage'
 import Profilepage from './pages/Profilepage'
-
+import Jobspage from './pages/Jobspage'
+import Jobcreatepage from './pages/Jobcreatepage'
 
 
 const App = () => {
@@ -31,6 +32,8 @@ const App = () => {
         <Route path='/alumni' element={<Alumnipage /> }/>
         <Route path='/alumnidetails' element={<Alumnidetailspage /> }/>
         <Route path='/profile' element={<Profilepage /> }/>
+        <Route path='/jobs' element={<Jobspage /> }/>
+        <Route path='/test' element={<Jobcreatepage /> }/>
 
 
 

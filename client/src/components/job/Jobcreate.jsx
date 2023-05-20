@@ -4,9 +4,7 @@ import { Fragment } from 'react'
 
 const Jobcreate = () => {
   return (
-   <Fragment>
-    <Header/>
-   </Fragment>
+   <div>h</div>
   )
 }
 

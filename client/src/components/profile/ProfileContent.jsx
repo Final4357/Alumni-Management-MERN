@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   AiOutlineArrowRight,
   AiOutlineCamera,
@@ -100,8 +100,8 @@ const ProfileContent = ({ active }) => {
           </div>
           <br />
           <br />
-          <div className="w-full px-5">
-            <form onSubmit={handleSubmit} aria-required={true}>
+          <div className="w-full p-5">
+            <div aria-required={true}>
               <div className="w-full md:flex block pb-3 gap-4">
                 <div className=" w-[100%] md:w-[50%]">
                   <label className="block pb-2">Full Name</label>
@@ -132,42 +132,33 @@ const ProfileContent = ({ active }) => {
                     placeholder="*******" required="" />
                 </div>
               </div>
-              <input
-                className={`w-[250px] h-[40px]  border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+              <button
+                className={`w-[250px] h-[40px]  border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-4 cursor-pointer`}
                 required
                 value="Update"
                 type="submit"
-              />
-            </form>
+                onClick={handleSubmit}
+              > Update</button>
+            </div>
           </div>
         </>
       )}
 
-      {/* order */}
-      {active === 2 && (
-        <div>
-          {/* <AllOrders /> */}
-        </div>
-      )}
 
-      {/* Refund */}
-      {active === 3 && (
-        <div>
-          {/* <AllRefundOrders /> */}
-        </div>
-      )}
+
+
 
       {/* Track order */}
       {active === 5 && (
         <div>
-          {/* <TrackOrder /> */}
+          <PostJobs />
         </div>
       )}
 
       {/* Change Password */}
       {active === 6 && (
         <div>
-          {/* <ChangePassword /> */}
+          <ChangePassword />
         </div>
       )}
 
@@ -181,580 +172,171 @@ const ProfileContent = ({ active }) => {
   );
 };
 
-// const AllOrders = () => {
-//   const { user } = useSelector((state) => state.user);
-//   const { orders } = useSelector((state) => state.order);
-//   const dispatch = useDispatch();
+const PostJobs = () => {
 
-//   useEffect(() => {
-//     dispatch(getAllOrdersOfUser(user._id));
-//   }, []);
 
-//   const columns = [
-//     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+  return (
+    <Fragment>
+      <main class="main bg-white px-2 md:py-6">
+        <div class="w-full max-w-xl mx-auto">
+          <form action="" method="post">
+            <h1 class="text-2xl mb-2">Post new job</h1>
 
-//     {
-//       field: "status",
-//       headerName: "Status",
-//       minWidth: 130,
-//       flex: 0.7,
-//       cellClassName: (params) => {
-//         return params.getValue(params.id, "status") === "Delivered"
-//           ? "greenColor"
-//           : "redColor";
-//       },
-//     },
-//     {
-//       field: "itemsQty",
-//       headerName: "Items Qty",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.7,
-//     },
+            <div class="job-info space-y-4 mb-4 ">
+              <div className="flex justify-between gap-4 ">
 
-//     {
-//       field: "total",
-//       headerName: "Total",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.8,
-//     },
+                <div class=" w-full">
+                  <label class="block text-gray-700 text-sm mb-2" for="job-title">Title</label>
+                  <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="job-title" name="job-title" placeholder="Frontend Developer" autofocus />
+                </div>
 
-//     {
-//       field: " ",
-//       flex: 1,
-//       minWidth: 150,
-//       headerName: "",
-//       type: "number",
-//       sortable: false,
-//       renderCell: (params) => {
-//         return (
-//           <>
-//             <Link to={`/user/order/${params.id}`}>
-//               <Button>
-//                 <AiOutlineArrowRight size={20} />
-//               </Button>
-//             </Link>
-//           </>
-//         );
-//       },
-//     },
-//   ];
+                <div class="w-full">
+                  <label class="block text-gray-700 text-sm mb-2" for="apply-link">Salary</label>
+                  <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="apply-link" name="apply-link" placeholder="" />
+                </div>
+              </div>
 
-//   const row = [];
 
-//   orders &&
-//     orders.forEach((item) => {
-//       row.push({
-//         id: item._id,
-//         itemsQty: item.cart.length,
-//         total: "US$ " + item.totalPrice,
-//         status: item.status,
-//       });
-//     });
+              <div class="">
+                <label class="block text-gray-700 text-sm mb-2" for="apply-link">Link to apply</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="apply-link" name="apply-link" placeholder="https://www.djangoproject.com/apply" />
+              </div>
 
-//   return (
-//     <div className="pl-8 pt-1">
-//       <DataGrid
-//         rows={row}
-//         columns={columns}
-//         pageSize={10}
-//         disableSelectionOnClick
-//         autoHeight
-//       />
-//     </div>
-//   );
-// };
+              <div class="md:flex md:justify-between gap-4 ">
 
-// const AllRefundOrders = () => {
-//   const { user } = useSelector((state) => state.user);
-//   const { orders } = useSelector((state) => state.order);
-//   const dispatch = useDispatch();
+                <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                  <label class="block text-gray-700 text-sm mb-2" for="job-type">
+                    Job Type
+                  </label>
+                  <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg  leading-tight focus:outline-none focus:border-gray-500" id="job-type" name="job-type">
+                      <option>Full-time</option>
+                      <option>Part-time</option>
+                      <option>Intern</option>
+                    </select>
 
-//   useEffect(() => {
-//     dispatch(getAllOrdersOfUser(user._id));
-//   }, []);
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                    </div>
+                  </div>
+                </div>
 
-//   const eligibleOrders = orders && orders.filter((item) => item.status === "Processing refund");
 
-//   const columns = [
-//     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+                <div class="w-full md:w-1/2  md:mb-0">
+                  <label for="location" class="block text-gray-700 text-sm mb-2">Location</label>
+                  <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500" id="job-type" name="job-type">
+                      <option>On Site</option>
+                      <option>Remote</option>
+                    </select>
 
-//     {
-//       field: "status",
-//       headerName: "Status",
-//       minWidth: 130,
-//       flex: 0.7,
-//       cellClassName: (params) => {
-//         return params.getValue(params.id, "status") === "Delivered"
-//           ? "greenColor"
-//           : "redColor";
-//       },
-//     },
-//     {
-//       field: "itemsQty",
-//       headerName: "Items Qty",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.7,
-//     },
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                    </div>
+                  </div>
 
-//     {
-//       field: "total",
-//       headerName: "Total",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.8,
-//     },
+                </div>
+              </div>
 
-//     {
-//       field: " ",
-//       flex: 1,
-//       minWidth: 150,
-//       headerName: "",
-//       type: "number",
-//       sortable: false,
-//       renderCell: (params) => {
-//         return (
-//           <>
-//             <Link to={`/user/order/${params.id}`}>
-//               <Button>
-//                 <AiOutlineArrowRight size={20} />
-//               </Button>
-//             </Link>
-//           </>
-//         );
-//       },
-//     },
-//   ];
 
-//   const row = [];
+              <div>
 
-//   eligibleOrders &&
-//    eligibleOrders.forEach((item) => {
-//       row.push({
-//         id: item._id,
-//         itemsQty: item.cart.length,
-//         total: "US$ " + item.totalPrice,
-//         status: item.status,
-//       });
-//     });
+                <label for="message" class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
 
-//   return (
-//     <div className="pl-8 pt-1">
-//       <DataGrid
-//         rows={row}
-//         columns={columns}
-//         pageSize={10}
-//         autoHeight
-//         disableSelectionOnClick
-//       />
-//     </div>
-//   );
-// };
+              </div>
 
-// const TrackOrder = () => {
-//   const { user } = useSelector((state) => state.user);
-//   const { orders } = useSelector((state) => state.order);
-//   const dispatch = useDispatch();
+              <div class="flex w-full justify-between  gap-4 ">
 
-//   useEffect(() => {
-//     dispatch(getAllOrdersOfUser(user._id));
-//   }, []);
+                <div class="w-full md:w-1/2   md:mb-0 ">
+                  <label for="company" class="block text-gray-700 text-sm mb-2">Company</label>
+                  <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="company" name="company" placeholder="Company" />
+                </div>
 
-//   const columns = [
-//     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
-//     {
-//       field: "status",
-//       headerName: "Status",
-//       minWidth: 130,
-//       flex: 0.7,
-//       cellClassName: (params) => {
-//         return params.getValue(params.id, "status") === "Delivered"
-//           ? "greenColor"
-//           : "redColor";
-//       },
-//     },
-//     {
-//       field: "itemsQty",
-//       headerName: "Items Qty",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.7,
-//     },
+                <div class="w-full md:w-1/2   md:mb-0">
+                  <label for="company" class="block text-gray-700 text-sm mb-2">Company Website</label>
+                  <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="company" name="company" placeholder="https://www.djangoproject.com/" />
+                </div>
+              </div>
 
-//     {
-//       field: "total",
-//       headerName: "Total",
-//       type: "number",
-//       minWidth: 130,
-//       flex: 0.8,
-//     },
+            </div>
+            <div>
+              <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded" type="submit">Create job</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </Fragment>
 
-//     {
-//       field: " ",
-//       flex: 1,
-//       minWidth: 150,
-//       headerName: "",
-//       type: "number",
-//       sortable: false,
-//       renderCell: (params) => {
-//         return (
-//           <>
-//             <Link to={`/user/track/order/${params.id}`}>
-//               <Button>
-//                 <MdTrackChanges size={20} />
-//               </Button>
-//             </Link>
-//           </>
-//         );
-//       },
-//     },
-//   ];
+  );
+};
 
-//   const row = [];
 
-//   orders &&
-//     orders.forEach((item) => {
-//       row.push({
-//         id: item._id,
-//         itemsQty: item.cart.length,
-//         total: "US$ " + item.totalPrice,
-//         status: item.status,
-//       });
-//     });
+const ChangePassword = () => {
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-//   return (
-//     <div className="pl-8 pt-1">
-//       <DataGrid
-//         rows={row}
-//         columns={columns}
-//         pageSize={10}
-//         disableSelectionOnClick
-//         autoHeight
-//       />
-//     </div>
-//   );
-// };
+  const passwordChangeHandler = async (e) => {
+    // e.preventDefault();
 
-// const ChangePassword = () => {
-//   const [oldPassword, setOldPassword] = useState("");
-//   const [newPassword, setNewPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
+    // await axios
+    //   .put(
+    //     `${server}/user/update-user-password`,
+    //     { oldPassword, newPassword, confirmPassword },
+    //     { withCredentials: true }
+    //   )
+    //   .then((res) => {
+    //     toast.success(res.data.success);
+    //     setOldPassword("");
+    //     setNewPassword("");
+    //     setConfirmPassword("");
+    //   })
+    //   .catch((error) => {
+    //     toast.error(error.response.data.message);
+    //   });
+  };
+  return (
+    <div className="w-full p-5">
+      <h1 className="block text-[25px] text-center font-[600] text-[#000000ba] pb-2">
+        Change Password
+      </h1>
+      <div className="w-full">
+        <div
+          aria-required
+          onSubmit={passwordChangeHandler}
+          className="flex flex-col items-center  "
+        >
+          <div className=" w-[100%] md:w-[50%] mt-5 ">
+            <label className="block pb-2">Enter your old password</label>
+            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-//   const passwordChangeHandler = async (e) => {
-//     e.preventDefault();
+              placeholder="*******" required="" />
+          </div>
+          <div className=" w-[100%] md:w-[50%] mt-2">
+            <label className="block pb-2">Enter your new password</label>
+            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-//     await axios
-//       .put(
-//         `${server}/user/update-user-password`,
-//         { oldPassword, newPassword, confirmPassword },
-//         { withCredentials: true }
-//       )
-//       .then((res) => {
-//         toast.success(res.data.success);
-//         setOldPassword("");
-//         setNewPassword("");
-//         setConfirmPassword("");
-//       })
-//       .catch((error) => {
-//         toast.error(error.response.data.message);
-//       });
-//   };
-//   return (
-//     <div className="w-full px-5">
-//       <h1 className="block text-[25px] text-center font-[600] text-[#000000ba] pb-2">
-//         Change Password
-//       </h1>
-//       <div className="w-full">
-//         <form
-//           aria-required
-//           onSubmit={passwordChangeHandler}
-//           className="flex flex-col items-center"
-//         >
-//           <div className=" w-[100%] md:w-[50%] mt-5">
-//             <label className="block pb-2">Enter your old password</label>
-//             <input
-//               type="password"
-//               className={`${styles.input} !w-[95%] mb-4 md:mb-0`}
-//               required
-//               value={oldPassword}
-//               onChange={(e) => setOldPassword(e.target.value)}
-//             />
-//           </div>
-//           <div className=" w-[100%] md:w-[50%] mt-2">
-//             <label className="block pb-2">Enter your new password</label>
-//             <input
-//               type="password"
-//               className={`${styles.input} !w-[95%] mb-4 md:mb-0`}
-//               required
-//               value={newPassword}
-//               onChange={(e) => setNewPassword(e.target.value)}
-//             />
-//           </div>
-//           <div className=" w-[100%] md:w-[50%] mt-2">
-//             <label className="block pb-2">Enter your confirm password</label>
-//             <input
-//               type="password"
-//               className={`${styles.input} !w-[95%] mb-4 md:mb-0`}
-//               required
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//             />
-//             <input
-//               className={`w-[95%] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
-//               required
-//               value="Update"
-//               type="submit"
-//             />
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
+              placeholder="*******" required="" />
+          </div>
+          <div className=" w-[100%] md:w-[50%] mt-2">
+            <label className="block pb-2">Enter your confirm password</label>
+            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-// const Address = () => {
-//   const [open, setOpen] = useState(false);
-//   const [country, setCountry] = useState("");
-//   const [city, setCity] = useState("");
-//   const [zipCode, setZipCode] = useState();
-//   const [address1, setAddress1] = useState("");
-//   const [address2, setAddress2] = useState("");
-//   const [addressType, setAddressType] = useState("");
-//   const { user } = useSelector((state) => state.user);
-//   const dispatch = useDispatch();
+              placeholder="*******" required="" />
+            <button
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 mt-4 px-3 rounded"
+              required
+              value="Update"
+              type="submit"
+            >Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-//   const addressTypeData = [
-//     {
-//       name: "Default",
-//     },
-//     {
-//       name: "Home",
-//     },
-//     {
-//       name: "Office",
-//     },
-//   ];
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (addressType === "" || country === "" || city === "") {
-//       toast.error("Please fill all the fields!");
-//     } else {
-//       dispatch(
-//         updatUserAddress(
-//           country,
-//           city,
-//           address1,
-//           address2,
-//           zipCode,
-//           addressType
-//         )
-//       );
-//       setOpen(false);
-//       setCountry("");
-//       setCity("");
-//       setAddress1("");
-//       setAddress2("");
-//       setZipCode(null);
-//       setAddressType("");
-//     }
-//   };
-
-//   const handleDelete = (item) => {
-//     const id = item._id;
-//     dispatch(deleteUserAddress(id));
-//   };
-
-//   return (
-//     <div className="w-full px-5">
-//       {open && (
-//         <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
-//           <div className="w-[35%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
-//             <div className="w-full flex justify-end p-3">
-//               <RxCross1
-//                 size={30}
-//                 className="cursor-pointer"
-//                 onClick={() => setOpen(false)}
-//               />
-//             </div>
-//             <h1 className="text-center text-[25px] font-Poppins">
-//               Add New Address
-//             </h1>
-//             <div className="w-full">
-//               <form aria-required onSubmit={handleSubmit} className="w-full">
-//                 <div className="w-full block p-4">
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Country</label>
-//                     <select
-//                       name=""
-//                       id=""
-//                       value={country}
-//                       onChange={(e) => setCountry(e.target.value)}
-//                       className="w-[95%] border h-[40px] rounded-[5px]"
-//                     >
-//                       <option value="" className="block border pb-2">
-//                         choose your country
-//                       </option>
-//                       {Country &&
-//                         Country.getAllCountries().map((item) => (
-//                           <option
-//                             className="block pb-2"
-//                             key={item.isoCode}
-//                             value={item.isoCode}
-//                           >
-//                             {item.name}
-//                           </option>
-//                         ))}
-//                     </select>
-//                   </div>
-
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Choose your City</label>
-//                     <select
-//                       name=""
-//                       id=""
-//                       value={city}
-//                       onChange={(e) => setCity(e.target.value)}
-//                       className="w-[95%] border h-[40px] rounded-[5px]"
-//                     >
-//                       <option value="" className="block border pb-2">
-//                         choose your city
-//                       </option>
-//                       {State &&
-//                         State.getStatesOfCountry(country).map((item) => (
-//                           <option
-//                             className="block pb-2"
-//                             key={item.isoCode}
-//                             value={item.isoCode}
-//                           >
-//                             {item.name}
-//                           </option>
-//                         ))}
-//                     </select>
-//                   </div>
-
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Address 1</label>
-//                     <input
-//                       type="address"
-//                       className={`${styles.input}`}
-//                       required
-//                       value={address1}
-//                       onChange={(e) => setAddress1(e.target.value)}
-//                     />
-//                   </div>
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Address 2</label>
-//                     <input
-//                       type="address"
-//                       className={`${styles.input}`}
-//                       required
-//                       value={address2}
-//                       onChange={(e) => setAddress2(e.target.value)}
-//                     />
-//                   </div>
-
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Zip Code</label>
-//                     <input
-//                       type="number"
-//                       className={`${styles.input}`}
-//                       required
-//                       value={zipCode}
-//                       onChange={(e) => setZipCode(e.target.value)}
-//                     />
-//                   </div>
-
-//                   <div className="w-full pb-2">
-//                     <label className="block pb-2">Address Type</label>
-//                     <select
-//                       name=""
-//                       id=""
-//                       value={addressType}
-//                       onChange={(e) => setAddressType(e.target.value)}
-//                       className="w-[95%] border h-[40px] rounded-[5px]"
-//                     >
-//                       <option value="" className="block border pb-2">
-//                         Choose your Address Type
-//                       </option>
-//                       {addressTypeData &&
-//                         addressTypeData.map((item) => (
-//                           <option
-//                             className="block pb-2"
-//                             key={item.name}
-//                             value={item.name}
-//                           >
-//                             {item.name}
-//                           </option>
-//                         ))}
-//                     </select>
-//                   </div>
-
-//                   <div className=" w-full pb-2">
-//                     <input
-//                       type="submit"
-//                       className={`${styles.input} mt-5 cursor-pointer`}
-//                       required
-//                       readOnly
-//                     />
-//                   </div>
-//                 </div>
-//               </form>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//       <div className="flex w-full items-center justify-between">
-//         <h1 className="text-[25px] font-[600] text-[#000000ba] pb-2">
-//           My Addresses
-//         </h1>
-//         <div
-//           className={`${styles.button} !rounded-md`}
-//           onClick={() => setOpen(true)}
-//         >
-//           <span className="text-[#fff]">Add New</span>
-//         </div>
-//       </div>
-//       <br />
-//       {user &&
-//         user.addresses.map((item, index) => (
-//           <div
-//             className="w-full bg-white h-min md:h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between pr-10 mb-5"
-//             key={index}
-//           >
-//             <div className="flex items-center">
-//               <h5 className="pl-5 font-[600]">{item.addressType}</h5>
-//             </div>
-//             <div className="pl-8 flex items-center">
-//               <h6 className="text-[12px] md:text-[unset]">
-//                 {item.address1} {item.address2}
-//               </h6>
-//             </div>
-//             <div className="pl-8 flex items-center">
-//               <h6 className="text-[12px] md:text-[unset]">
-//                 {user && user.phoneNumber}
-//               </h6>
-//             </div>
-//             <div className="min-w-[10%] flex items-center justify-between pl-8">
-//               <AiOutlineDelete
-//                 size={25}
-//                 className="cursor-pointer"
-//                 onClick={() => handleDelete(item)}
-//               />
-//             </div>
-//           </div>
-//         ))}
-
-//       {user && user.addresses.length === 0 && (
-//         <h5 className="text-center pt-8 text-[18px]">
-//           You not have any saved address!
-//         </h5>
-//       )}
-//     </div>
-//   );
-// };
 export default ProfileContent;
