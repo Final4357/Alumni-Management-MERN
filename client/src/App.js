@@ -30,7 +30,7 @@ const App = () => {
         <Route path='/resetpassword/:resetToken' element={<Resetpage /> }/>
         <Route path='/404' element={<Notfoundpage /> }/>
         <Route path='/alumni' element={<Alumnipage /> }/>
-        <Route path='/alumnidetails' element={<Alumnidetailspage /> }/>
+        <Route path='/alumnidetails/:id' element={<Alumnidetailspage /> }/>
         <Route path='/profile' element={<Profilepage /> }/>
         <Route path='/jobs' element={<Jobspage /> }/>
         <Route path='/test' element={<Jobcreatepage /> }/>

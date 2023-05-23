@@ -1,12 +1,64 @@
 import React, { Fragment } from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { alumniListRequest } from '../../api_req/alumni'
+import Loaderani from '../loader/Loaderani'
+
+
 
 
 const Alumni = () => {
-    const handlePageClic = () => {
+    let [loading, setloading] = useState(false);
+    let [searchKeyword, setSearchKeyword] = useState("0");
+    let [perPage, setPerPage] = useState(4);
+    let [pageNo, setPageNo] = useState(0);
 
-    }
+    useEffect(() => {
+        (async () => {
+            setloading(true);
+            await alumniListRequest(1, perPage, searchKeyword);
+            setloading(false);
+        })();
+    },
+     [])
+
+    let Alumni = useSelector((state) => (state.alumni.Alumni));
+    let Total = useSelector((state) => (state.alumni.Total))
+    console.log(Alumni)
+
+
+        const perPageOnChange = async (e) => {
+            setPerPage(parseInt(e.target.value))
+            setloading(true);
+            await alumniListRequest(1, e.target.value, searchKeyword);
+            setloading(false);
+        }
+    
+        const handlePageClick = async (e) => {
+            setPageNo(e.selected)
+            setloading(true);
+            await alumniListRequest(e.selected + 1, perPage, searchKeyword);
+            setloading(false);
+        };
+    
+        const searchKeywordOnChange = async (e) => {
+            setSearchKeyword(e.target.value)
+            if ((e.target.value).length === 0) {
+                setSearchKeyword("0")
+                setloading(true);
+                await alumniListRequest(1, perPage, "0");
+                setloading(false);
+            }
+        }
+    
+        const onSearchData = async () => {
+            setloading(true);
+            await alumniListRequest(1, perPage, searchKeyword)
+            setloading(false);
+        }
     return (
         <Fragment>
             <div className='relative'>
@@ -25,11 +77,11 @@ const Alumni = () => {
                 <div className='flex py-3'>
                     <div className='flex items-center w-2/5'>
                         <label for="list" class=" w-1/5 text-sm font-medium text-gray-900 dark:text-white">Per page</label>
-                        <select id="lsit" class=" w-1/5 bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#2C1654] dark:focus:border-[#2C1654]">
-                            <option selected value="8"> 8</option>
+                        <select onChange={perPageOnChange} id="lsit" class=" w-1/5 bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#2C1654] dark:focus:border-[#2C1654]">
+                            <option selected value="4"> 4</option>
+                            <option value="8"> 8</option>
                             <option value="12"> 12</option>
                             <option value="16"> 16</option>
-                            <option value="20"> 20</option>
                         </select>
                     </div>
                     <div className='flex-2 w-1/5'>
@@ -39,96 +91,46 @@ const Alumni = () => {
                     <div class="flex mx-auto w-2/5 items-center">
                         <label for="voice-search" class="sr-only">Search</label>
                         <div class="relative w-full border-md">
-                            <input type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search " required />
+                            <input type="search" onChange={searchKeywordOnChange} id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search " required />
                         </div>
-                        <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-[#2C1654] rounded-lg border border-[#2C1654] hover:bg-[#422180] focus:ring-4 focus:outline-none  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button  onClick={onSearchData} class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-[#2C1654] rounded-lg border border-[#2C1654] hover:bg-[#422180] focus:ring-4 focus:outline-none  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg aria-hidden="true" class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search
                         </button>
                     </div>
                 </div>
-                <div className='grid grid-cols-4  gap-4 py-4'>
-                    <Link to='/alumnidetails'>
-                    <div class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                {
+                    loading?
+                    <Loaderani/>
+                    : 
+                    <div className='grid grid-cols-4  gap-4 py-4'>
+                
+                {Alumni.map((item, i) => {
+                        return (
+                        <Link to={`/alumnidetails/${item._id}`}>
+                    <div key={i} class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div className='flex justify-center'>
-                            <img class="rounded-t-lg h-64 w-64" src="https://i.ibb.co/hfKQp2w/sd.jpg" alt="" />
+                            <img class="rounded-t-lg h-64 w-64" src={item.photo} alt="" />
                         </div>
                         <div className='flex w-full flex-col text-center p-2 gap-1 '>
-                            <h1 className='text-lg font-extrabold'>Mahafuz Chowdury</h1>
-                            <h3 className='text-md font-semibold'>Jr. Software Eng.</h3>
-                            <h4 className='text-md font-semibold'>kolapata int</h4>
-                            <div className='flex justify-between  text-sm font-semibold '>
-                                <span>Dept. of CSE</span>
-                                <span>2018-2022</span>
-                            </div>
-                        </div>
+                                        <h1 className='text-lg font-extrabold'>{item.firstname+' '+item.lastname}</h1>
+                                        <h3 className='text-md font-semibold'>{item.position}</h3>
+                                        <h4 className='text-md font-semibold'>{item.company}</h4>
+                                        <div className='flex justify-between  text-sm font-semibold '>
+                                            <span>{item.dept}</span>
+                                            <span>{item.batch}</span>
+                                        </div>
+                                    </div>
                     </div>
                     </Link>
-                    <Link to='/alumnidetails'>
-                    <div class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div className='flex justify-center'>
-                            <img class="rounded-t-lg h-64 w-64" src="https://i.ibb.co/hfKQp2w/sd.jpg" alt="" />
-                        </div>
-                        <div className='flex w-full flex-col text-center p-2 gap-1 '>
-                            <h1 className='text-lg font-extrabold'>Mahafuz Chowdury</h1>
-                            <h3 className='text-md font-semibold'>Jr. Software Eng.</h3>
-                            <h4 className='text-md font-semibold'>kolapata int</h4>
-                            <div className='flex justify-between  text-sm font-semibold '>
-                                <span>Dept. of CSE</span>
-                                <span>2018-2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    </Link>
-                    <Link to='/alumnidetails'>
-                    <div class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div className='flex justify-center'>
-                            <img class="rounded-t-lg h-64 w-64" src="https://i.ibb.co/hfKQp2w/sd.jpg" alt="" />
-                        </div>
-                        <div className='flex w-full flex-col text-center p-2 gap-1 '>
-                            <h1 className='text-lg font-extrabold'>Mahafuz Chowdury</h1>
-                            <h3 className='text-md font-semibold'>Jr. Software Eng.</h3>
-                            <h4 className='text-md font-semibold'>kolapata int</h4>
-                            <div className='flex justify-between  text-sm font-semibold '>
-                                <span>Dept. of CSE</span>
-                                <span>2018-2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    </Link>
-                    <Link to='/alumnidetails'>
-                    <div class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div className='flex justify-center'>
-                            <img class="rounded-t-lg h-64 w-64" src="https://i.ibb.co/hfKQp2w/sd.jpg" alt="" />
-                        </div>
-                        <div className='flex w-full flex-col text-center p-2 gap-1 '>
-                            <h1 className='text-lg font-extrabold'>Mahafuz Chowdury</h1>
-                            <h3 className='text-md font-semibold'>Jr. Software Eng.</h3>
-                            <h4 className='text-md font-semibold'>kolapata int</h4>
-                            <div className='flex justify-between  text-sm font-semibold '>
-                                <span>Dept. of CSE</span>
-                                <span>2018-2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    </Link>
-                    <Link to='/alumnidetails'>
-                    <div class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div className='flex justify-center'>
-                            <img class="rounded-t-lg h-64 w-64" src="https://i.ibb.co/hfKQp2w/sd.jpg" alt="" />
-                        </div>
-                        <div className='flex w-full flex-col text-center p-2 gap-1 '>
-                            <h1 className='text-lg font-extrabold'>Mahafuz Chowdury</h1>
-                            <h3 className='text-md font-semibold'>Jr. Software Eng.</h3>
-                            <h4 className='text-md font-semibold'>kolapata int</h4>
-                            <div className='flex justify-between  text-sm font-semibold '>
-                                <span>Dept. of CSE</span>
-                                <span>2018-2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    </Link>
+                        )
+                        }
+                        )}
                    
                 </div>
+
+                }
+                
+                
                 <div className='flex w-full justify-center my-6'>
                     <nav aria-label="Pagination" className="inline-flex  -space-x-px rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-100">
                         <button type="button" className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-l-md dark:border-gray-700">
