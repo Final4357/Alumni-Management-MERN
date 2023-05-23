@@ -1,4 +1,4 @@
-export const listService = async (Req, Model, SearchArray) =>{
+export const listService = async (Req, Model, SearchArray, match, project, sort) =>{
     try {
         let pageNo = Number(Req.params.pageNo);
         let perPage = Number(Req.params.perPage);
@@ -9,22 +9,22 @@ export const listService = async (Req, Model, SearchArray) =>{
         if (searchValue!=="0") {
             let SearchQuery = {$or: SearchArray}
             data = await Model.aggregate([
-                {$match: {isAlumni: true}},
-                {$project:{password:0,email:0,gender:0,isAlumni:0,isAdmin:0,studentId:0,canView:0,createdAt:0,updatedAt:0}},
+                {$match: match},
+                {$project: project},
                 {
                     $facet:{
-                        Total: [{$match: SearchQuery}, {$count: 'total'}],
+                        Total: [{$match: SearchQuery}, {$count: 'total'}, {$sort: sort}],
                         Row: [{$match: SearchQuery}, {$skip: skipRow}, {$limit: perPage}]
                     }
                 }
             ])
         } else {
             data = await Model.aggregate([
-                {$match: {isAlumni: true}},
-                {$project:{password:0,email:0,gender:0,isAlumni:0,isAdmin:0,studentId:0,canView:0,createdAt:0,updatedAt:0}},
+                {$match: match},
+                {$project: project},
                 {
                     $facet:{
-                        Total: [{$count: 'total'}],
+                        Total: [{$count: 'total'}, {$sort: sort}],
                         Row: [{$skip: skipRow}, {$limit: perPage}]
                     }
                 }

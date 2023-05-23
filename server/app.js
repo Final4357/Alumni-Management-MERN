@@ -10,6 +10,7 @@ import hpp from'hpp'
 
 import authRouter from './routes/auth.js'
 import alumniRouter from './routes/alumni.js'
+import jobRouter from './routes/job.js'
 
 const app = express()
 dotenv.config()
@@ -27,6 +28,7 @@ app.use(express.json({ limit: '50mb' }))
 
 app.use('/api/auth', authRouter);
 app.use('/api/alumni', alumniRouter);
+app.use('/api/job', jobRouter);
 
 app.use((err, req, res, next)=>{
     const errorStatus = err.status || 500
