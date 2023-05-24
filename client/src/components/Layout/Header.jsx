@@ -73,13 +73,13 @@ const Header = ({ activeHeading }) => {
                         <ul className="flex space-x-10 text-sm font-bold  ">
                             <li className="hover:underline"><a href="/login">Sign In</a></li>
                             <li className="hover:underline"><a href="/sign-up">Sign Up</a></li>
-                            <div className="dropdown dropdown-bottom dropdown-end">
+                            <li className="dropdown dropdown-bottom dropdown-end">
                                 <label tabIndex={0} className=" m-1">Korim</label>
                                 <ul tabIndex={0} className="dropdown-content text-black menu p-2 mt-3 shadow bg-base-100 rounded-box w-52">
                                     <li><a href="/profile">My Account</a></li>
                                     <li><a> Log out</a></li>
                                 </ul>
-                            </div>
+                            </li>
                         </ul>
                     </div>
 

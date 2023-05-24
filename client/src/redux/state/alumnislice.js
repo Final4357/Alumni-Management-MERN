@@ -4,6 +4,7 @@ export const alumniSlice = createSlice({
     name: 'alumni',
     initialState:{
         Alumni: [],
+        AlumniDetails:"",
         Total: 0,
        
     },
@@ -13,10 +14,13 @@ export const alumniSlice = createSlice({
         },
         setAlumniTotal: (state, action)=>{
             state.Total = action.payload
-        }
+        },
+        setAlumniDetails:(state, action)=>{
+            state.AlumniDetails = action.payload
+        },
        
     }
 })
 
-export const {setAlumni, setAlumniTotal} = alumniSlice.actions
+export const {setAlumni, setAlumniTotal,setAlumniDetails} = alumniSlice.actions
 export default alumniSlice.reducer

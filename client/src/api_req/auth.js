@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/formHelper";
-import { getToken, setToken, setUserDetails } from "../helper/sessionHelper.jsx";
+import { getToken, setToken, setUserDetails } from "../helper/sessionHelper.js";
 const BaseURL = "http://localhost:8081/api/auth"
 const AxiosHeader = { headers: { "token": getToken() } }
 

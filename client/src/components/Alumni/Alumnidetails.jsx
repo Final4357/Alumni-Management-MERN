@@ -1,6 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
+import { alumniDetailsById } from '../../api_req/alumni';
+import { useSelector } from 'react-redux';
 
 const Alumnidetails = () => {
+
+    let AlumniDetails = useSelector((state) => (state.alumni.AlumniDetails));
+    
+    const params = useParams()
+    const location = useLocation()
+    console.log(AlumniDetails);
+
+
+    let [loading, setloading] = useState(false);
+
+
+    useEffect(() => {
+        (async () => {
+            setloading(true);
+            await alumniDetailsById(params.id);
+            setloading(false);
+        })();
+    },
+        [location])
+
+
     return (
 
 
@@ -10,6 +34,7 @@ const Alumnidetails = () => {
 
         <div className='bg-gray-50'>
             <div class="container mx-auto  py-10 ">
+            
                 <div class="md:flex no-wrap md:-mx-2 ">
 
                     <div class="w-full md:w-3/12 md:mx-2">
@@ -20,12 +45,13 @@ const Alumnidetails = () => {
                                     src="https://i.ibb.co/hfKQp2w/sd.jpg"
                                     alt="" />
                             </div>
-                            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
-                            <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
-                            {/* <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit.
-                                Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p> */}
-                            <ul
+                            <div className='text-center'>
+                            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{AlumniDetails.firstname+' '+AlumniDetails.lastname}</h1>
+                            <h3 class="text-gray-600 font-lg text-semibold leading-6">{AlumniDetails.position}</h3>
+                            <h3 class="text-gray-600  font-lg text-sm leading-6">{AlumniDetails.company}</h3>
+                            </div>
+                           
+                            {/* <ul
                                 class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
                                 <li class="flex items-center py-3">
                                     <span>Connect</span>
@@ -41,38 +67,10 @@ const Alumnidetails = () => {
                                     <span>Member since</span>
                                     <span class="ml-auto">Nov 07, 2016</span>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                         {/* <!-- End of profile card --> */}
-                        <div class="my-4"></div>
-                        {/* <!-- Friends card --> */}
-                        <div class="bg-white shadow p-3 hover:shadow">
-                            <div class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
-                                <span class="text-green-500">
-                                    <svg class="h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </span>
-                                <span>Similar Profiles</span>
-                            </div>
-                            <div class="grid grid-cols-3">
-                                <div class="text-center my-2">
-                                    <img class="h-16 w-16 rounded-full mx-auto"
-                                        src="https://cdn.australianageingagenda.com.au/wp-content/uploads/2015/06/28085920/Phil-Beckett-2-e1435107243361.jpg"
-                                        alt="" />
-                                    <a href="#" class="text-main-color">Kojstantin</a>
-                                </div>
-                                <div class="text-center my-2">
-                                    <img class="h-16 w-16 rounded-full mx-auto"
-                                        src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4"
-                                        alt="" />
-                                    <a href="#" class="text-main-color">James</a>
-                                </div>
-
-                            </div>
-                        </div>
+                        
                         {/* <!-- End of friends card --> */}
                     </div>
                     {/* <!-- Right Side --> */}
@@ -92,15 +90,15 @@ const Alumnidetails = () => {
                                 <div class="grid md:grid-cols-2 text-sm">
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">First Name</div>
-                                        <div class="px-4 py-2">Jane</div>
+                                        <div class="px-4 py-2">{AlumniDetails.firstname}</div>
                                     </div>
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Last Name</div>
-                                        <div class="px-4 py-2">Doe</div>
+                                        <div class="px-4 py-2">{AlumniDetails.lastname}</div>
                                     </div>
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Gender</div>
-                                        <div class="px-4 py-2">Female</div>
+                                        <div class="px-4 py-2">{AlumniDetails.gender}</div>
                                     </div>
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Birthday</div>
@@ -109,7 +107,7 @@ const Alumnidetails = () => {
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Email.</div>
                                         <div class="px-4 py-2">
-                                            <a class="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
+                                            <a class="text-blue-800" href="mailto:jane@example.com">{AlumniDetails.email}</a>
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-2">
@@ -130,29 +128,7 @@ const Alumnidetails = () => {
                         <div class="bg-white p-3 shadow-sm rounded-sm">
 
                             <div class="grid grid-cols-2">
-                                <div>
-                                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                        <span clas="text-green-500">
-                                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                        </span>
-                                        <span class="tracking-wide">Experience</span>
-                                    </div>
-                                    <ul class="list-inside space-y-2">
-                                        <li>
-                                            <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                            <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                        <li>
-                                            <div class="text-teal-600">Eng at AMD Company Inc.</div>
-                                            <div class="text-gray-500 text-xs">July 2019 - DEC 2019</div>
-                                        </li>
-
-                                    </ul>
-                                </div>
+                                
                                 <div>
                                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                         <span clas="text-green-500">
@@ -168,22 +144,38 @@ const Alumnidetails = () => {
                                         <span class="tracking-wide">Education</span>
                                     </div>
                                     <ul class="list-inside space-y-2">
+                                       
                                         <li>
-                                            <div class="text-teal-600">Masters Degree in Oxford</div>
-                                            <div class="text-gray-500 text-xs">March 2020 - Now</div>
+                                            <div class="text-teal-600"> {'Bachelors Degreen in'+' '+AlumniDetails.dept}</div>
+                                            <div class="text-gray-500 text-xs">{AlumniDetails.batch+'th Batch'}</div>
                                         </li>
-                                        <li>
-                                            <div class="text-teal-600">Bachelors Degreen in LPU</div>
-                                            <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
+                                <ul
+                                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
+                                <li class="flex items-center py-3">
+                                    <span>Connect</span>
+                                    <span class="  ml-auto ">
+                                        <button type="button" class="gap-2  text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55  mb-2">
+                                            <img className='w-5 h-5 ' src="https://i.ibb.co/wpxSqN0/image-removebg-preview.png" />
+                                            <span>
+                                                Message</span>
+                                        </button>
+                                    </span>
+                                </li>
+                                <li class="flex items-center py-3">
+                                    <span>Member since</span>
+                                    <span class="ml-auto">Nov 07, 2016</span>
+                                </li>
+                            </ul>
                             </div>
                             {/* <!-- End of Experience and education grid --> */}
                         </div>
                         {/* <!-- End of profile tab --> */}
                     </div>
                 </div>
+                        
             </div>
         </div>
 
