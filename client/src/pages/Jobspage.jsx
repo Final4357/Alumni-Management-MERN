@@ -9,7 +9,7 @@ import Jobinfomodel from '../components/model/Jobinfomodel'
 const Jobspage = () => {
   return (
     <Fragment>
-      <Jobinfomodel/>
+      {/* <Jobinfomodel/> */}
         <Header/>
         <Jobs/>
         <Footer/>

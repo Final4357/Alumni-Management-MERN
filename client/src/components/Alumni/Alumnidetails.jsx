@@ -9,8 +9,7 @@ const Alumnidetails = () => {
     
     const params = useParams()
     const location = useLocation()
-    console.log(AlumniDetails);
-
+  
 
     let [loading, setloading] = useState(false);
 

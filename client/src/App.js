@@ -53,6 +53,7 @@ const App = () => {
           <Route path='/resetpassword/:resetToken' element={<Resetpage />} />
           <Route path={'*'} element={<Notfoundpage />} />
           <Route path='/alumni' element={<Alumnipage />} />
+          <Route path='/jobs' element={<Jobspage />} />
           
 
 

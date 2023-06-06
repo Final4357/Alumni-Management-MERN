@@ -17,6 +17,10 @@ const JobSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    jobType:{
+        type: String,
+        required: true,
+    },
     site:{
         type:String,
         require: true
