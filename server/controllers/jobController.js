@@ -16,18 +16,35 @@ export const updateJobPost = async (req,res,next) =>{
 
 export const deleteJobPost = async (req,res,next) =>{
     let result=await deleteService(req, Job);
-    res.status(200).send("Job post has been deleted.")
+    res.status(200).send(result)
 }
 
-// export const jobList = async (req, res, next) =>{
-//     let searchRgx = {'$regex': req.params.searchKey, $options: 'i'}
-//     let searchArray = [{firstname: searchRgx},{lastname: searchRgx},{dept: searchRgx},{company: searchRgx},{position: searchRgx}]
-//     let match = {expiresAt : { $gt: Date.now() }}
-//     let project = {userId:0,email:0,gender:0,isAlumni:0,isAdmin:0,studentId:0,canView:0,createdAt:0,updatedAt:0}
-//     let sort = {createdAt: -1}
-//     let result =await listService(req, User, searchArray, match, project, sort)
-//     if(result) res.status(200).json(result)
-// }
+export const jobList = async (req, res, next) =>{
+    const Category = ['Onsite','Remote','Hybrid']
+    const Experience = ['Entry','Intermediate','Expert']
+    const Type = ['Parttime','Fulltime','Internship','Contractual','Freelance']
+    let category 
+    let experience 
+    let type 
+    let sort
+
+    req.query.category ? (category = req.query.category.split(",")) : (category = [...Category]);
+    req.query.experience ? (experience = req.query.experience.split(",")) : (experience = [...Experience]);
+    req.query.type ? (type = req.query.type.split(",")) : (type = [...Type]);
+    let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
+    
+    if(req.query.sort==='OldToNew') sort = {createdAt: 1}
+    else if(req.query.sort==='FtoC') sort = {deadlineDate: -1}
+    else if(req.query.sort==='CtoF') sort = {deadlineDate: 1}
+    else sort = {createdAt: -1}
+
+    let searchArray = [{company: searchRgx},{position: searchRgx}]
+    let match = { category : { $in: category }, experience: { $in: experience }, type: { $in: type}, deadlineDate: { $gte: new Date() }}
+    let project = {userId:0,updatedAt:0}
+    
+    let result =await listService(req, Job, searchArray, match, project, sort)
+    if(result) res.status(200).json(result)
+}
 
 export const jobDetailsById = async (req,res,next) =>{
     let match = {

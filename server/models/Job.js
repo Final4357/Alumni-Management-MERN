@@ -17,20 +17,27 @@ const JobSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    jobType:{
+    category:{
         type: String,
         required: true,
+        // enum: ['Onsite','Remote','Hybrid']
     },
-    site:{
+    experience:{
+        type: String,
+        required: true,
+        // enum: ['Entry','Intermediate','Expert']
+    },
+    type:{
         type:String,
-        require: true
+        require: true,
+        // enum : ['PartTime','FullTime','Internship','Contractual','Freelance']
     },
     link:{
         type: String,
         require: true
     },
     deadlineDate:{
-        type: String,
+        type: Date,
         require: true
     },
     details:{
@@ -43,5 +50,4 @@ const JobSchema = new mongoose.Schema({
     }
   },{timestamps: true, versionKey: false}
   );
-
   export default mongoose.model("Job", JobSchema)

@@ -4,7 +4,7 @@ import { detailsByIDService } from "../services/detailsById.js"
 import { listService } from "../services/listSevice.js"
 
 export const alumniList = async (req, res, next) =>{
-    let searchRgx = {'$regex': req.params.searchKey, $options: 'i'}
+    let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
     let searchArray = [{firstname: searchRgx},{lastname: searchRgx},{dept: searchRgx},{company: searchRgx},{position: searchRgx}]
     let match = {isAlumni: true}
     let project = {password:0,email:0,gender:0,isAlumni:0,isAdmin:0,studentId:0,canView:0,createdAt:0,updatedAt:0}
