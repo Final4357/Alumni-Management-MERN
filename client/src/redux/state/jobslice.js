@@ -3,17 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 export const jobSlice = createSlice({
     name: 'job',
     initialState: {
-
         pageNo: 1,
         perPage: 6,
-        searchKey: "0",
-        selectCategory: [],
+        searchKey: "",
+        selectCategory: "",
         selectExperience: [],
         selectType: [],
         sort: '',
         Jobs: [],
-        TotalJob: 0
-
+        TotalJob: 0,
+        Clear:true
     },
     reducers: {
         setPageNo: (state, action) => {
@@ -25,9 +24,7 @@ export const jobSlice = createSlice({
             state.searchKey = action.payload
         },
         setSelectCategory: (state, action) => {
-            debugger
-            if (state.selectCategory.includes(action.payload)) state.selectCategory = state.selectCategory.filter((item) => item !== action.payload)
-            else state.selectCategory = [...state.selectCategory, action.payload]
+            state.selectCategory = action.payload
         },
         setSelectExperience: (state, action) => {
             if (state.selectExperience.includes(action.payload)) state.selectExperience = state.selectExperience.filter((item) => item !== action.payload)
@@ -44,7 +41,14 @@ export const jobSlice = createSlice({
         },
         setTotalJobs: (state, action) => {
             state.TotalJob = action.payload
-        }, setAllClear: (state) => {
+        },
+        setClear: (state,action)=>{
+            state.Clear = action.payload
+        },
+        setAllClear: (state,action) => {
+            console.log(action.payload)
+            state.Clear = action.payload
+            debugger
             state.pageNo = 1
             state.perPage = 6
             state.searchKey = "0"
@@ -52,9 +56,10 @@ export const jobSlice = createSlice({
             state.selectExperience = []
             state.selectType = []
             state.sort = ""
+            
         }
     }
 })
 
-export const { setPageNo, setPerPage,setSearchKey, setSelectCategory,setSelectExperience,setSelectType,setSort,setJobs,setTotalJobs,setAllClear } = jobSlice.actions
+export const { setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs,setClear, setAllClear } = jobSlice.actions
 export default jobSlice.reducer

@@ -1,14 +1,19 @@
 
 import { Fragment } from "react";
 import React, { useState } from 'react';
-
+import store from "../../redux/store/store";
+import { setAllClear, setSelectExperience, setSelectType } from "../../redux/state/jobslice";
+import { useSelector } from "react-redux";
 
 const Jobsidebar = () => {
-
-    const [show, setShow] = useState('');
-    const handleClick = (val) => {
-        setShow(val)
-    }
+    let selectExperience = useSelector((state) => (state.job.selectExperience));
+    let selectType = useSelector((state) => (state.job.selectType));
+    let Clear = useSelector((state) => (state.job.Clear));
+    // const [show, setShow] = useState('');
+    // const handleClick = (val) => {
+    //     setShow(val)
+    // }
+console.log(Clear)
     return (
         <Fragment className="relative">
             <div className="w-[350px] h-fit">
@@ -21,7 +26,7 @@ const Jobsidebar = () => {
                                     Apply filters
                                 </h5>
                             </div>
-                            <h6 class="inline-flex items-center  text-base font-medium text-[#552aa4]  dark:text-gray-400">
+                            <h6 onClick={() => store.dispatch(setAllClear(true))} class={`${Clear ? "hidden" : "block"} inline-flex items-center cursor-pointer text-base font-medium text-[#552aa4]  dark:text-gray-400`}>
                                 Clear All
                             </h6>
                         </div>
@@ -33,23 +38,29 @@ const Jobsidebar = () => {
                                     </h6>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectType(e.target.value)) }}
+                                            checked={selectType.includes("Fulltime")}
                                             id="gaming"
                                             type="checkbox"
-                                            value="FullTime"
+                                            value="Fulltime"
                                             class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
                                         <label
                                             for="gaming"
                                             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+
                                         >
                                             Full Time
                                         </label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectType(e.target.value)) }}
+                                            checked={selectType.includes("Parttime")}
+
                                             id="tv"
                                             type="checkbox"
-                                            value="PartTime"
+                                            value="Parttime"
                                             class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
                                         <label
@@ -61,9 +72,12 @@ const Jobsidebar = () => {
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectType(e.target.value)) }}
+                                            checked={selectType.includes("Internship")}
                                             id="desktop"
                                             type="checkbox"
-                                            value="Intership"
+                                            value="Internship"
+
                                             class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
                                         <label
@@ -75,6 +89,9 @@ const Jobsidebar = () => {
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectType(e.target.value)) }}
+                                            checked={selectType.includes("Contractual")}
+
                                             id="desktop"
                                             type="checkbox"
                                             value="Contractual"
@@ -89,6 +106,9 @@ const Jobsidebar = () => {
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectType(e.target.value)) }}
+                                            checked={selectType.includes("Freelance")}
+
                                             id="desktop"
                                             type="checkbox"
                                             value="Freelance"
@@ -114,6 +134,9 @@ const Jobsidebar = () => {
                                     </h6>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectExperience(e.target.value)) }}
+                                            checked={selectExperience.includes("Entry")}
+
                                             id="tv"
                                             type="checkbox"
                                             value="Entry"
@@ -128,6 +151,8 @@ const Jobsidebar = () => {
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectExperience(e.target.value)) }}
+                                            checked={selectExperience.includes("Intermediate")}
                                             id="desktop"
                                             type="checkbox"
                                             value="Intermediate"
@@ -142,6 +167,8 @@ const Jobsidebar = () => {
                                     </div>
                                     <div class="flex items-center">
                                         <input
+                                            onChange={(e) => { store.dispatch(setSelectExperience(e.target.value)) }}
+                                            checked={selectExperience.includes("Expert")}
                                             id="gaming"
                                             type="checkbox"
                                             value="Expert"

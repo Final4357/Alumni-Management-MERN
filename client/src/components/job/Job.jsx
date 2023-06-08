@@ -5,11 +5,13 @@ import Jobcard from './Jobcard'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { jobListRequest } from '../../api_req/jobrequest'
+import store from '../../redux/store/store'
+import { setClear } from '../../redux/state/jobslice'
 
 const Job = () => {
-  let category
   let experience
   let type
+
   let pageNo = useSelector((state) => (state.job.pageNo));
   let perPage = useSelector((state) => (state.job.perPage));
   let searchKey = useSelector((state) => (state.job.searchKey));
@@ -20,20 +22,23 @@ const Job = () => {
   let Jobs = useSelector((state) => (state.job.Jobs));
   let TotalJob = useSelector((state) => (state.job.TotalJob));
 
-  console.log(Jobs)
-
   const applyFilter = async () => {
-    category = selectCategory.length ? selectCategory.join(",") : "";
+    if (searchKey.length || selectExperience.length || selectType.length || sort.length || selectCategory.length)
+      store.dispatch(setClear(false))
+    else
+      store.dispatch(setClear(true))
+      
     experience = selectExperience.length ? selectExperience.join(",") : "";
     type = selectType.length ? selectType.join(",") : "";
-    await jobListRequest(pageNo, perPage, searchKey, category, experience, type, sort)
+
+    await jobListRequest(pageNo, perPage, searchKey, selectCategory, experience, type, sort)
   }
 
   useEffect(() => {
     (async () => {
       await applyFilter();
     })();
-  }, [pageNo, perPage, searchKey, category, experience, type, sort])
+  }, [pageNo, perPage, searchKey, selectCategory, selectExperience, selectType, sort])
 
   return (
     <Fragment>
@@ -41,9 +46,7 @@ const Job = () => {
         <Topbar />
         <div className='flex gap-2 '>
           <Jobsidebar />
-          <Jobcard Jobs={Jobs}  TotalJob={TotalJob} />
-          {/* <FilterPanel categories={data.categoryList}/> 
-        <List products={list}/>  */}
+          <Jobcard Jobs={Jobs} TotalJob={TotalJob} />
         </div>
       </div>
     </Fragment>

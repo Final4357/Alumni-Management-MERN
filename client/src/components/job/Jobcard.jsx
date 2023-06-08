@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import moment from 'moment';
+import store from '../../redux/store/store';
+import { setSort } from '../../redux/state/jobslice';
 
 const Jobcard = ({ Jobs, TotalJob }) => {
 
@@ -13,7 +15,7 @@ const Jobcard = ({ Jobs, TotalJob }) => {
                     <div className=' flex items-center justify-center text-center'>
                         <div className='flex'><h3 class="mr-1 flex-1 font-normal text-gray-500 text-base text-center">Sort</h3>
                             <h3 class="mr-1  font-normal text-gray-500 text-base text-center"> by:</h3></div>
-                        <select id="sort" class=" bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select onChange={(e) => { store.dispatch(setSort(e.target.value)) }} id="sort" class=" bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected value="">Date Posted: New to Old</option>
                             <option value="OldToNew">Date Posted: Old to New</option>
                             <option value="FtoC">Deadline: Farthest to Closest </option>

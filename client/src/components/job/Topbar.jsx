@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import store from '../../redux/store/store';
-import { setSelectCategory } from '../../redux/state/jobslice';
+import { setSearchKey, setSelectCategory } from '../../redux/state/jobslice';
 
 const Topbar = () => {
     const [search, setSearch] = useState('');
@@ -44,7 +44,7 @@ const Topbar = () => {
                                 ></path>
                             </svg>
                             
-                                <input type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
+                                <input onChange={(e) => { store.dispatch(setSearchKey(e.target.value)) }} type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
                             
                         </div>
                         {/* <div class=" ml-3 h-12 block lg:hidden">
