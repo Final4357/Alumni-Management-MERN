@@ -476,9 +476,8 @@ const PostJobs = () => {
                       name="job-type"
                       ref={(input) => (jobtypeRef = input)}
                     >
-
-                      <option>Full-time</option>
-                      <option>Part-time</option>
+                      <option>Full time</option>
+                      <option>Part time</option>
                       <option>Intern</option>
                     </select>
 
@@ -493,26 +492,24 @@ const PostJobs = () => {
                     </div>
                   </div>
                 </div>
-
                 <div class="w-full md:w-1/2  md:mb-0">
                   <label
                     for="location"
                     class="block text-gray-700 text-sm mb-2"
                   >
-                    Location
+                    Experience
                   </label>
                   <div class="relative">
                     <select
                       class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500"
                       id="job-type"
                       name="job-type"
-                      ref={(input) => (locaitonRef = input)}
+                      // ref={(input) => (locaitonRef = input)}
                     >
-
-                      <option>On Site</option>
-                      <option>Remote</option>
+                      <option>Entry (0-2 Years)</option>
+                      <option>Intermediate (3-5 Years)</option>
+                      <option>Expert (5 or Higher)</option>
                     </select>
-
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg
                         class="fill-current h-4 w-4"
@@ -525,7 +522,6 @@ const PostJobs = () => {
                   </div>
                 </div>
               </div>
-
               <div>
                 <label
                   for="message"

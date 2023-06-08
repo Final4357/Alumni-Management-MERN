@@ -2,17 +2,19 @@ import React from 'react'
 import { Fragment } from 'react'
 import Header from '../components/Layout/Header'
 import Footer from '../components/Layout/Footer'
-import Jobs from '../components/job/Jobs'
+
 import Jobinfomodel from '../components/model/Jobinfomodel'
+import Jobsidebar from '../components/job/Jobsidebar'
+import Jobcard from '../components/job/Jobcard'
+import Job from '../components/job/Job'
 
 
 const Jobspage = () => {
   return (
     <Fragment>
-      {/* <Jobinfomodel/> */}
-        <Header/>
-        <Jobs/>
-        <Footer/>
+      <Header />
+      <Job />
+      <Footer />
     </Fragment>
 
   )
