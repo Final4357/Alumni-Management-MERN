@@ -1,4 +1,5 @@
 import Job from "../models/Job.js"
+import mongoose from "mongoose"
 import { createService, deleteService, updateService } from "../services/crud.js"
 import { detailsByIDService } from "../services/detailsById.js"
 import { listService } from "../services/listSevice.js"
@@ -41,6 +42,18 @@ export const jobList = async (req, res, next) =>{
     let searchArray = [{company: searchRgx},{position: searchRgx}]
     let match = { category : { $in: category }, experience: { $in: experience }, type: { $in: type}, deadlineDate: { $gte: new Date() }}
     let project = {userId:0,updatedAt:0}
+    
+    let result =await listService(req, Job, searchArray, match, project, sort)
+    if(result) res.status(200).json(result)
+}
+
+export const jobListCreateByOwn = async (req, res, next) =>{
+    let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
+    let sort = {createdAt: -1}
+
+    let searchArray = [{company: searchRgx},{position: searchRgx}]
+    let match = { userId: mongoose.Types.ObjectId(req.user.id) }
+    let project = {updatedAt:0}
     
     let result =await listService(req, Job, searchArray, match, project, sort)
     if(result) res.status(200).json(result)

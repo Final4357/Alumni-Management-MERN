@@ -8,10 +8,9 @@ const AxiosHeader = { headers: { "token": getToken() } }
 
 export const alumniListRequest = async (pageNo, perPage, searchKey) => {
     try {
-        // let url = BaseURL + "/list/" + pageNo + "/" + perPage + "/" + searchKey;
         let url = BaseURL + `/list?pageNo=${pageNo}&perPage=${perPage}&searchKey=${searchKey}`;
         const result = await axios.get(url);
-        
+
         if (result.status === 200) {
             if (result.data.data[0].Row.length > 0) {
                 store.dispatch(setAlumni(result.data.data[0].Row))
@@ -32,13 +31,13 @@ export const alumniListRequest = async (pageNo, perPage, searchKey) => {
 
 export const alumniDetailsById = async (id) => {
     try {
-        let url = BaseURL + "/details/" + id ;
+        let url = BaseURL + "/details/" + id;
         const result = await axios.get(url, AxiosHeader);
         if (result.status === 200) {
-           
+
             if (result.data.data.length > 0) {
                 store.dispatch(setAlumniDetails(result.data.data[0]))
-               
+
             } else {
                 store.dispatch(setAlumniDetails(""))
                 ErrorToast("No data found.")
