@@ -8,7 +8,7 @@ const AxiosHeader = { headers: { "token": getToken() } }
 
 export const alumniListRequest = async (pageNo, perPage, searchKey) => {
     try {
-        let url = BaseURL + `/list?pageNo=pageNo&perPage=perPage&searchKey=searchKey`;
+        let url = BaseURL + `/list?pageNo=${pageNo}&perPage=${perPage}&searchKey={searchKey}`;
         const result = await axios.get(url);
         if (result.status === 200) {
             if (result.data.data[0].Row.length > 0) {
