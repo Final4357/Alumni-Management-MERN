@@ -335,16 +335,7 @@ const ProfileContent = ({ active }) => {
 };
 
 const PostJobs = () => {
-  let titleRef,
-    salaryRef,
-    linktoRef,
-    jobtypeRef,
-    locaitonRef,
-    experienceRef
-    descriptionRef,
-    companyRef,
-    dateRef,
-    categoryRef = useRef();
+  let titleRef, salaryRef, linktoRef, jobtypeRef, locaitonRef,experienceRef,descriptionRef,companyRef,dateRef,categoryRef = useRef();
   let navigate = useNavigate();
 
   const onCreate = () => {
@@ -354,7 +345,7 @@ const PostJobs = () => {
     let date = dateRef.value
     let jobtype = jobtypeRef.value;
     let location = locaitonRef.value;
-    let experience =experienceRef.value;
+    let experience = experienceRef.value;
     let description = descriptionRef.value;
     let company = companyRef.value;
 
@@ -372,6 +363,8 @@ const PostJobs = () => {
       ErrorToast("Job type is  Required !");
     } else if (IsEmpty(location)) {
       ErrorToast("Location is Required !");
+    } else if (IsEmpty(experience)) {
+      ErrorToast("Location is Required !");
     } else if (IsEmpty(description)) {
       ErrorToast("Description Required !");
     } else if (IsEmpty(company)) {
@@ -379,8 +372,8 @@ const PostJobs = () => {
     } else if (IsEmpty(category)) {
       ErrorToast("Company website is  Required !");
     } else {
-      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company,experience, category)) {
-        navigate("/jobs");
+      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
+        
       } else navigate("/profile");
     }
   };
@@ -510,7 +503,7 @@ const PostJobs = () => {
                       class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500"
                       id="job-type"
                       name="job-type"
-                    ref={(input) => (experienceRef = input)}
+                      ref={(input) => (experienceRef = input)}
                     >
                       <option value="Entry">Entry (0-2 Years)</option>
                       <option value="Intermediate">Intermediate (3-5 Years)</option>
@@ -558,7 +551,7 @@ const PostJobs = () => {
                   />
                 </div>
 
-                
+
               </div>
 
               <div class="flex w-full justify-between  gap-4 ">
@@ -653,26 +646,26 @@ const PostedJobs = () => {
       <div className='lg:ml-2 mb-2 flex flex-col sm:flex-row sm:items-center justify-between'>
         <span className='font-bold text-black text-2xl'>Recent new opportunities</span>
         <div class=" flex items-center ">
-                        <div class="w-[264px] sm:w-96 relative ">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="black"
-                                aria-hidden="true"
-                                class="h-6 w-6  text-primary absolute left-2 top-0 bottom-0 my-auto"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-    {/* onChange={(e) => { store.dispatch(setSearchKey(e.target.value)) }} */}
-                            <input type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
+          <div class="w-[264px] sm:w-96 relative ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="black"
+              aria-hidden="true"
+              class="h-6 w-6  text-primary absolute left-2 top-0 bottom-0 my-auto"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            {/* onChange={(e) => { store.dispatch(setSearchKey(e.target.value)) }} */}
+            <input type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
 
-                        </div>
-                        
-                    </div>
+          </div>
+
+        </div>
 
       </div>
 
@@ -769,31 +762,31 @@ const PostedJobs = () => {
         </div>
       </div>
 
-      
+
 
       <div className='flex w-full justify-center py-8 '>
-                <nav aria-label="Page navigation example" style={{display: 'flex', justifyContent: 'center'}}> 
-                                                <ReactPaginate className='pagination gap-2'
-                                                    previousLabel="<" 
-                                                    nextLabel=">" 
-                                                    pageClassName="page-item" 
-                                                    pageLinkClassName="page-link" 
-                                                    previousClassName="page-item" 
-                                                    previousLinkClassName="page-link" 
-                                                    nextClassName="page-item" 
-                                                    nextLinkClassName="page-link" 
-                                                    breakLabel="..." 
-                                                    breakClassName="page-item" 
-                                                    breakLinkClassName="page-link" 
-                                                    pageCount={50 / 5} 
-                                                    marginPagesDisplayed={2} 
-                                                    pageRangeDisplayed={5} 
-                                                    // onPageChange={handlePageClick} 
-                                                    containerClassName="pagination" 
-                                                    activeClassName="active" 
-                                                /> 
-                                            </nav>
-                </div>
+        <nav aria-label="Page navigation example" style={{ display: 'flex', justifyContent: 'center' }}>
+          <ReactPaginate className='pagination gap-2'
+            previousLabel="<"
+            nextLabel=">"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakLabel="..."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            pageCount={50 / 5}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            // onPageChange={handlePageClick} 
+            containerClassName="pagination"
+            activeClassName="active"
+          />
+        </nav>
+      </div>
 
     </div>
 
