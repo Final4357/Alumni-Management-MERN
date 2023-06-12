@@ -1,6 +1,9 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/formHelper";
 import { getToken, setToken, setUserDetails } from "../helper/sessionHelper.js";
+import { setProfileDetails } from "../redux/state/profileslice";
+import store from "../redux/store/store";
+import { setAlumniDetails } from "../redux/state/alumnislice";
 const BaseURL = "http://localhost:8081/api/auth"
 const AxiosHeader = { headers: { "token": getToken() } }
 
@@ -139,3 +142,73 @@ export const ResetPasswordRequest = (password, resetToken) =>{
         }
     })
 }
+
+
+
+
+
+export const profileDetails = () =>{
+
+    
+    let URL = BaseURL + "/profile/details";
+    return axios.get(URL,AxiosHeader).then((res) => {
+ 
+        if (res.status === 200) {
+            if (res.data.data ) {
+                store.dispatch(setProfileDetails(res.data.data))
+               
+            } else {
+                store.dispatch(setProfileDetails(""))
+                ErrorToast("No data found.")
+            }
+            
+            return true;
+        } else {
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    }).catch((err) => {
+
+        if (err.response.data.status === 401) {
+            ErrorToast(err.response.data.message)
+            return false;
+        } else if (err.response.data.status === 404) {
+            ErrorToast(err.response.data.message)
+            return false;
+        } else {
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    })
+}
+
+export const updateProfile = (fname, lname, email,  sid,dept,batch,position,company,gender,degree,photo,phone) =>{
+
+    let PostBody = {firstname: fname, lastname: lname, email: email, studentId: sid,dept:dept,batch:batch,position:position,company:company,gender:gender,degree:degree,photo:photo,phone:phone  }
+    let URL = BaseURL + "/updateProfile";
+    return axios.put(URL, PostBody,AxiosHeader).then((res) => {
+        console.log(res);
+
+        if (res.status === 200) {
+            SuccessToast("Profile Details Updated")
+            return true;
+        } else {
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    }).catch((err) => {
+
+        if (err.response.data.status === 401) {
+            ErrorToast(err.response.data.message)
+            return false;
+        } else if (err.response.data.status === 404) {
+            ErrorToast(err.response.data.message)
+            return false;
+        } else {
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    })
+}
+
+

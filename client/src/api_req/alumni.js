@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/formHelper.js";
-
 import store from "../redux/store/store";
 import { setAlumni, setAlumniDetails, setAlumniTotal } from "../redux/state/alumnislice";
 import { getToken } from "../helper/sessionHelper.js";
@@ -35,7 +34,6 @@ export const alumniDetailsById = async (id) => {
         const result = await axios.get(url, AxiosHeader);
         if (result.status === 200) {
            
-            // console.log(result.data.data.length)
             if (result.data.data.length > 0) {
                 store.dispatch(setAlumniDetails(result.data.data[0]))
                

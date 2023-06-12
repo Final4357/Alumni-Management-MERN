@@ -50,5 +50,4 @@ const JobSchema = new mongoose.Schema({
     }
   },{timestamps: true, versionKey: false}
   );
-
   export default mongoose.model("Job", JobSchema)

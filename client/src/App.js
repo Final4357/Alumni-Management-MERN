@@ -13,7 +13,6 @@ import Alumnipage from './pages/Alumnipage'
 import Alumnidetailspage from './pages/Alumnidetailspage'
 import Profilepage from './pages/Profilepage'
 import Jobspage from './pages/Jobspage'
-import Jobcreatepage from './pages/Jobcreatepage'
 import { getToken } from './helper/sessionHelper'
 
 
@@ -53,6 +52,7 @@ const App = () => {
           <Route path='/resetpassword/:resetToken' element={<Resetpage />} />
           <Route path={'*'} element={<Notfoundpage />} />
           <Route path='/alumni' element={<Alumnipage />} />
+          <Route path='/jobs' element={<Jobspage />} />
           
 
 

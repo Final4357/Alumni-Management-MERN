@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <footer aria-label="Site Footer" class="bg-white">
-            <div class="mx-auto max-w-screen-xl px-4 pb-6 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+            <div class="mx-auto max-w-screen-xl px-4 pb-6 pt-6 sm:px-6 lg:px-8 lg:pt-10">
                 <div className="flex justify-between">
                     <div>
                         <img class="w-48" src="https://i.ibb.co/brSHcDm/1.jpg" />

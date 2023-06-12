@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import {
   AiOutlineArrowRight,
   AiOutlineCamera,
@@ -9,9 +9,15 @@ import {
 // import styles from "../../styles/styles";
 // import { DataGrid } from "@material-ui/data-grid";
 // import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import { ErrorToast, IsEmail, IsEmpty, SuccessToast, getBase64 } from "../../helper/formHelper";
+import { Jobcreaterequest } from "../../api_req/jobrequest";
+import { useSelector } from "react-redux";
+import { profileDetails, updateProfile } from "../../api_req/auth";
+import { useEffect } from "react";
+import { getUserDetails } from "../../helper/sessionHelper";
 // import {
 //   deleteUserAddress,
 //   loadUser,
@@ -25,6 +31,8 @@ import { RxCross1 } from "react-icons/rx";
 // import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 const ProfileContent = ({ active }) => {
+  let fnameRef, lnameRef, emailRef, passwordRef, phoneRef, cpasswordRef, sidRef, deptRef, batchRef, positionRef, companyRef, genderRef, degreeRef, userImgRef, userImgView = useRef()
+  let navigate = useNavigate();
   //   const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,34 +52,78 @@ const ProfileContent = ({ active }) => {
   //     }
   //   }, [error, successMessage]);
 
-  const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch(updateUserInformation(name, email, phoneNumber, password));
+  let ProfileDetails = useSelector((state) => (state.profile.ProfileDetails));
+  console.log(ProfileDetails);
+
+  const location = useLocation()
+
+
+
+
+
+  useEffect(() => {
+    (async () => {
+
+      await profileDetails();
+
+
+    })();
+  },
+    [location])
+    const previewImage = () => {
+      let ImgFile = userImgRef.files[0];
+      getBase64(ImgFile).then((base64Img) => {
+          userImgView.src = base64Img;
+      })
+  }
+
+
+  const onUpdate = () => {
+    let fname = fnameRef.value;
+    let lname = lnameRef.value;
+    let email = emailRef.value;
+    let phone = phoneRef.value;
+    let sid = sidRef.value;
+    let dept = deptRef.value;
+    let batch = batchRef.value;
+    let position = positionRef.value;
+    let company = companyRef.value;
+    let gender = genderRef.value;
+    let degree = degreeRef.value;
+    let photo = userImgView.src;
+
+
+    if (IsEmpty(fname)) {
+      ErrorToast("First Name required !");
+    } else if (IsEmpty(lname)) {
+      ErrorToast("Last Name Required !");
+    } else if (IsEmail(email)) {
+      ErrorToast("Invalid email address.");
+    } else if (IsEmpty(sid)) {
+      ErrorToast("Student Id Required !");
+    }
+    else if (IsEmpty(dept)) {
+      ErrorToast("Dept is Required !");
+    } else if (IsEmpty(batch)) {
+      ErrorToast("Batch is Required !");
+    }
+    else if (IsEmpty(position)) {
+      ErrorToast("Position Name Required !");
+    } else if (IsEmpty(company)) {
+      ErrorToast("Company is Required !");
+    } else if (IsEmpty(gender)) {
+      ErrorToast("Gender is Required !");
+    } else if (IsEmpty(degree)) {
+      ErrorToast("Degree is Required !");
+    } else {
+      if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone)) {
+        console.log(updateProfile)
+        // navigate("/profile");
+      } else ErrorToast("Something Went Wrong");
+    }
   };
 
-  const handleImage = async (e) => {
-    //     const file = e.target.files[0];
-    //     setAvatar(file);
 
-    //     const formData = new FormData();
-
-    //     formData.append("image", e.target.files[0]);
-
-    //     await axios
-    //       .put(`${server}/user/update-avatar`, formData, {
-    //         headers: {
-    //           "Content-Type": "multipart/form-data",
-    //         },
-    //         withCredentials: true,
-    //       })
-    //       .then((response) => {
-    //          dispatch(loadUser());
-    //          toast.success("avatar updated successfully!");
-    //       })
-    //       .catch((error) => {
-    //         toast.error(error);
-    //       });
-  };
 
   return (
     <div className="w-full bg-white shadow">
@@ -81,7 +133,7 @@ const ProfileContent = ({ active }) => {
           <div className="flex justify-center w-full">
             <div className="relative">
               <img
-                src={``}
+                src={ProfileDetails.photo}
                 className="w-[150px] h-[150px] rounded-full object-cover border-[3px] border-[#3ad132]"
                 alt=""
               />
@@ -90,7 +142,8 @@ const ProfileContent = ({ active }) => {
                   type="file"
                   id="image"
                   className="hidden"
-                  onChange={handleImage}
+                  onChange={previewImage}
+                  ref={(input) => userImgRef = input}
                 />
                 <label htmlFor="image">
                   <AiOutlineCamera />
@@ -104,49 +157,161 @@ const ProfileContent = ({ active }) => {
             <div aria-required={true}>
               <div className="w-full md:flex block pb-3 gap-4">
                 <div className=" w-[100%] md:w-[50%]">
-                  <label className="block pb-2">Full Name</label>
-                  <input type="text" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                    placeholder="jhon" required="" />
+                  <label className="block pb-2">First Name</label>
+                  <input
+                    defaultValue={ProfileDetails.firstname}
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    ref={(input) => (fnameRef = input)}
+                    placeholder="jhon"
+                    required=""
+                  />
                 </div>
                 <div className=" w-[100%] md:w-[50%]">
-                  <label className="block pb-2">Email Address</label>
-                  <input type="email" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                    placeholder="jhon@gmail.com" required="" />
+                  <label className="block pb-2">last name</label>
+                  <input
+                    defaultValue={ProfileDetails.lastname}
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    ref={(input) => (lnameRef = input)}
+                    placeholder="Doe"
+                    required=""
+                  />
                 </div>
+
               </div>
 
               <div className="w-full md:flex block pb-3 gap-4">
                 <div className=" w-[100%] md:w-[50%]">
-                  <label className="block pb-2">Phone Number</label>
-                  <input type="phone" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                    placeholder="+880" required="" />
+                  <label className="block pb-2">Email Address</label>
+                  <input
+                    defaultValue={ProfileDetails.email}
+                    type="email"
+                    name="fname"
+                    id="fname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    ref={(input) => (emailRef = input)}
+                    placeholder="jhon@gmail.com"
+                    required=""
+                  />
                 </div>
-
                 <div className=" w-[100%] md:w-[50%]">
-                  <label className="block pb-2">Enter your password</label>
-                  <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                    placeholder="*******" required="" />
+                  <label className="block pb-2">Student ID</label>
+                  <input
+                    defaultValue={ProfileDetails.studentId}
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    ref={(input) => (sidRef = input)}
+                    placeholder="+880"
+                    required=""
+                  />
                 </div>
+
+
+
+
+
               </div>
+              {
+                getUserDetails().isAlumni &&
+                <div className="w-full md:flex block pb-3 gap-4">
+                  <div className=" w-[100%] md:w-[50%]">
+                    <label className="block pb-2">Position</label>
+                    <input defaultValue={ProfileDetails.position} type="text" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+                      ref={(input) => (positionRef = input)}
+                      placeholder="Senior-Eng" required="" />
+                  </div>
+                  <div className=" w-[100%] md:w-[50%]">
+                    <label className="block pb-2">Company Name</label>
+                    <input defaultValue={ProfileDetails.company} type="text" name="lname" id="lname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+                      ref={(input) => (companyRef = input)}
+                      placeholder="Enosis Limited" required />
+                  </div>
+                </div>
+              }
+              {
+                getUserDetails().isAlumni &&
+
+                <div className="w-full md:flex block pb-3 gap-4">
+                  <div className=" w-[100%] md:w-[50%]">
+                    <label className="block pb-2">Degree</label>
+                    <select ref={(input) => (degreeRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option >Choose a Degree</option>
+                      <option value="Bachelors">Bachelors</option>
+                      <option value="Masters">Masters</option>
+                    </select>
+                  </div>
+                  <div className=" w-[100%] md:w-[50%]">
+                    <label className="block pb-2">Dept</label>
+                    <select ref={(input) => (deptRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option >Choose a Dept</option> :            
+                      <option value="CSE">CSE</option>
+                      <option value="EEE">EEE</option>
+                      <option value="ETE">ETE</option>
+                    </select>
+                  </div>
+                </div>
+              }
+              {
+                getUserDetails().isAlumni &&
+                <div className="flex justify-between gap-4">
+                  <div className="w-1/2">
+                    <label for="batch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Batch</label>
+                    <input type="text" name="batch" id="batch" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+                      ref={(input) => (batchRef = input)}
+                      placeholder="jhon" required="" />
+                  </div>
+                  <div className="w-1/2">
+                    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                    <select ref={(input) => (genderRef = input)} id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                      <option disabled selected>Select a Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+
+                    </select>
+                  </div>
+                </div>
+              }
+              {
+                getUserDetails().isAlumni &&
+                <div className=" w-[100%] md:w-[50%]">
+                  <label className="block pb-2">Phone No</label>
+                  <input
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    
+                    ref={(input) => (phoneRef = input)}
+                    placeholder="+880"
+                    required=""
+                  />
+                </div>
+              }
               <button
                 className={`w-[250px] h-[40px]  border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-4 cursor-pointer`}
                 required
                 value="Update"
                 type="submit"
-                onClick={handleSubmit}
-              > Update</button>
+                onClick={onUpdate}
+              >
+                {" "}
+                Update
+              </button>
             </div>
           </div>
         </>
       )}
-
-
-
-
 
       {/* Track order */}
       {active === 5 && (
@@ -163,115 +328,261 @@ const ProfileContent = ({ active }) => {
       )}
 
       {/*  user Address */}
-      {active === 7 && (
-        <div>
-          {/* <Address /> */}
-        </div>
-      )}
+      {active === 7 && <div>{/* <Address /> */}</div>}
     </div>
   );
 };
 
 const PostJobs = () => {
+  let titleRef,
+    salaryRef,
+    linktoRef,
+    jobtypeRef,
+    locaitonRef,
+    descriptionRef,
+    companyRef,
+    dateRef,
+    companywebRef = useRef();
+  let navigate = useNavigate();
 
+  const onCreate = () => {
+    let title = titleRef.value;
+    let salary = salaryRef.value;
+    let linkto = linktoRef.value;
+    let date = dateRef.value
+    let jobtype = jobtypeRef.value;
+    let location = locaitonRef.value;
+    let description = descriptionRef.value;
+    let company = companyRef.value;
+
+    let companyweb = companywebRef.value;
+
+    if (IsEmpty(title)) {
+      ErrorToast("Title Required !");
+    } else if (IsEmpty(salary)) {
+      ErrorToast("Salary Required !");
+    } else if (IsEmpty(linkto)) {
+      ErrorToast("Link to Apply Required !");
+    } else if (IsEmpty(date)) {
+      ErrorToast("Deadline Date Required !");
+    } else if (IsEmpty(jobtype)) {
+      ErrorToast("Job type is  Required !");
+    } else if (IsEmpty(location)) {
+      ErrorToast("Location is Required !");
+    } else if (IsEmpty(description)) {
+      ErrorToast("Description Required !");
+    } else if (IsEmpty(company)) {
+      ErrorToast("Company Required !");
+    } else if (IsEmpty(companyweb)) {
+      ErrorToast("Company website is  Required !");
+    } else {
+      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, companyweb)) {
+        navigate("/jobs");
+      } else navigate("/profile");
+    }
+  };
 
   return (
     <Fragment>
       <main class="main bg-white px-2 md:py-6">
         <div class="w-full max-w-xl mx-auto">
-          <form action="" method="post">
+          <div action="" method="post">
             <h1 class="text-2xl mb-2">Post new job</h1>
 
             <div class="job-info space-y-4 mb-4 ">
               <div className="flex justify-between gap-4 ">
-
                 <div class=" w-full">
-                  <label class="block text-gray-700 text-sm mb-2" for="job-title">Title</label>
-                  <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="job-title" name="job-title" placeholder="Frontend Developer" autofocus />
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="job-title"
+                  >
+                    Title
+                  </label>
+                  <input
+                    ref={(input) => (titleRef = input)}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    id="job-title"
+                    name="job-title"
+                    placeholder="Frontend Developer"
+                    autofocus
+                  />
                 </div>
 
                 <div class="w-full">
-                  <label class="block text-gray-700 text-sm mb-2" for="apply-link">Salary</label>
-                  <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="apply-link" name="apply-link" placeholder="" />
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="apply-link"
+                  >
+                    Salary
+                  </label>
+                  <input
+                    ref={(input) => (salaryRef = input)}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="texy"
+                    id="apply-link"
+                    name="apply-link"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between gap-4 ">
+                <div class=" w-full">
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="apply-link"
+                  >
+                    Link to apply
+                  </label>
+                  <input
+                    ref={(input) => (linktoRef = input)}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    id="apply-link"
+                    name="apply-link"
+                    placeholder="https://www.djangoproject.com/apply"
+                  />
+                </div>
+                <div class=" w-full">
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="apply-link"
+                  >
+                    Deadline Date
+                  </label>
+                  <input
+                    ref={(input) => (dateRef = input)}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="date"
+                    id="apply-link"
+                    name="apply-link"
+                    placeholder="https://www.djangoproject.com/apply"
+                  />
                 </div>
               </div>
 
-
-              <div class="">
-                <label class="block text-gray-700 text-sm mb-2" for="apply-link">Link to apply</label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" id="apply-link" name="apply-link" placeholder="https://www.djangoproject.com/apply" />
-              </div>
-
               <div class="md:flex md:justify-between gap-4 ">
-
                 <div class="w-full md:w-1/2 mb-4 md:mb-0">
-                  <label class="block text-gray-700 text-sm mb-2" for="job-type">
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="job-type"
+                  >
                     Job Type
                   </label>
                   <div class="relative">
-                    <select class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg  leading-tight focus:outline-none focus:border-gray-500" id="job-type" name="job-type">
-                      <option>Full-time</option>
-                      <option>Part-time</option>
+                    <select
+                      class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg  leading-tight focus:outline-none focus:border-gray-500"
+                      id="job-type"
+                      name="job-type"
+                      ref={(input) => (jobtypeRef = input)}
+                    >
+                      <option>Full time</option>
+                      <option>Part time</option>
                       <option>Intern</option>
                     </select>
 
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                      <svg
+                        class="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
                     </div>
                   </div>
                 </div>
-
-
                 <div class="w-full md:w-1/2  md:mb-0">
-                  <label for="location" class="block text-gray-700 text-sm mb-2">Location</label>
+                  <label
+                    for="location"
+                    class="block text-gray-700 text-sm mb-2"
+                  >
+                    Experience
+                  </label>
                   <div class="relative">
-                    <select class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500" id="job-type" name="job-type">
-                      <option>On Site</option>
-                      <option>Remote</option>
+                    <select
+                      class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500"
+                      id="job-type"
+                      name="job-type"
+                      // ref={(input) => (locaitonRef = input)}
+                    >
+                      <option>Entry (0-2 Years)</option>
+                      <option>Intermediate (3-5 Years)</option>
+                      <option>Expert (5 or Higher)</option>
                     </select>
-
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                      <svg
+                        class="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
               <div>
-
-                <label for="message" class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-
+                <label
+                  for="message"
+                  class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Description
+                </label>
+                <textarea
+                  ref={(input) => (descriptionRef = input)}
+                  id="message"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Write your thoughts here..."
+                ></textarea>
               </div>
 
               <div class="flex w-full justify-between  gap-4 ">
-
                 <div class="w-full md:w-1/2   md:mb-0 ">
-                  <label for="company" class="block text-gray-700 text-sm mb-2">Company</label>
-                  <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="company" name="company" placeholder="Company" />
+                  <label for="company" class="block text-gray-700 text-sm mb-2">
+                    Company
+                  </label>
+                  <input
+                    ref={(input) => (companyRef = input)}
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="company"
+                    name="company"
+                    placeholder="Company"
+                  />
                 </div>
-
 
                 <div class="w-full md:w-1/2   md:mb-0">
-                  <label for="company" class="block text-gray-700 text-sm mb-2">Company Website</label>
-                  <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="company" name="company" placeholder="https://www.djangoproject.com/" />
+                  <label for="company" class="block text-gray-700 text-sm mb-2">
+                    Company Website
+                  </label>
+                  <input
+                    ref={(input) => (companywebRef = input)}
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="company"
+                    name="company"
+                    placeholder="https://www.djangoproject.com/"
+                  />
                 </div>
               </div>
-
             </div>
             <div>
-              <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded" type="submit">Create job</button>
+              <button
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded"
+                type="submit"
+                onClick={onCreate}
+              >
+                Create job
+              </button>
             </div>
-          </form>
+          </div>
         </div>
       </main>
     </Fragment>
-
   );
 };
-
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -280,7 +591,6 @@ const ChangePassword = () => {
 
   const passwordChangeHandler = async (e) => {
     // e.preventDefault();
-
     // await axios
     //   .put(
     //     `${server}/user/update-user-password`,
@@ -310,33 +620,49 @@ const ChangePassword = () => {
         >
           <div className=" w-[100%] md:w-[50%] mt-5 ">
             <label className="block pb-2">Enter your old password</label>
-            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-              placeholder="*******" required="" />
+            <input
+              type="password"
+              name="fname"
+              id="fname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="*******"
+              required=""
+            />
           </div>
           <div className=" w-[100%] md:w-[50%] mt-2">
             <label className="block pb-2">Enter your new password</label>
-            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-              placeholder="*******" required="" />
+            <input
+              type="password"
+              name="fname"
+              id="fname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="*******"
+              required=""
+            />
           </div>
           <div className=" w-[100%] md:w-[50%] mt-2">
             <label className="block pb-2">Enter your confirm password</label>
-            <input type="password" name="fname" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-              placeholder="*******" required="" />
+            <input
+              type="password"
+              name="fname"
+              id="fname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="*******"
+              required=""
+            />
             <button
               className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 mt-4 px-3 rounded"
               required
               value="Update"
               type="submit"
-            >Update</button>
+            >
+              Update
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default ProfileContent;

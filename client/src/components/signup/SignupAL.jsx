@@ -154,8 +154,8 @@ const SignupAL = () => {
                             <div className="flex justify-between gap-4">
                                 <div className="w-1/2">
                                     <label for="degree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Degree</label>
-                                    <select id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        ref={(input) => (degreeRef = input)}
+                                    <select ref={(input) => (degreeRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        
                                         <option disabled selected>Choose a Degree</option>
                                         <option value="Bachelors">Bachelors</option>
                                         <option value="Masters">Masters</option>
@@ -163,9 +163,9 @@ const SignupAL = () => {
                                 </div>
                                 <div className="w-1/2">
                                     <label for="degree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dept</label>
-                                    <select id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select ref={(input) => (degreeRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-                                        ref={(input) => (degreeRef = input)}
+                                        
                                         <option disabled selected>Choose a Dept</option>
                                         <option value="CSE">CSE</option>
                                         <option value="EEE">EEE</option>
@@ -183,8 +183,8 @@ const SignupAL = () => {
                                 </div>
                                 <div className="w-1/2">
                                     <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                    <select id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        ref={(input) => (batchRef = input)}
+                                    <select  ref={(input) => (batchRef = input)} id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        
                                         <option disabled selected>Select a Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
