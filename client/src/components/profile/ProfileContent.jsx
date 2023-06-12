@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { profileDetails, updateProfile } from "../../api_req/auth";
 import { useEffect } from "react";
 import { getUserDetails } from "../../helper/sessionHelper";
+import ReactPaginate from "react-paginate";
 // import {
 //   deleteUserAddress,
 //   loadUser,
@@ -339,10 +340,11 @@ const PostJobs = () => {
     linktoRef,
     jobtypeRef,
     locaitonRef,
+    experienceRef
     descriptionRef,
     companyRef,
     dateRef,
-    companywebRef = useRef();
+    categoryRef = useRef();
   let navigate = useNavigate();
 
   const onCreate = () => {
@@ -352,10 +354,11 @@ const PostJobs = () => {
     let date = dateRef.value
     let jobtype = jobtypeRef.value;
     let location = locaitonRef.value;
+    let experience =experienceRef.value;
     let description = descriptionRef.value;
     let company = companyRef.value;
 
-    let companyweb = companywebRef.value;
+    let category = categoryRef.value;
 
     if (IsEmpty(title)) {
       ErrorToast("Title Required !");
@@ -373,10 +376,10 @@ const PostJobs = () => {
       ErrorToast("Description Required !");
     } else if (IsEmpty(company)) {
       ErrorToast("Company Required !");
-    } else if (IsEmpty(companyweb)) {
+    } else if (IsEmpty(category)) {
       ErrorToast("Company website is  Required !");
     } else {
-      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, companyweb)) {
+      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company,experience, category)) {
         navigate("/jobs");
       } else navigate("/profile");
     }
@@ -474,11 +477,14 @@ const PostJobs = () => {
                       class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg  leading-tight focus:outline-none focus:border-gray-500"
                       id="job-type"
                       name="job-type"
+
                       ref={(input) => (jobtypeRef = input)}
                     >
-                      <option>Full time</option>
-                      <option>Part time</option>
-                      <option>Intern</option>
+                      <option value="Fulltime">Full time</option>
+                      <option value="Parttime">Part time</option>
+                      <option value="Internship">Internship</option>
+                      <option value="Contractual">Contractual</option>
+                      <option value="Freelance">Freelance</option>
                     </select>
 
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -504,11 +510,11 @@ const PostJobs = () => {
                       class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500"
                       id="job-type"
                       name="job-type"
-                    // ref={(input) => (locaitonRef = input)}
+                    ref={(input) => (experienceRef = input)}
                     >
-                      <option>Entry (0-2 Years)</option>
-                      <option>Intermediate (3-5 Years)</option>
-                      <option>Expert (5 or Higher)</option>
+                      <option value="Entry">Entry (0-2 Years)</option>
+                      <option value="Intermediate">Intermediate (3-5 Years)</option>
+                      <option value="Expert">Expert (5 or Higher)</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg
@@ -537,6 +543,23 @@ const PostJobs = () => {
                   placeholder="Write your thoughts here..."
                 ></textarea>
               </div>
+              <div class="flex w-full justify-between  gap-4 ">
+                <div class="w-full md:w-full   md:mb-0 ">
+                  <label for="company" class="block text-gray-700 text-sm mb-2">
+                    Location
+                  </label>
+                  <input
+                    ref={(input) => (locaitonRef = input)}
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="location"
+                    name="location"
+                    placeholder="location"
+                  />
+                </div>
+
+                
+              </div>
 
               <div class="flex w-full justify-between  gap-4 ">
                 <div class="w-full md:w-1/2   md:mb-0 ">
@@ -553,18 +576,36 @@ const PostJobs = () => {
                   />
                 </div>
 
-                <div class="w-full md:w-1/2   md:mb-0">
-                  <label for="company" class="block text-gray-700 text-sm mb-2">
-                    Company Website
+                <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                  <label
+                    class="block text-gray-700 text-sm mb-2"
+                    for="job-type"
+                  >
+                    Category
                   </label>
-                  <input
-                    ref={(input) => (companywebRef = input)}
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    id="company"
-                    name="company"
-                    placeholder="https://www.djangoproject.com/"
-                  />
+                  <div class="relative">
+                    <select
+                      class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg  leading-tight focus:outline-none focus:border-gray-500"
+                      id="job-type"
+                      name="job-type"
+
+                      ref={(input) => (categoryRef = input)}
+                    >
+                      <option value="Onsite">Onsite</option>
+                      <option value="Remote">Remote</option>
+                      <option value="Hybrid">Hybrid</option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg
+                        class="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -608,35 +649,60 @@ const PostedJobs = () => {
     //   });
   };
   return (
-    <div className="w-full p-5">
+    <div className="w-full flex flex-col gap-2 p-5">
+      <div className='lg:ml-2 mb-2 flex flex-col sm:flex-row sm:items-center justify-between'>
+        <span className='font-bold text-black text-2xl'>Recent new opportunities</span>
+        <div class=" flex items-center ">
+                        <div class="w-[264px] sm:w-96 relative ">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="black"
+                                aria-hidden="true"
+                                class="h-6 w-6  text-primary absolute left-2 top-0 bottom-0 my-auto"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                                    clip-rule="evenodd"
+                                ></path>
+                            </svg>
+    {/* onChange={(e) => { store.dispatch(setSearchKey(e.target.value)) }} */}
+                            <input type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
 
-      <a rel="noopener noreferrer" target="_blank" class=" block w-full mb-12 p-3 lg:p-6 rounded relative transition-shadow delay-100 hover:cursor-pointer hover:shadow-3xl" href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
+                        </div>
+                        
+                    </div>
+
+      </div>
+
+      <div rel="noopener noreferrer" target="_blank" class=" block w-full  mb-6 p-3 lg:p-6 rounded relative   shadow-sm " href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
         <div class="flex flex-col h-full">
           <div class="flex items-center justify-between">
             <h2 class="text-lg lg:text-xl font-bold text-heading">Sr. Software Engineer Backend (Python)</h2>
             <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
               <div className="w-full flex gap-1">
-              <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300">Update</button>
-              <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300">Delete</button>
+                <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300"><svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /> </svg></button>
+                <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" /> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" /> </svg></button>
               </div>
             </div>
           </div>
           <div class="min-h-[80px] my-2">
             <div class="flex items-center flex-wrap">
               <h2 class=" font-bold text-sm  my-1">GoZayaan</h2>
-                <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
-                </div><div class="flex items-center text-sm my-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
-                  </path>
-                  </svg>
-                  <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
-                </div>
-                <div class="text-sm">Full Time</div>
-                <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
-                <div class="text-sm">Intermediate</div>
+              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+              </div><div class="flex items-center text-sm my-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
+                </path>
+                </svg>
+                <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+              </div>
+              <div class="text-sm">Full Time</div>
+              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
+              <div class="text-sm">Intermediate</div>
             </div>
             <div class="text-sm my-3">GoZayaan is Hiring! Are you a talented and passionate Software Engineer...<a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
-           
+
           </div>
           <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
             <div class="flex items-center my-1">
@@ -647,9 +713,90 @@ const PostedJobs = () => {
             <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
             <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
               <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
-            </svg><span>Salary:</span><span class="ml-2">BDT 120,000+</span></div></div></div><div class=" absolute border-b w-full -bottom-6 left-0">
-              </div></a>
+            </svg>
+              <span>Salary:</span>
+              <span class="ml-2">BDT 120,000+</span>
+            </div>
+          </div>
+        </div>
+        <div class=" absolute  border-gray-400  border-b w-full -bottom-4 left-0">
+        </div>
+      </div>
+      <div rel="noopener noreferrer" target="_blank" class=" block w-full  mb-6 p-3 lg:p-6 rounded relative   shadow-sm " href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
+        <div class="flex flex-col h-full">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg lg:text-xl font-bold text-heading">Sr. Software Engineer Backend (Python)</h2>
+            <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
+              <div className="w-full flex gap-1">
+                <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300"><svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /> </svg></button>
+                <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" /> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" /> </svg></button>
+              </div>
+            </div>
+          </div>
+          <div class="min-h-[80px] my-2">
+            <div class="flex items-center flex-wrap">
+              <h2 class=" font-bold text-sm  my-1">GoZayaan</h2>
+              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+              </div><div class="flex items-center text-sm my-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
+                </path>
+                </svg>
+                <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+              </div>
+              <div class="text-sm">Full Time</div>
+              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
+              <div class="text-sm">Intermediate</div>
+            </div>
+            <div class="text-sm my-3">GoZayaan is Hiring! Are you a talented and passionate Software Engineer...<a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
+
+          </div>
+          <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
+            <div class="flex items-center my-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Deadline:</span><span class="ml-2">25 Jun, 2023</span>
+            </div>
+            <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
+            <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
+              <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
+            </svg>
+              <span>Salary:</span>
+              <span class="ml-2">BDT 120,000+</span>
+            </div>
+          </div>
+        </div>
+        <div class=" absolute  border-gray-400  border-b w-full -bottom-4 left-0">
+        </div>
+      </div>
+
+      
+
+      <div className='flex w-full justify-center py-8 '>
+                <nav aria-label="Page navigation example" style={{display: 'flex', justifyContent: 'center'}}> 
+                                                <ReactPaginate className='pagination gap-2'
+                                                    previousLabel="<" 
+                                                    nextLabel=">" 
+                                                    pageClassName="page-item" 
+                                                    pageLinkClassName="page-link" 
+                                                    previousClassName="page-item" 
+                                                    previousLinkClassName="page-link" 
+                                                    nextClassName="page-item" 
+                                                    nextLinkClassName="page-link" 
+                                                    breakLabel="..." 
+                                                    breakClassName="page-item" 
+                                                    breakLinkClassName="page-link" 
+                                                    pageCount={50 / 5} 
+                                                    marginPagesDisplayed={2} 
+                                                    pageRangeDisplayed={5} 
+                                                    // onPageChange={handlePageClick} 
+                                                    containerClassName="pagination" 
+                                                    activeClassName="active" 
+                                                /> 
+                                            </nav>
+                </div>
+
     </div>
+
   );
 };
 
