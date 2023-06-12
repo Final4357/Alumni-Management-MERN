@@ -21,9 +21,11 @@ const Job = () => {
   let sort = useSelector((state) => (state.job.sort));
   let Jobs = useSelector((state) => (state.job.Jobs));
   let TotalJob = useSelector((state) => (state.job.TotalJob));
+  let Clear = useSelector((state) => (state.job.Clear));
+
 
   const applyFilter = async () => {
-    if (searchKey.length || selectExperience.length || selectType.length || sort.length || selectCategory.length)
+    if ( searchKey.length || selectExperience.length || selectType.length || sort.length || selectCategory.length)
       store.dispatch(setClear(false))
     else
       store.dispatch(setClear(true))
@@ -34,11 +36,16 @@ const Job = () => {
     await jobListRequest(pageNo, perPage, searchKey, selectCategory, experience, type, sort)
   }
 
+ 
+
   useEffect(() => {
     (async () => {
       await applyFilter();
     })();
   }, [pageNo, perPage, searchKey, selectCategory, selectExperience, selectType, sort])
+
+
+    
 
   return (
     <Fragment>

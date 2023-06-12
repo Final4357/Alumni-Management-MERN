@@ -2,18 +2,19 @@
 import { Fragment } from "react";
 import React, { useState } from 'react';
 import store from "../../redux/store/store";
-import { setAllClear, setSelectExperience, setSelectType } from "../../redux/state/jobslice";
+import { clear, setAllClear, setSelectExperience, setSelectType } from "../../redux/state/jobslice";
 import { useSelector } from "react-redux";
 
 const Jobsidebar = () => {
     let selectExperience = useSelector((state) => (state.job.selectExperience));
     let selectType = useSelector((state) => (state.job.selectType));
     let Clear = useSelector((state) => (state.job.Clear));
-    // const [show, setShow] = useState('');
-    // const handleClick = (val) => {
-    //     setShow(val)
-    // }
-console.log(Clear)
+
+    const handleClear=()=>{
+        store.dispatch(clear()) ;
+        store.dispatch(setAllClear()) ;
+    }
+    
     return (
         <Fragment className="relative">
             <div className="w-[350px] h-fit">
@@ -26,7 +27,8 @@ console.log(Clear)
                                     Apply filters
                                 </h5>
                             </div>
-                            <h6 onClick={() => store.dispatch(setAllClear(true))} class={`${Clear ? "hidden" : "block"} inline-flex items-center cursor-pointer text-base font-medium text-[#552aa4]  dark:text-gray-400`}>
+                            <h6 onClick={handleClear} class={`${Clear ? "hidden" : "block"} inline-flex items-center cursor-pointer text-base font-medium text-[#552aa4]  dark:text-gray-400`}>
+                               {/* //() => store.dispatch(setAllClear(true)) */}
                                 Clear All
                             </h6>
                         </div>

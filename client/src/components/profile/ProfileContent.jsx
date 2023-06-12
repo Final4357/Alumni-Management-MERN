@@ -70,11 +70,11 @@ const ProfileContent = ({ active }) => {
     })();
   },
     [location])
-    const previewImage = () => {
-      let ImgFile = userImgRef.files[0];
-      getBase64(ImgFile).then((base64Img) => {
-          userImgView.src = base64Img;
-      })
+  const previewImage = () => {
+    let ImgFile = userImgRef.files[0];
+    getBase64(ImgFile).then((base64Img) => {
+      userImgView.src = base64Img;
+    })
   }
 
 
@@ -252,7 +252,7 @@ const ProfileContent = ({ active }) => {
                   <div className=" w-[100%] md:w-[50%]">
                     <label className="block pb-2">Dept</label>
                     <select ref={(input) => (deptRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option >Choose a Dept</option> :            
+                      <option >Choose a Dept</option> :
                       <option value="CSE">CSE</option>
                       <option value="EEE">EEE</option>
                       <option value="ETE">ETE</option>
@@ -291,7 +291,7 @@ const ProfileContent = ({ active }) => {
                     name="fname"
                     id="fname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    
+
                     ref={(input) => (phoneRef = input)}
                     placeholder="+880"
                     required=""
@@ -320,10 +320,10 @@ const ProfileContent = ({ active }) => {
         </div>
       )}
 
-      {/* Change Password */}
+      {/* Posted Jobs */}
       {active === 6 && (
         <div>
-          <ChangePassword />
+          <PostedJobs />
         </div>
       )}
 
@@ -504,7 +504,7 @@ const PostJobs = () => {
                       class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-gray-500"
                       id="job-type"
                       name="job-type"
-                      // ref={(input) => (locaitonRef = input)}
+                    // ref={(input) => (locaitonRef = input)}
                     >
                       <option>Entry (0-2 Years)</option>
                       <option>Intermediate (3-5 Years)</option>
@@ -584,7 +584,7 @@ const PostJobs = () => {
   );
 };
 
-const ChangePassword = () => {
+const PostedJobs = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -609,58 +609,46 @@ const ChangePassword = () => {
   };
   return (
     <div className="w-full p-5">
-      <h1 className="block text-[25px] text-center font-[600] text-[#000000ba] pb-2">
-        Change Password
-      </h1>
-      <div className="w-full">
-        <div
-          aria-required
-          onSubmit={passwordChangeHandler}
-          className="flex flex-col items-center  "
-        >
-          <div className=" w-[100%] md:w-[50%] mt-5 ">
-            <label className="block pb-2">Enter your old password</label>
-            <input
-              type="password"
-              name="fname"
-              id="fname"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="*******"
-              required=""
-            />
+
+      <a rel="noopener noreferrer" target="_blank" class=" block w-full mb-12 p-3 lg:p-6 rounded relative transition-shadow delay-100 hover:cursor-pointer hover:shadow-3xl" href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
+        <div class="flex flex-col h-full">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg lg:text-xl font-bold text-heading">Sr. Software Engineer Backend (Python)</h2>
+            <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
+              <div className="w-full flex gap-1">
+              <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300">Update</button>
+              <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300">Delete</button>
+              </div>
+            </div>
           </div>
-          <div className=" w-[100%] md:w-[50%] mt-2">
-            <label className="block pb-2">Enter your new password</label>
-            <input
-              type="password"
-              name="fname"
-              id="fname"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="*******"
-              required=""
-            />
+          <div class="min-h-[80px] my-2">
+            <div class="flex items-center flex-wrap">
+              <h2 class=" font-bold text-sm  my-1">GoZayaan</h2>
+                <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+                </div><div class="flex items-center text-sm my-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
+                  </path>
+                  </svg>
+                  <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+                </div>
+                <div class="text-sm">Full Time</div>
+                <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
+                <div class="text-sm">Intermediate</div>
+            </div>
+            <div class="text-sm my-3">GoZayaan is Hiring! Are you a talented and passionate Software Engineer...<a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
+           
           </div>
-          <div className=" w-[100%] md:w-[50%] mt-2">
-            <label className="block pb-2">Enter your confirm password</label>
-            <input
-              type="password"
-              name="fname"
-              id="fname"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="*******"
-              required=""
-            />
-            <button
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 mt-4 px-3 rounded"
-              required
-              value="Update"
-              type="submit"
-            >
-              Update
-            </button>
-          </div>
-        </div>
-      </div>
+          <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
+            <div class="flex items-center my-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Deadline:</span><span class="ml-2">25 Jun, 2023</span>
+            </div>
+            <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
+            <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
+              <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
+            </svg><span>Salary:</span><span class="ml-2">BDT 120,000+</span></div></div></div><div class=" absolute border-b w-full -bottom-6 left-0">
+              </div></a>
     </div>
   );
 };

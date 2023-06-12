@@ -110,7 +110,7 @@ const ProfileSidebar = ({ setActive, active }) => {
             active === 6 ? "text-[red]" : ""
           } md:block hidden`}
         >
-          Change Password
+          Posted Jobs
         </span>
       </div>
 

@@ -12,7 +12,7 @@ export const jobSlice = createSlice({
         sort: '',
         Jobs: [],
         TotalJob: 0,
-        Clear:true
+        Clear: true,
     },
     reducers: {
         setPageNo: (state, action) => {
@@ -42,24 +42,25 @@ export const jobSlice = createSlice({
         setTotalJobs: (state, action) => {
             state.TotalJob = action.payload
         },
-        setClear: (state,action)=>{
+        setClear: (state, action) => {
             state.Clear = action.payload
         },
-        setAllClear: (state,action) => {
-            console.log(action.payload)
-            state.Clear = action.payload
-            debugger
+        setAllClear: (state) => {
             state.pageNo = 1
             state.perPage = 6
-            state.searchKey = "0"
+            state.searchKey = ""
             state.selectCategory = []
             state.selectExperience = []
             state.selectType = []
             state.sort = ""
-            
+        },
+        clear:(state)=>{
+            state.Clear=true
+
+
         }
     }
 })
 
-export const { setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs,setClear, setAllClear } = jobSlice.actions
+export const { setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs, setClear, setAllClear, clear } = jobSlice.actions
 export default jobSlice.reducer
