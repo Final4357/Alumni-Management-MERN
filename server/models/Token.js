@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+const TokenSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -21,4 +21,4 @@ const UserSchema = new mongoose.Schema({
   },{timestamps: true}
   );
 
-  export default mongoose.model("Token", UserSchema)
+  export default mongoose.model("Token", TokenSchema)
