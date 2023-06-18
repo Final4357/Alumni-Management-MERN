@@ -24,11 +24,10 @@ const Alumni = () => {
             setloading(false);
         })();
     },
-        [])
+        []) 
 
     let Alumni = useSelector((state) => (state.alumni.Alumni));
     let Total = useSelector((state) => (state.alumni.Total))
-    console.log(Alumni)
 
 
     const perPageOnChange = async (e) => {

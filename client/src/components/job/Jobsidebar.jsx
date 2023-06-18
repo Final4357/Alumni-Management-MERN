@@ -16,8 +16,8 @@ const Jobsidebar = () => {
     }
     
     return (
-        <Fragment className="relative">
-            <div className="w-[350px] h-fit">
+        <Fragment className="relative  ">
+            <div className="sticky top-20 w-[350px] h-fit">
                 <div className="flex gap-x-4 ">
                     <div class=" h-fit w-full  border shadow rounded-lg bg-white dark:bg-gray-800">
                         <div className="flex p-4  mb-4 justify-between w-full bg-gray-200">

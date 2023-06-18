@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const jobSlice = createSlice({
     name: 'job',
     initialState: {
+        JobDetails:"",
         pageNo: 1,
         perPage: 6,
         searchKey: "",
@@ -13,8 +14,12 @@ export const jobSlice = createSlice({
         Jobs: [],
         TotalJob: 0,
         Clear: true,
+        selectedJob:null
     },
     reducers: {
+        setJobDetails: (state, action) => {
+            state.JobDetails = action.payload
+        },
         setPageNo: (state, action) => {
             state.pageNo = parseInt(action.payload)
         },
@@ -56,11 +61,12 @@ export const jobSlice = createSlice({
         },
         clear:(state)=>{
             state.Clear=true
-
-
+        },
+        setselectedJob:(state,action)=>{
+            state.selectedJob=action.payload
         }
     }
 })
 
-export const { setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs, setClear, setAllClear, clear } = jobSlice.actions
+export const {setselectedJob, setJobDetails, setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs, setClear, setAllClear, clear } = jobSlice.actions
 export default jobSlice.reducer

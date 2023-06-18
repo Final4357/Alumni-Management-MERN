@@ -8,28 +8,7 @@ import { jobListRequest } from '../../api_req/jobrequest';
 const Jobcard = ({ Jobs, TotalJob }) => {
 
     let sort = useSelector((state) => (state.job.sort));
-    // const [pageNo, setpageNo] = useState(1);
-
-    // useEffect(() => {
-    //     jobListRequest();
-    // }, [page]);
-
-    // const handelInfiniteScroll = async () => {
-    //     try {
-    //         if (
-    //             window.innerHeight + document.documentElement.scrollTop + 1 >=
-    //             document.documentElement.scrollHeight
-    //         ) {
-    //             setpageNo((prev) => prev + 1);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-    // useEffect(() => {
-    //     window.addEventListener("scroll", handelInfiniteScroll);
-    //     return () => window.removeEventListener("scroll", handelInfiniteScroll);
-    // }, []);
+    
     
 
 

@@ -4,21 +4,21 @@ import {
   AiOutlineCamera,
   AiOutlineDelete,
 } from "react-icons/ai";
-// import { useDispatch, useSelector } from "react-redux";
-// import { backend_url, server } from "../../server";
-// import styles from "../../styles/styles";
-// import { DataGrid } from "@material-ui/data-grid";
-// import { Button } from "@material-ui/core";
+import { setSearchKey } from '../../redux/state/profileslice';
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { ErrorToast, IsEmail, IsEmpty, SuccessToast, getBase64 } from "../../helper/formHelper";
-import { Jobcreaterequest } from "../../api_req/jobrequest";
+import { Jobcreaterequest, cratedjobListRequest, deleteJobById } from "../../api_req/jobrequest";
 import { useSelector } from "react-redux";
 import { profileDetails, updateProfile } from "../../api_req/auth";
 import { useEffect } from "react";
 import { getUserDetails } from "../../helper/sessionHelper";
 import ReactPaginate from "react-paginate";
+import store from "../../redux/store/store";
+import moment from 'moment';
+import Jobupdatemodel from "../model/Jobupdatemodel";
+import { setselectedJob } from "../../redux/state/jobslice";
 // import {
 //   deleteUserAddress,
 //   loadUser,
@@ -54,23 +54,18 @@ const ProfileContent = ({ active }) => {
   //   }, [error, successMessage]);
 
   let ProfileDetails = useSelector((state) => (state.profile.ProfileDetails));
-  console.log(ProfileDetails);
-
   const location = useLocation()
-
-
-
 
 
   useEffect(() => {
     (async () => {
-
       await profileDetails();
 
 
     })();
   },
     [location])
+
   const previewImage = () => {
     let ImgFile = userImgRef.files[0];
     getBase64(ImgFile).then((base64Img) => {
@@ -335,7 +330,7 @@ const ProfileContent = ({ active }) => {
 };
 
 const PostJobs = () => {
-  let titleRef, salaryRef, linktoRef, jobtypeRef, locaitonRef,experienceRef,descriptionRef,companyRef,dateRef,categoryRef = useRef();
+  let titleRef, salaryRef, linktoRef, jobtypeRef, locaitonRef, experienceRef, descriptionRef, companyRef, dateRef, categoryRef = useRef();
   let navigate = useNavigate();
 
   const onCreate = () => {
@@ -373,7 +368,7 @@ const PostJobs = () => {
       ErrorToast("Company website is  Required !");
     } else {
       if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
-        
+
       } else navigate("/profile");
     }
   };
@@ -619,31 +614,55 @@ const PostJobs = () => {
 };
 
 const PostedJobs = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [update, setUpdate] = useState(false);
+  let pageNo = useSelector((state) => (state.profile.pageNo));
+  let perPage = useSelector((state) => (state.profile.perPage));
+  let searchKey = useSelector((state) => (state.profile.searchKey));
+  let Jobs = useSelector((state) => (state.profile.createdJobs));
+  let TotalJob = useSelector((state) => (state.profile.TotalcreatedJob));
+  const closeModal = () => setShowModal(false);
 
-  const passwordChangeHandler = async (e) => {
-    // e.preventDefault();
-    // await axios
-    //   .put(
-    //     `${server}/user/update-user-password`,
-    //     { oldPassword, newPassword, confirmPassword },
-    //     { withCredentials: true }
-    //   )
-    //   .then((res) => {
-    //     toast.success(res.data.success);
-    //     setOldPassword("");
-    //     setNewPassword("");
-    //     setConfirmPassword("");
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error.response.data.message);
-    //   });
+  const handleCloseButton = (
+    <button onClick={closeModal}>
+
+    </button>
+  );
+
+  const onUpdate = (id) => {
+    console.log(id)
+    store.dispatch(setselectedJob(id))
+    setShowModal(true);
   };
+
+  const onDelete = async (id) => {
+    await deleteJobById(id);
+    setUpdate(true);
+
+  };
+
+  const mainModal = (
+    <Jobupdatemodel closeModal={closeModal} handleCloseButton={handleCloseButton}>
+
+    </Jobupdatemodel>
+  );
+
+  useEffect(() => {
+    (async () => {
+      await cratedjobListRequest(1, perPage, searchKey);
+      setUpdate(false);
+    })();
+  },
+    [showModal, update])
+
+
+
+
+
+
   return (
     <div className="w-full flex flex-col gap-2 p-5">
-      <div className='lg:ml-2 mb-2 flex flex-col sm:flex-row sm:items-center justify-between'>
+      <div className='bg-white sticky top-20 lg:ml-2 mb-2 flex flex-col sm:flex-row sm:items-center justify-between'>
         <span className='font-bold text-black text-2xl'>Recent new opportunities</span>
         <div class=" flex items-center ">
           <div class="w-[264px] sm:w-96 relative ">
@@ -662,105 +681,63 @@ const PostedJobs = () => {
             </svg>
             {/* onChange={(e) => { store.dispatch(setSearchKey(e.target.value)) }} */}
             <input type="search" id="voice-search" class="pl-10  border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Company, Position" required />
-
           </div>
-
         </div>
-
       </div>
-
-      <div rel="noopener noreferrer" target="_blank" class=" block w-full  mb-6 p-3 lg:p-6 rounded relative   shadow-sm " href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
-        <div class="flex flex-col h-full">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg lg:text-xl font-bold text-heading">Sr. Software Engineer Backend (Python)</h2>
-            <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
-              <div className="w-full flex gap-1">
-                <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300"><svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /> </svg></button>
-                <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" /> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" /> </svg></button>
+      {Jobs.map((item, i) => {
+        return (
+          <div key={i} rel="noopener noreferrer" target="_blank" class=" block w-full  mb-6 p-3 lg:p-6 rounded relative   shadow-sm " href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
+            <div class="flex flex-col h-full">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg lg:text-xl font-bold text-heading">{item.position}</h2>
+                <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
+                  <div className="w-full flex gap-1">
+                    <button onClick={() => onUpdate(item._id)} class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300"><svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /> </svg></button>
+                    {showModal && mainModal}
+                    <button onClick={() => onDelete(item._id)} class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" /> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" /> </svg></button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="min-h-[80px] my-2">
-            <div class="flex items-center flex-wrap">
-              <h2 class=" font-bold text-sm  my-1">GoZayaan</h2>
-              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
-              </div><div class="flex items-center text-sm my-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
-                </path>
+              <div class="min-h-[40px] ">
+                <div class="flex items-center flex-wrap">
+                  <h2 class=" font-bold text-sm  my-1"> {item.company}</h2>
+                  <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+                  </div><div class="flex items-center text-sm my-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
+                    </path>
+                    </svg>
+                    <div>{item.location} </div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+                  </div>
+                  <div class="text-sm"> {item.type} </div>
+                  <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
+                  <div class="text-sm">{item.experience}</div>
+                </div>
+                <div class="text-sm my-2">{item.details} <a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
+
+              </div>
+              <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
+                <div class="flex items-center my-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Deadline:</span><span class="ml-2">{moment(item.deadlineDate).format("D MMM, YYYY")} </span>
+                </div>
+                <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
+                <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
+                  <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
                 </svg>
-                <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
+                  <span>Salary:</span>
+                  <span class="ml-2"> {item.salary}</span>
+                </div>
               </div>
-              <div class="text-sm">Full Time</div>
-              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
-              <div class="text-sm">Intermediate</div>
             </div>
-            <div class="text-sm my-3">GoZayaan is Hiring! Are you a talented and passionate Software Engineer...<a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
+            <div class=" absolute  border-gray-400  border-b w-full -bottom-4 left-0">
+            </div>
+          </div>
+        )
+      })
 
-          </div>
-          <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
-            <div class="flex items-center my-1">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"></path>
-              </svg>
-              <span>Deadline:</span><span class="ml-2">25 Jun, 2023</span>
-            </div>
-            <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
-            <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
-              <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
-            </svg>
-              <span>Salary:</span>
-              <span class="ml-2">BDT 120,000+</span>
-            </div>
-          </div>
-        </div>
-        <div class=" absolute  border-gray-400  border-b w-full -bottom-4 left-0">
-        </div>
-      </div>
-      <div rel="noopener noreferrer" target="_blank" class=" block w-full  mb-6 p-3 lg:p-6 rounded relative   shadow-sm " href="https://www.facebook.com/groups/devforhire/permalink/1711968939250171/">
-        <div class="flex flex-col h-full">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg lg:text-xl font-bold text-heading">Sr. Software Engineer Backend (Python)</h2>
-            <div title="0 people loved this job!" class=" ml-2  p-1 flex items-center justify-center">
-              <div className="w-full flex gap-1">
-                <button class="rounded-lg px-2 py-1 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-blue-100 duration-300"><svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /> </svg></button>
-                <button class="rounded-lg px-2 py-1 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-red-100 duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" /> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" /> </svg></button>
-              </div>
-            </div>
-          </div>
-          <div class="min-h-[80px] my-2">
-            <div class="flex items-center flex-wrap">
-              <h2 class=" font-bold text-sm  my-1">GoZayaan</h2>
-              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
-              </div><div class="flex items-center text-sm my-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd">
-                </path>
-                </svg>
-                <div>Dhaka, Bangladesh</div></div><div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1">
-              </div>
-              <div class="text-sm">Full Time</div>
-              <div class="h-1 w-1 rounded-full bg-gray-500 mx-4 my-1"></div>
-              <div class="text-sm">Intermediate</div>
-            </div>
-            <div class="text-sm my-3">GoZayaan is Hiring! Are you a talented and passionate Software Engineer...<a class=" ml-2 text-primary" href="/0e3e0c83-3fa7-47b3-bc21-04a66379f280">See More</a></div>
+      }
 
-          </div>
-          <div class="flex flex-wrap items-center font-semibold text-sm mt-3">
-            <div class="flex items-center my-1">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"></path>
-              </svg>
-              <span>Deadline:</span><span class="ml-2">25 Jun, 2023</span>
-            </div>
-            <div class="h-1 w-1 rounded-full bg-gray-500 mx-4"></div>
-            <div class="flex items-center my-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-2">
-              <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd"></path>
-            </svg>
-              <span>Salary:</span>
-              <span class="ml-2">BDT 120,000+</span>
-            </div>
-          </div>
-        </div>
-        <div class=" absolute  border-gray-400  border-b w-full -bottom-4 left-0">
-        </div>
-      </div>
 
 
 
