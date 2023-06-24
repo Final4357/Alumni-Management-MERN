@@ -21,7 +21,7 @@ const Job = () => {
   let sort = useSelector((state) => (state.job.sort));
   let Jobs = useSelector((state) => (state.job.Jobs));
   let TotalJob = useSelector((state) => (state.job.TotalJob));
-  let Clear = useSelector((state) => (state.job.Clear));
+  let Clear = useSelector((state) => (state.job.Clear)); 
 
 
   const applyFilter = async () => {
@@ -43,6 +43,8 @@ const Job = () => {
   }, [pageNo, perPage, searchKey, selectCategory, selectExperience, selectType, sort])
 
 
+
+
     
 
   return (
@@ -51,7 +53,7 @@ const Job = () => {
         <Topbar />
         <div className='flex gap-2 '>
           <Jobsidebar />
-          <Jobcard Jobs={Jobs} TotalJob={TotalJob} />
+          <Jobcard Jobs={Jobs} TotalJob={TotalJob} perPage={perPage}/>
         </div>
       </div>
     </Fragment>

@@ -64,6 +64,6 @@ export const jobDetailsById = async (req,res,next) =>{
         _id: mongoose.Types.ObjectId(req.params.id)
     }
     let project = {userId:0, updatedAt:0}
-    let result =await detailsByIDService(req, User, match, project)
+    let result =await detailsByIDService(req, Job, match, project)
     if(result) res.status(200).json(result)
 }
