@@ -368,7 +368,7 @@ const PostJobs = () => {
       ErrorToast("Company website is  Required !");
     } else {
       if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
-
+        console.log(Jobcreaterequest)
       } else navigate("/profile");
     }
   };

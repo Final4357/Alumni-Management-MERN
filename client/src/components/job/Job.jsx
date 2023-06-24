@@ -55,7 +55,7 @@ const Job = () => {
         <Topbar />
         <div className='flex gap-2 '>
           <Jobsidebar />
-          <Jobcard Jobs={Jobs} TotalJob={TotalJob} />
+          <Jobcard Jobs={Jobs} TotalJob={TotalJob} perPage={perPage}/>
         </div>
       </div>
     </Fragment>

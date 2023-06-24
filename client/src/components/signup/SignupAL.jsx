@@ -64,6 +64,7 @@ const SignupAL = () => {
             ErrorToast("Degree is Required !");
         } else {
             if (alumniRegister(fname, lname, email, password, sid, dept, batch, position, company, gender, degree, photo)) {
+               
                 navigate("/login");
             } else navigate("/sign-up");
         }
@@ -74,12 +75,12 @@ const SignupAL = () => {
 
 
     return (
-    
+
         <div class="bg-gray-50 dark:bg-gray-900 py-10">
             <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-auto lg:py-0">
                 <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img id="black" class="w-48" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" alt="" />
-                   </a>
+                    <img id="black" class="w-48" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" alt="" />
+                </a>
                 <div className="w-full  bg-white rounded-lg shadow dark:border md:mt-0 md:max-w-2xl sm:max-w-md  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -87,8 +88,8 @@ const SignupAL = () => {
                         </h1>
 
                         <div class="profile flex justify-center ">
-                         <img class="w-48 h-48 rounded-full " src ="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" ref={(input) => userImgView = input} alt="" />
-                                                    
+                            <img class="w-48 h-48 rounded-full " src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" ref={(input) => userImgView = input} alt="" />
+
 
                             <div class="w-48 h-48 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
 
@@ -102,7 +103,7 @@ const SignupAL = () => {
                                 />
                             </div>
                         </div>
-                        <form class="space-y-2 md:space-y-6 " action="#">
+                        <div class="space-y-2 md:space-y-6 " action="#">
 
                             <div className="flex justify-between gap-4">
                                 <div className="w-1/2">
@@ -155,7 +156,7 @@ const SignupAL = () => {
                                 <div className="w-1/2">
                                     <label for="degree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Degree</label>
                                     <select ref={(input) => (degreeRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        
+
                                         <option disabled selected>Choose a Degree</option>
                                         <option value="Bachelors">Bachelors</option>
                                         <option value="Masters">Masters</option>
@@ -163,9 +164,9 @@ const SignupAL = () => {
                                 </div>
                                 <div className="w-1/2">
                                     <label for="degree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dept</label>
-                                    <select ref={(input) => (degreeRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select ref={(input) => (deptRef = input)} id="degree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-                                        
+
                                         <option disabled selected>Choose a Dept</option>
                                         <option value="CSE">CSE</option>
                                         <option value="EEE">EEE</option>
@@ -183,8 +184,8 @@ const SignupAL = () => {
                                 </div>
                                 <div className="w-1/2">
                                     <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                    <select  ref={(input) => (batchRef = input)} id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        
+                                    <select ref={(input) => (genderRef = input)} id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
                                         <option disabled selected>Select a Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -265,7 +266,7 @@ const SignupAL = () => {
                                 Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                             </p>
 
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
