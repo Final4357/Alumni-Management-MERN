@@ -36,8 +36,6 @@ const Job = () => {
     await jobListRequest(pageNo, perPage, searchKey, selectCategory, experience, type, sort)
   }
 
- 
-
   useEffect(() => {
     (async () => {
       await applyFilter();

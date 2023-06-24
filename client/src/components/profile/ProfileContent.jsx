@@ -19,6 +19,7 @@ import { profileDetails, updateProfile } from "../../api_req/auth";
 import { useEffect } from "react";
 import { getUserDetails } from "../../helper/sessionHelper";
 import ReactPaginate from "react-paginate";
+import ChatPage from "../../pages/ChatPage";
 // import {
 //   deleteUserAddress,
 //   loadUser,
@@ -31,7 +32,7 @@ import ReactPaginate from "react-paginate";
 // import axios from "axios";
 // import { getAllOrdersOfUser } from "../../redux/actions/order";
 
-const ProfileContent = ({ active }) => {
+const ProfileContent = () => {
   let fnameRef, lnameRef, emailRef, passwordRef, phoneRef, cpasswordRef, sidRef, deptRef, batchRef, positionRef, companyRef, genderRef, degreeRef, userImgRef, userImgView = useRef()
   let navigate = useNavigate();
   //   const { user, error, successMessage } = useSelector((state) => state.user);
@@ -57,6 +58,7 @@ const ProfileContent = ({ active }) => {
   console.log(ProfileDetails);
 
   const location = useLocation()
+  const active = useSelector((state)=>state.profile.active)
 
 
 
@@ -325,6 +327,11 @@ const ProfileContent = ({ active }) => {
       {active === 6 && (
         <div>
           <PostedJobs />
+        </div>
+      )}
+      {active === 4 && (
+        <div>
+          <ChatPage />
         </div>
       )}
 

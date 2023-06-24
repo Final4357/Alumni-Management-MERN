@@ -8,8 +8,6 @@ import { useState } from 'react';
 import styles from '../styles/styles';
 
 const Profilepage = () => {
-
-    const [active, setActive] = useState(1);
     return (
         <Fragment>
             
@@ -19,9 +17,9 @@ const Profilepage = () => {
             <div class="container mx-auto">
                     <div className={` w-full  flex gap-2 bg-gray-50 `}>
                         <div className="w-[50px] md:w-[335px] sticky md:mt-0 mt-[18%]">
-                            <ProfileSidebar active={active} setActive={setActive} />
+                            <ProfileSidebar />
                         </div>
-                        <ProfileContent active={active} />
+                        <ProfileContent />
                     </div>
                     </div>
                     </div>

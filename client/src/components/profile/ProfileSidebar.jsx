@@ -11,13 +11,16 @@ import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import store from "../../redux/store/store";
+import { setActive } from "../../redux/state/profileslice";
+import { useSelector } from "react-redux";
 // import { server } from "../../server";
 // import { toast } from "react-toastify";
 // import { useSelector } from "react-redux";
 
-const ProfileSidebar = ({ setActive, active }) => {
+const ProfileSidebar = () => {
   const navigate = useNavigate();
-//  const {user} = useSelector((state) => state.user);
+ const active = useSelector((state) => state.profile.active);
   const logoutHandler = () => {
     // axios
     //   .get(`${server}/user/logout`, { withCredentials: true })
@@ -34,7 +37,7 @@ const ProfileSidebar = ({ setActive, active }) => {
     <div className="container mx-auto w-full sticky top-16 bg-white shadow rounded-[10px] p-4 pt-8">
       <div
         className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(1)}
+        onClick={() => store.dispatch(setActive(1))}
       >
         <RxPerson size={20} color={active === 1 ? "red" : ""} />
         <span
@@ -74,13 +77,13 @@ const ProfileSidebar = ({ setActive, active }) => {
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(4) || navigate("/inbox")}
+        onClick={() => store.dispatch(setActive(4))}
       >
         <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
         <span
           className={`pl-3 ${
             active === 4 ? "text-[red]" : ""
-          } md:block hidden`}
+          } hidden md:block`}
         >
           Inbox
         </span>
@@ -88,7 +91,7 @@ const ProfileSidebar = ({ setActive, active }) => {
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(5)}
+        onClick={() => store.dispatch(setActive(5))}
       >
         <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
         <span
@@ -102,7 +105,7 @@ const ProfileSidebar = ({ setActive, active }) => {
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(6)}
+        onClick={() => store.dispatch(setActive(6))}
       >
         <RiLockPasswordLine size={20} color={active === 6 ? "red" : ""} />
         <span

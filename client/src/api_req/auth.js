@@ -1,9 +1,10 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helper/formHelper";
-import { getToken, setToken, setUserDetails } from "../helper/sessionHelper.js";
+import { getToken, getUserDetails, removeSessions, setToken, setUserDetails } from "../helper/sessionHelper.js";
 import { setProfileDetails } from "../redux/state/profileslice";
 import store from "../redux/store/store";
 import { setAlumniDetails } from "../redux/state/alumnislice";
+import { socket } from "../components/Layout/Header";
 const BaseURL = "http://localhost:8081/api/auth"
 const AxiosHeader = { headers: { "token": getToken() } }
 
@@ -88,6 +89,25 @@ export const LoginRequest = (email, password) => {
             ErrorToast("Something Went Wrong")
             return false;
         }
+    })
+}
+
+export const Logout = async() =>{
+    let URL = BaseURL + "/logout";
+
+    return await axios.get(URL).then((res) => {
+        if (res.status === 200) {
+            socket.emit("logout", getUserDetails()._id)
+            removeSessions()
+            SuccessToast("Logout Successfull.")
+            return true;
+        } else {
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    }).catch((err) => {
+        ErrorToast("Something Went Wrong")
+        return false;
     })
 }
 

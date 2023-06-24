@@ -117,8 +117,8 @@ const Alumni = () => {
                                                 <h3 className='text-md font-semibold'>{item.position}</h3>
                                                 <h4 className='text-md font-medium'>{item.company}</h4>
                                                 <div className='flex justify-between  text-sm font-semibold px-2 '>
-                                                    <span>{'Dept. of '+item.dept}</span>
-                                                    <span>{item.batch+'th Batch'}</span>
+                                                    <span>{'Dept. of ' + item.dept}</span>
+                                                    <span>{item.batch + 'th Batch'}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,27 +133,27 @@ const Alumni = () => {
 
 
                 <div className='flex w-full justify-center py-8 '>
-                <nav aria-label="Page navigation example" style={{display: 'flex', justifyContent: 'center'}}> 
-                                                <ReactPaginate className='pagination gap-2'
-                                                    previousLabel="<" 
-                                                    nextLabel=">" 
-                                                    pageClassName="page-item" 
-                                                    pageLinkClassName="page-link" 
-                                                    previousClassName="page-item" 
-                                                    previousLinkClassName="page-link" 
-                                                    nextClassName="page-item" 
-                                                    nextLinkClassName="page-link" 
-                                                    breakLabel="..." 
-                                                    breakClassName="page-item" 
-                                                    breakLinkClassName="page-link" 
-                                                    pageCount={Total / perPage} 
-                                                    marginPagesDisplayed={2} 
-                                                    pageRangeDisplayed={5} 
-                                                    onPageChange={handlePageClick} 
-                                                    containerClassName="pagination" 
-                                                    activeClassName="active" 
-                                                /> 
-                                            </nav>
+                    <nav aria-label="Page navigation example" style={{ display: 'flex', justifyContent: 'center' }}>
+                        <ReactPaginate className='pagination gap-2'
+                            previousLabel="<"
+                            nextLabel=">"
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            breakLabel="..."
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            pageCount={Total / perPage}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName="pagination"
+                            activeClassName="active"
+                        />
+                    </nav>
                 </div>
 
             </div>

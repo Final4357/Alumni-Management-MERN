@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { alumniDetailsById } from '../../api_req/alumni';
 import { useSelector } from 'react-redux';
+import store from '../../redux/store/store';
+import { setActive } from '../../redux/state/profileslice';
+import { accessChatRequest } from '../../api_req/chatRequset';
 
 const Alumnidetails = () => {
 
     let AlumniDetails = useSelector((state) => (state.alumni.AlumniDetails));
-    
+    const navigate = useNavigate()
     const params = useParams()
     const location = useLocation()
-  
-
     let [loading, setloading] = useState(false);
 
+    const onMessage = async () =>{
+        if(await accessChatRequest(params.id)){
+            store.dispatch(setActive(4))
+            navigate('/profile')
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -20,19 +27,12 @@ const Alumnidetails = () => {
             await alumniDetailsById(params.id);
             setloading(false);
         })();
-    },
-        [location])
+    },[location])
 
 
     return (
-
-
-
-
-
-
         <div className='bg-gray-50'>
-            <div class="container mx-auto  py-10 ">
+            <div class="container mx-auto  py-16 ">
             
                 <div class="md:flex no-wrap md:-mx-2 ">
 
@@ -77,13 +77,13 @@ const Alumnidetails = () => {
                         <div class="bg-white p-3 shadow rounded-sm">
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                                 <span clas="text-green-500">
-                                    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </span>
-                                <span class="tracking-wide">About</span>
+                                <span class="text-2xl font-bold">About</span>
                             </div>
                             <div class="text-gray-700">
                                 <div class="grid md:grid-cols-2 text-sm">
@@ -131,7 +131,7 @@ const Alumnidetails = () => {
                                 <div>
                                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                         <span clas="text-green-500">
-                                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
                                                 <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
                                                 <path fill="#fff"
@@ -140,13 +140,13 @@ const Alumnidetails = () => {
                                                     d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
                                             </svg>
                                         </span>
-                                        <span class="tracking-wide">Education</span>
+                                        <span class="text-2xl font-bold">Education</span>
                                     </div>
                                     <ul class="list-inside space-y-2">
                                        
-                                        <li>
-                                            <div class="text-teal-600"> {'Bachelors Degreen in'+' '+AlumniDetails.dept}</div>
-                                            <div class="text-gray-500 text-xs">{AlumniDetails.batch+'th Batch'}</div>
+                                        <li class='space-y-1'>
+                                            <div class="text-teal-600"> {'Bachelors Degree in'+' '+AlumniDetails.dept}</div>
+                                            <div class="text-gray-500 text-sm">{AlumniDetails.batch+'th Batch'}</div>
                                         </li>
                                         
                                     </ul>
@@ -158,8 +158,7 @@ const Alumnidetails = () => {
                                     <span class="  ml-auto ">
                                         <button type="button" class="gap-2  text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55  mb-2">
                                             <img className='w-5 h-5 ' src="https://i.ibb.co/wpxSqN0/image-removebg-preview.png" />
-                                            <span>
-                                                Message</span>
+                                            <span onClick={onMessage}>Message</span>
                                         </button>
                                     </span>
                                 </li>

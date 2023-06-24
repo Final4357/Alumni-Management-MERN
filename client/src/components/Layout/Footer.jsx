@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <footer aria-label="Site Footer" class="bg-white">
+        <footer aria-label="Site Footer" class="bg-white border-t">
             <div class="mx-auto max-w-screen-xl px-4 pb-6 pt-6 sm:px-6 lg:px-8 lg:pt-10">
                 <div className="flex justify-between">
                     <div>
@@ -126,11 +126,11 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-                    <div class="text-center sm:text-left">
+                    <div class="text-center lg:text-left">
                         <p class="text-lg font-medium text-gray-900">About Us</p>
 
-                        <nav aria-label="Footer About Nav" class="mt-8">
-                            <ul class="space-y-4 text-sm">
+                        <nav aria-label="Footer About Nav" class="mt-3">
+                            <ul class="space-y-2 text-sm">
                                 <li>
                                     <a
                                         class="text-gray-700 transition hover:text-gray-700/75"
@@ -170,11 +170,11 @@ const Footer = () => {
                         </nav>
                     </div>
 
-                    <div class="text-center sm:text-left">
+                    <div class="text-center lg:text-left">
                         <p class="text-lg font-medium text-gray-900">Helpful Links</p>
 
-                        <nav aria-label="Footer Helpful Nav" class="mt-8">
-                            <ul class="space-y-4 text-sm">
+                        <nav aria-label="Footer Helpful Nav" class="mt-3">
+                            <ul class="space-y-2 text-sm">
                                 <li>
                                     <a
                                         class="text-gray-700 transition hover:text-gray-700/75"
@@ -183,7 +183,6 @@ const Footer = () => {
                                         FAQs
                                     </a>
                                 </li>
-
                                 <li>
                                     <a
                                         class="text-gray-700 transition hover:text-gray-700/75"
@@ -192,11 +191,24 @@ const Footer = () => {
                                         Support
                                     </a>
                                 </li>
-
                                 <li>
                                     <a
-                                        class="group flex justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
+                                        class="text-gray-700 transition hover:text-gray-700/75"
                                         href="/"
+                                    >
+                                        Terms & Conditions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        class="text-gray-700 transition hover:text-gray-700/75"
+                                        href="/"
+                                    >
+                                        Privacy Policy
+                                    </a>
+                                </li>
+                                <li className='flex justify-center lg:justify-start'>
+                                <a class="flex gap-1.5" href="/"
                                     >
                                         <span class="text-gray-700 transition group-hover:text-gray-700/75">
                                             Live Chat
@@ -212,13 +224,13 @@ const Footer = () => {
                         </nav>
                     </div>
 
-                    <div class="text-center sm:text-left">
+                    <div class="text-center lg:text-left">
                         <p class="text-lg font-medium text-gray-900">Contact Us</p>
 
-                        <ul class="mt-8 space-y-4 text-sm">
+                        <ul class="space-y-2 text-sm mt-3">
                             <li>
                                 <a
-                                    class="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
+                                    class="flex items-center justify-center lg:justify-start gap-1.5"
                                     href="/"
                                 >
                                     <svg
@@ -236,13 +248,13 @@ const Footer = () => {
                                         />
                                     </svg>
 
-                                    <span class="flex-1 text-gray-700">john@doe.com</span>
+                                    <span class="text-gray-700">john@doe.com</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a
-                                    class="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
+                                    class="flex items-center justify-center lg:justify-start gap-1.5"
                                     href="/"
                                 >
                                     <svg
@@ -260,11 +272,11 @@ const Footer = () => {
                                         />
                                     </svg>
 
-                                    <span class="flex-1 text-gray-700">0123456789</span>
+                                    <span class="text-gray-700">0123456789</span>
                                 </a>
                             </li>
 
-                            <li class="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
+                            <li class="flex justify-center lg:justify-start gap-1.5">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 shrink-0 text-gray-900"
@@ -285,7 +297,7 @@ const Footer = () => {
                                     />
                                 </svg>
 
-                                <address class="-mt-0.5 flex-1 not-italic text-gray-700">
+                                <address class="not-italic text-gray-700">
                                     213 Lane, London, United Kingdom
                                 </address>
                             </li>

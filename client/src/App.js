@@ -14,33 +14,11 @@ import Alumnidetailspage from './pages/Alumnidetailspage'
 import Profilepage from './pages/Profilepage'
 import Jobspage from './pages/Jobspage'
 import { getToken } from './helper/sessionHelper'
+import { ProtectedRoute } from './helper/protectedRoute'
 
 
 const App = () => {
-  
-   if (getToken()) {
-    return (
-    <Fragment>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Homepage />} />
-        <Route path={'*'} element={<Notfoundpage />} />
-          <Route path='/alumni' element={<Alumnipage />} />
-          <Route path='/alumnidetails/:id' element={<Alumnidetailspage />} />
-          <Route path='/profile' element={<Profilepage />} />
-          <Route path='/jobs' element={<Jobspage />} />
-
-
-
-        </Routes>
-      </BrowserRouter>
-      <Toaster position="top-right" reverseOrder={false} />
-    </Fragment>
-    )
-
-  }
-  else {
-    return(
+  return (
     <Fragment>
       <BrowserRouter>
         <Routes>
@@ -50,24 +28,16 @@ const App = () => {
           <Route path='/sign-upAL' element={<SignuppageAL />} />
           <Route path='/forgot-password' element={<Forgotpage />} />
           <Route path='/resetpassword/:resetToken' element={<Resetpage />} />
-          <Route path={'*'} element={<Notfoundpage />} />
           <Route path='/alumni' element={<Alumnipage />} />
           <Route path='/jobs' element={<Jobspage />} />
-          
-
-
-
+          <Route path='/alumnidetails/:id' element={<ProtectedRoute Component={Alumnidetailspage} />} />
+          <Route path='/profile' element={<ProtectedRoute Component={Profilepage} />} />
+          <Route path={'*'} element={<Notfoundpage />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
     </Fragment>
-    )
-  }
-
-
-  
-
-  
+  )
 }
 
 export default App

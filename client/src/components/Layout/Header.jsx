@@ -1,13 +1,21 @@
 
 import { IoIosArrowForward } from "react-icons/io";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar"
+import io from "socket.io-client";
+import { getToken, getUserDetails } from "../../helper/sessionHelper";
+import { setOnlineUsers } from "../../redux/state/profileslice";
+import { setSocketConnected } from "../../redux/state/settingSlice";
+import store from '../../redux/store/store'
+import { Logout } from "../../api_req/auth";
+
+const ENDPOINT = "http://localhost:8081"
+export var socket
 
 
 const Header = ({ activeHeading }) => {
-
     const [active, setActive] = useState(false);
     const [dropDown, setDropDown] = useState(false);
 
@@ -19,6 +27,22 @@ const Header = ({ activeHeading }) => {
             setActive(false);
         }
     });
+
+    const onLogout = async () => {
+        if (await Logout())
+            window.location.href = '/'
+    }
+
+    useEffect(() => {
+        if (getToken()) {
+            socket = io(ENDPOINT)
+            socket.emit("setup", getUserDetails())
+            socket.on("getUsers", (users) => {
+                store.dispatch(setOnlineUsers(users))
+            })
+            socket.on("connected", () => setSocketConnected(true))
+        }
+    }, [])
 
     return (
         <>
@@ -71,15 +95,21 @@ const Header = ({ activeHeading }) => {
                     </div>
                     <div class="text-sm ">
                         <ul className="flex space-x-10 text-sm font-bold  ">
-                            <li className="hover:underline"><a href="/login">Sign In</a></li>
-                            <li className="hover:underline"><a href="/sign-up">Sign Up</a></li>
-                            <li className="dropdown dropdown-bottom dropdown-end">
-                                <label tabIndex={0} className=" m-1">Korim</label>
-                                <ul tabIndex={0} className="dropdown-content text-black menu p-2 mt-3 shadow bg-base-100 rounded-box w-52">
-                                    <li><a href="/profile">My Account</a></li>
-                                    <li><a> Log out</a></li>
-                                </ul>
-                            </li>
+                            {
+                                getToken() ?
+                                    <li className="dropdown dropdown-bottom dropdown-end">
+                                        <label tabIndex={0} className=" m-1">{getUserDetails().firstname}</label>
+                                        <ul tabIndex={0} className="dropdown-content text-black menu p-2 mt-3 shadow bg-base-100 rounded-box w-52">
+                                            <li><Link to="/profile">My Account</Link></li>
+                                            <li><span onClick={onLogout} className='cursor-pointer'> Log out</span></li>
+                                        </ul>
+                                    </li>
+                                    :
+                                    <>
+                                        <li className="hover:underline"><Link to="/login">Sign In</Link></li>
+                                        <li className="hover:underline"><Link to="/sign-up">Sign Up</Link></li>
+                                    </>
+                            }
                         </ul>
                     </div>
 
@@ -87,7 +117,7 @@ const Header = ({ activeHeading }) => {
             </header>
 
             <div
-                className={`${active === true ? "shadow fixed top-0  z-10" : null
+                className={`${active === true ? "shadow-sm fixed top-0  z-10" : null
                     } transition   w-full mx-auto md:flex items-center justify-between shadow bg-[#ffffff] h-16`}
             >
                 <div className="md:container md:mx-auto mx-auto py-1 flex justify-between items-center">

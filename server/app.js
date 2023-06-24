@@ -10,6 +10,8 @@ import hpp from'hpp'
 
 import authRouter from './routes/auth.js'
 import alumniRouter from './routes/alumni.js'
+import chatRouter from './routes/chat.js'
+import messageRouter from './routes/message.js'
 import jobRouter from './routes/job.js'
 import eventRouter from './routes/event.js'
 
@@ -29,6 +31,8 @@ app.use(express.json({ limit: '50mb' }))
 
 app.use('/api/auth', authRouter);
 app.use('/api/alumni', alumniRouter);
+app.use('/api/chat', chatRouter);
+app.use('/api/message', messageRouter);
 app.use('/api/job', jobRouter);
 app.use('/api/event', eventRouter);
 
