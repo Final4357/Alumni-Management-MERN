@@ -14,7 +14,8 @@ export const jobSlice = createSlice({
         Jobs: [],
         TotalJob: 0,
         Clear: true,
-        selectedJob:null
+        selectedJob:null,
+        loading : false
     },
     reducers: {
         setJobDetails: (state, action) => {
@@ -65,9 +66,12 @@ export const jobSlice = createSlice({
         },
         setselectedJob:(state,action)=>{
             state.selectedJob=action.payload
+        },
+        setloading:(state, action)=>{
+            state.loading=action.payload
         }
     }
 })
 
-export const {setselectedJob, setJobDetails, setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs, setClear, setAllClear, clear } = jobSlice.actions
+export const {setselectedJob, setJobDetails, setPageNo, setPerPage, setSearchKey, setSelectCategory, setSelectExperience, setSelectType, setSort, setJobs, setTotalJobs, setClear, setAllClear, clear, setloading } = jobSlice.actions
 export default jobSlice.reducer

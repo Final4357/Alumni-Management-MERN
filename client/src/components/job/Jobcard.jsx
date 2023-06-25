@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import { jobListRequest } from '../../api_req/jobrequest';
 import ReactPaginate from 'react-paginate';
 import { setPageNo } from '../../redux/state/jobslice';
+import Loaderani from '../loader/Loaderani'
 
 const Jobcard = ({ Jobs, TotalJob,perPage }) => {
 
     let sort = useSelector((state) => (state.job.sort));
+    let loading = useSelector((state) => (state.job.loading));
 
     const handlePageClick = async (e) => {
         store.dispatch(setPageNo(e.selected + 1))
@@ -32,6 +34,10 @@ const Jobcard = ({ Jobs, TotalJob,perPage }) => {
                             </select>
                         </div>
                     </div>
+                    {
+                        loading ?
+                        <Loaderani />
+                        :
                     <div className='flex-1 pb-2 px-2 shadow-md grid grid-cols-3 gap-3 '>
                         {Jobs.map((item, i) => {
                             return (
@@ -65,6 +71,7 @@ const Jobcard = ({ Jobs, TotalJob,perPage }) => {
                         })
                         }
                     </div>
+                    }
 
                 </div>
                 <div className='flex w-full justify-center py-8 '>

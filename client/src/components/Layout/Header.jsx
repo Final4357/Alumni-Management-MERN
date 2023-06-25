@@ -1,9 +1,7 @@
 
-import { IoIosArrowForward } from "react-icons/io";
-import { React, useEffect, useState } from "react";
-import styles from "../../styles/styles";
+import { Fragment, React, useEffect, useState } from "react";
+import { navItems } from '../../static/data'
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar"
 import io from "socket.io-client";
 import { getToken, getUserDetails } from "../../helper/sessionHelper";
 import { setOnlineUsers, setSocketConnected } from "../../redux/state/settingSlice";
@@ -14,18 +12,8 @@ const ENDPOINT = "http://localhost:8081"
 export var socket
 
 
-const Header = ({ activeHeading }) => {
-    const [active, setActive] = useState(false);
-    const [dropDown, setDropDown] = useState(false);
-
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 70) {
-            setActive(true);
-        } else {
-            setActive(false);
-        }
-    });
+const Header = () => {
+    const [showMenu, setShowMenu] = useState(false)
 
     const onLogout = async () => {
         if (await Logout())
@@ -44,9 +32,9 @@ const Header = ({ activeHeading }) => {
     }, [])
 
     return (
-        <>
-            <header className="w-full bg-[#2C1654] text-[#f4f4f8]">
-                <div className="md:container md:mx-auto mx-auto py-3 flex justify-between items-center ">
+        <Fragment>
+            <header className="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] bg-[#2C1654] text-[#f4f4f8]">
+                <div className="py-3 flex justify-between items-center ">
                     <div className="flex space-x-4">
                         <a href="#!" role="button">
                             <svg
@@ -93,7 +81,7 @@ const Header = ({ activeHeading }) => {
                         </a>
                     </div>
                     <div class="text-sm ">
-                        <ul className="flex space-x-10 text-sm font-bold  ">
+                        <ul className="flex space-x-10 text-sm font-bold uppercase ">
                             {
                                 getToken() ?
                                     <li className="dropdown dropdown-bottom dropdown-end">
@@ -118,26 +106,36 @@ const Header = ({ activeHeading }) => {
                 </div>
             </header>
 
-            <div
-                className={`${active === true ? "shadow-sm fixed top-0  z-10" : null
-                    } transition   w-full mx-auto md:flex items-center justify-between shadow bg-[#ffffff] h-16`}
-            >
-                <div className="md:container md:mx-auto mx-auto py-1 flex justify-between items-center">
-                    {/* <div className="w-full bg-[#2C1654] text-[#f4f4f8]">
-                <div className="md:container md:mx-auto mx-auto py-3 flex justify-between items-center "> */}
-                    <Link to="/">
-                        <div class=" flex items-center space-x-2 cursor-pointer">
-                            <img id="black" class="w-48" src="https://i.ibb.co/brSHcDm/1.jpg" alt="" />
-                            {/* <span class="text-2xl font-bold mb-1 text-[#2C1654]">Alumni</span> */}
-                        </div>
+            <div className="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] border-b shadow bg-white sticky top-0 z-50">
+                <div className='flex justify-between items-center py-2'>
+                    <Link to='/'>
+                        <img class="w-24 lg:w-32 " src="https://i.ibb.co/brSHcDm/1.jpg" />
                     </Link>
-                    <div className={`${styles.noramlFlex}`}>
-
-                        <Navbar active={activeHeading} />
+                    <nav className='hidden lg:block'>
+                        <ul className='flex items-center gap-6 uppercase font-semibold'>
+                            {
+                                navItems?.map((item, i)=>
+                                    <li><Link className="hover:opacity-80" to={item.url}>{item.title}</Link></li>
+                                )
+                            }
+                        </ul>
+                    </nav>
+                    <div onClick={() => setShowMenu(!showMenu)} className="lg:hidden w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" /> </svg>
+                    </div>
+                    <div className={`${showMenu ? 'top-0' : 'top-[100%]'} w-full h-[450px] overflow-y-auto border-b shadow p-10 rounded-b-3xl bg-white fixed left-0`}>
+                        <div onClick={() => setShowMenu(!showMenu)} className={`${showMenu ? 'block' : 'hidden'} fixed right-8 top-8 z-50 cursor-pointer`}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" id="IconChangeColor"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" id="mainIconPathAttribute"></path> </svg></div>
+                        <ul id="menu" class="w-full text-black text-center space-y-10 font-bold uppercase">
+                            {
+                                navItems?.map((item, i)=>
+                                    <li className='flex justify-center'><Link to={item.url}>{item.title}</Link></li>
+                                )
+                            }
+                        </ul>
                     </div>
                 </div>
             </div>
-        </>
+        </Fragment>
     )
 }
 

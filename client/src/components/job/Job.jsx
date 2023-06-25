@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { jobListRequest } from '../../api_req/jobrequest'
 import store from '../../redux/store/store'
-import { setClear } from '../../redux/state/jobslice'
+import { setClear, setloading } from '../../redux/state/jobslice'
 
 const Job = () => {
   let experience
@@ -25,6 +25,7 @@ const Job = () => {
 
 
   const applyFilter = async () => {
+    store.dispatch(setloading(true))
     if ( searchKey.length || selectExperience.length || selectType.length || sort.length || selectCategory.length)
       store.dispatch(setClear(false))
     else
@@ -34,6 +35,7 @@ const Job = () => {
     type = selectType.length ? selectType.join(",") : "";
 
     await jobListRequest(pageNo, perPage, searchKey, selectCategory, experience, type, sort)
+    store.dispatch(setloading(false))
   }
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const Job = () => {
 
   return (
     <Fragment>
-      <div className='container mx-auto flex flex-col gap-2  w-full  '>
+      <div className='w-full px-[2rem] md:px-[3rem] lg:px-[5rem] flex flex-col gap-2 pb-6 lg:pb-10'>
         <Topbar />
         <div className='flex gap-2 '>
           <Jobsidebar />
