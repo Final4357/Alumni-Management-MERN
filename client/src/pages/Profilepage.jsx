@@ -10,22 +10,20 @@ import styles from '../styles/styles';
 const Profilepage = () => {
     return (
         <Fragment>
-            
-                
-                    <Header/>
-                    <div className='py-16 bg-gray-50'>
-            <div class="container mx-auto">
-                    <div className={` w-full  flex gap-2 bg-gray-50 `}>
+            <Header />
+            <div className='py-16 bg-white'>
+                <div class="container mx-auto">
+                    <div className={` w-full  flex gap-2`}>
                         <div className="w-[50px] md:w-[335px] sticky md:mt-0 mt-[18%]">
                             <ProfileSidebar />
                         </div>
                         <ProfileContent />
                     </div>
-                    </div>
-                    </div>
-                    <Footer/>
-              
-           
+                </div>
+            </div>
+            <Footer />
+
+
         </Fragment>
     )
 }

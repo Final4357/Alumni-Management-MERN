@@ -58,6 +58,11 @@ io.on("connection", (socket) => {
     })
   })
 
+  socket.on('logout', (userID)=> {
+    users = users.filter((u) => u.userId !== userID);
+    io.emit("getUsers", users);
+  })
+
   socket.off("setup", () => {
     removeUser(socket.id);
     io.emit("getUsers", users);

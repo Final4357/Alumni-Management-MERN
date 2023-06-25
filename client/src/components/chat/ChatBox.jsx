@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { myChatRequest } from '../../api_req/chatRequset';
 import { useSelector } from 'react-redux';
-import { getSender } from '../../helper/logic';
+import { getOnline, getSender } from '../../helper/logic';
 import { getUserDetails } from '../../helper/sessionHelper';
 import { setSelectChat } from '../../redux/state/chatSlice';
 import store from '../../redux/store/store';
@@ -11,6 +11,8 @@ const ChatBox = () => {
     const myChats = useSelector((state)=>state.chat.myChats)
     const allMessages = useSelector((state) => state.chat.allMessages)
     const selectedChat = useSelector((state) => state.chat.selectChat)
+    const onlineUsers = useSelector((state) => state.setting.onlineUsers)
+
     useEffect(()=>{
         (async () => {
             await myChatRequest()
@@ -58,13 +60,13 @@ const ChatBox = () => {
                                  ${selectedChat?._id === items._id ? "bg-gray-200" : "bg-white hover:bg-gray-200"}`}
                                 >
                                     <div className="relative w-14">
-                                        <img className={`object-cover w-12 h-12 rounded-full bg-gray-200`}
+                                        <img className={`object-fill w-12 h-12 rounded-full bg-gray-200`}
                                             src={getSender(items.users, getUserDetails()).photo }
                                                 alt="Chat pic" />
-                                        {/* {
-                                            getOnline(items, onlineUsers, getUserDetails()) && */}
+                                        {
+                                            getOnline(items, onlineUsers, getUserDetails()) &&
                                             <span className="h-3 w-3 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-white -bottom-0.5"></span>
-                                        {/* } */}
+                                        } 
                                     </div>
                                     <div className='flex justify-between w-full'>
                                         <div className="text-left rtl:text-right space-y-1 ">

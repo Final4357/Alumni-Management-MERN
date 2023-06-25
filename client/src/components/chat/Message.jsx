@@ -2,13 +2,12 @@ import React from 'react'
 import ReactScrollableFeed from 'react-scrollable-feed'
 import { getUserDetails } from '../../helper/sessionHelper'
 // import { getUserDetails } from '../helper/sessionHelper'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import moment from "moment"
-// import Typing from '../assets/animation/Typing';
 
 
 const Message = ({ messages }) => {
-    // const onlineUsers = useSelector((state) => state.setting.onlineUsers)
+    const onlineUsers = useSelector((state) => state.setting.onlineUsers)
 
     const isPlaceDate = (messages, i) => {
         if (i = 0 || moment((messages[i]?.createdAt)).diff(messages[i - 1]?.createdAt, 'days'))
@@ -54,8 +53,7 @@ const Message = ({ messages }) => {
                             {
                                 isPlaceDate(messages, i) &&
                             <div className="flex justify-center my-2">
-                                {moment(messages[i]?.createdAt).format('MMMM Do YYYY')}
-                                <span className="px-2 py-1 bg-gray-300 font-medium text-gray-600 rounded-md text-sm">13-09-2023</span>
+                                <span className="px-2 py-1 bg-gray-300 font-medium text-gray-600 rounded-md text-sm">{moment(messages[i]?.createdAt).format('Do MMMM, YYYY')}</span>
                             </div>
                              } 
                             <div key={i} className="mt-0.5 max-full flex flex-col">
@@ -95,11 +93,11 @@ const Message = ({ messages }) => {
                                                 <div className='flex max-w-sm space-x-3 mt-3 mr-24 md:mr-12'>
                                                     <div className="flex-shrink-0 h-8 w-8 rounded-full mt-auto relative">
                                                         <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo} alt="Sender pic" />
-                                                        {/* {
+                                                        {
                                                             onlineUsers.find((u) => u.userId === msg.sender._id)
-                                                            && */}
-                                                        <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-gray-300 bottom-0"></span>
-                                                        {/* } */}
+                                                            &&
+                                                        <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-gray-50 -bottom-0.5"></span>
+                                                        }
                                                     </div>
                                                     <div className="bg-gray-300 p-2 rounded-r-[20px] rounded-l-[20px]">
                                                         <p className="text-sm px-3">{msg.content}</p>
@@ -118,11 +116,11 @@ const Message = ({ messages }) => {
                                                             <div className='flex w-full space-x-3'>
                                                                 <div className="flex-shrink-0 h-8 w-8 mt-auto rounded-full relative">
                                                                     <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo} alt="Sender pic" />
-                                                                    {/* {
+                                                                    {
                                                                         onlineUsers.find((u) => u.userId === msg.sender._id)
-                                                                        && */}
-                                                                    <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-gray-300 bottom-0"></span>
-                                                                    {/* } */}
+                                                                        &&
+                                                                    <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-gray-50 -bottom-0.5"></span>
+                                                                    } 
                                                                 </div>
                                                                 <div className="bg-gray-300 p-2 rounded-r-[20px] rounded-bl-[20px] rounded-tl-md">
                                                                     <p className="text-sm px-3">{msg.content}</p>
@@ -145,19 +143,6 @@ const Message = ({ messages }) => {
                     )
                 })
             }
-            {/* {
-                isTyping ?
-                    <div className='flex w-full space-x-3 mt-4'>
-                         <div className="flex-shrink-0 h-8 w-8 mr-1 rounded-full mt-auto relative">
-                             <img className="object-cover w-8 h-8 rounded-full" src={typingUser.photo} alt="User pic" />
-                             <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-1 ring-gray-300 bottom-0"></span>
-                         </div>
-                         <div>
-                         <Typing />
-                         </div>
-                    </div>
-                    : <></>
-            } */}
         </ReactScrollableFeed >
     )
 }

@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar"
 import io from "socket.io-client";
 import { getToken, getUserDetails } from "../../helper/sessionHelper";
-import { setOnlineUsers } from "../../redux/state/profileslice";
-import { setSocketConnected } from "../../redux/state/settingSlice";
+import { setOnlineUsers, setSocketConnected } from "../../redux/state/settingSlice";
 import store from '../../redux/store/store'
 import { Logout } from "../../api_req/auth";
 
@@ -98,7 +97,10 @@ const Header = ({ activeHeading }) => {
                             {
                                 getToken() ?
                                     <li className="dropdown dropdown-bottom dropdown-end">
-                                        <label tabIndex={0} className=" m-1">{getUserDetails().firstname}</label>
+                                        <label tabIndex={0} className=" m-1 flex items-center gap-1 text-sm cursor-pointer">
+                                            {getUserDetails().firstname}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" aria-hidden="true" className="rotate-180 transform h-5 w-5 text-primary"><path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd"></path></svg>
+                                        </label>
                                         <ul tabIndex={0} className="dropdown-content text-black menu p-2 mt-3 shadow bg-base-100 rounded-box w-52">
                                             <li><Link to="/profile">My Account</Link></li>
                                             <li><span onClick={onLogout} className='cursor-pointer'> Log out</span></li>

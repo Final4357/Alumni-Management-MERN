@@ -3,6 +3,7 @@ import { ErrorToast  } from "../helper/formHelper";
 import store from "../redux/store/store";
 import { getToken } from "../helper/sessionHelper";
 import { setAllMessages, setMyChats, setNewMessage, setSelectChat, setSingleMessage } from "../redux/state/chatSlice";
+import { socket } from "../components/Layout/Header";
 const BaseURL = "http://localhost:8081/api"
 const AxiosHeader = { headers: { "token": getToken() } }
 
@@ -66,7 +67,7 @@ export const sentMessageRequest = async (content, chatId) =>{
         if (res.status === 200) {
             store.dispatch(setSingleMessage(res.data))
             store.dispatch(setNewMessage(res.data))
-            // socket.emit("new msg", res.data)
+            socket.emit("new msg", res.data)
             return true;
         } else {
             ErrorToast("Something Went Wrong")

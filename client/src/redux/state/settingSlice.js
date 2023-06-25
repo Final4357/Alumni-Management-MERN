@@ -5,18 +5,16 @@ export const settingSlice = createSlice({
     initialState:{
         onlineUsers: [],
         socketConnected: false,
-        selectedChatCompare: null
     },
+
     reducers:{
         setOnlineUsers:(state, action)=>{
             state.onlineUsers = action.payload
         },setSocketConnected:(state, action)=>{
             state.socketConnected = action.payload
-        },setSelectedChatCompare:(state, action)=>{
-            state.selectedChatCompare = action.payload
         }
     }
 })
 
-export const { setOnlineUsers, setSocketConnected, setSelectedChatCompare } = settingSlice.actions
+export const { setOnlineUsers, setSocketConnected } = settingSlice.actions
 export default settingSlice.reducer

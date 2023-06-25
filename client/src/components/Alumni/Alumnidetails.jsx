@@ -3,8 +3,10 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { alumniDetailsById } from '../../api_req/alumni';
 import { useSelector } from 'react-redux';
 import store from '../../redux/store/store';
+import moment from 'moment';
 import { setActive } from '../../redux/state/profileslice';
 import { accessChatRequest } from '../../api_req/chatRequset';
+import { getUserDetails } from '../../helper/sessionHelper';
 
 const Alumnidetails = () => {
 
@@ -14,8 +16,8 @@ const Alumnidetails = () => {
     const location = useLocation()
     let [loading, setloading] = useState(false);
 
-    const onMessage = async () =>{
-        if(await accessChatRequest(params.id)){
+    const onMessage = async () => {
+        if (await accessChatRequest(params.id)) {
             store.dispatch(setActive(4))
             navigate('/profile')
         }
@@ -27,29 +29,29 @@ const Alumnidetails = () => {
             await alumniDetailsById(params.id);
             setloading(false);
         })();
-    },[location])
+    }, [location])
 
 
     return (
         <div className='bg-gray-50'>
             <div class="container mx-auto  py-16 ">
-            
+
                 <div class="md:flex no-wrap md:-mx-2 ">
 
                     <div class="w-full md:w-3/12 md:mx-2">
                         {/* <!-- Profile Card --> */}
-                        <div class="bg-white shadow p-3 border-t-4 border-green-400">
+                        <div class="bg-white shadow pb-3 border-t-4 border-green-400">
                             <div class="image overflow-hidden">
-                                <img class="h-auto w-full mx-auto"
-                                    src="https://i.ibb.co/hfKQp2w/sd.jpg"
-                                    alt="" />
+                                <img class="w-[400px] h-[300px] object-fill"
+                                    src={AlumniDetails.photo}
+                                    alt="Alumni photo" />
                             </div>
                             <div className='text-center'>
-                            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{AlumniDetails.firstname+' '+AlumniDetails.lastname}</h1>
-                            <h3 class="text-gray-600 font-lg text-semibold leading-6">{AlumniDetails.position}</h3>
-                            <h3 class="text-gray-600  font-lg text-sm leading-6">{AlumniDetails.company}</h3>
+                                <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{AlumniDetails.firstname + ' ' + AlumniDetails.lastname}</h1>
+                                <h3 class="text-gray-800 font-semibold text-lg leading-6">{AlumniDetails.position}</h3>
+                                <h3 class="text-gray-600  font-medium text-md leading-6">{AlumniDetails.company}</h3>
                             </div>
-                           
+
                             {/* <ul
                                 class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
                                 <li class="flex items-center py-3">
@@ -69,13 +71,13 @@ const Alumnidetails = () => {
                             </ul> */}
                         </div>
                         {/* <!-- End of profile card --> */}
-                        
+
                         {/* <!-- End of friends card --> */}
                     </div>
                     {/* <!-- Right Side --> */}
                     <div class="w-full md:w-9/12 mx-2 h-64">
                         <div class="bg-white p-3 shadow rounded-sm">
-                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 mb-3 leading-8">
                                 <span clas="text-green-500">
                                     <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -127,7 +129,7 @@ const Alumnidetails = () => {
                         <div class="bg-white p-3 shadow-sm rounded-sm">
 
                             <div class="grid grid-cols-2">
-                                
+
                                 <div>
                                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                         <span clas="text-green-500">
@@ -143,37 +145,40 @@ const Alumnidetails = () => {
                                         <span class="text-2xl font-bold">Education</span>
                                     </div>
                                     <ul class="list-inside space-y-2">
-                                       
+
                                         <li class='space-y-1'>
-                                            <div class="text-teal-600"> {'Bachelors Degree in'+' '+AlumniDetails.dept}</div>
-                                            <div class="text-gray-500 text-sm">{AlumniDetails.batch+'th Batch'}</div>
+                                            <div class="text-teal-600"> {'Bachelors Degree in' + ' ' + AlumniDetails.dept}</div>
+                                            <div class="text-gray-500 text-sm">{AlumniDetails.batch + 'th Batch'}</div>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                                 <ul
-                                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
-                                <li class="flex items-center py-3">
-                                    <span>Connect</span>
-                                    <span class="  ml-auto ">
-                                        <button type="button" class="gap-2  text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55  mb-2">
-                                            <img className='w-5 h-5 ' src="https://i.ibb.co/wpxSqN0/image-removebg-preview.png" />
-                                            <span onClick={onMessage}>Message</span>
-                                        </button>
-                                    </span>
-                                </li>
-                                <li class="flex items-center py-3">
-                                    <span>Member since</span>
-                                    <span class="ml-auto">Nov 07, 2016</span>
-                                </li>
-                            </ul>
+                                    class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
+                                    {
+                                        !getUserDetails().isAlumni &&
+                                        <li class="flex items-center py-3">
+                                            <span>Connect</span>
+                                            <span class="  ml-auto ">
+                                                <button type="button" class="gap-2  text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55  mb-2">
+                                                    <img className='w-5 h-5 ' src="https://i.ibb.co/wpxSqN0/image-removebg-preview.png" />
+                                                    <span onClick={onMessage}>Message</span>
+                                                </button>
+                                            </span>
+                                        </li>
+                                    }
+                                    <li class="flex items-center py-3">
+                                        <span>Member since</span>
+                                        <span class="ml-auto">{moment(AlumniDetails.createdAt).format("D MMM, YYYY")}</span>
+                                    </li>
+                                </ul>
                             </div>
                             {/* <!-- End of Experience and education grid --> */}
                         </div>
                         {/* <!-- End of profile tab --> */}
                     </div>
                 </div>
-                        
+
             </div>
         </div>
 

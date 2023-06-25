@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import IMG from '../../assets/images/grp image.png'
 import Message from './Message'
 import { useSelector } from 'react-redux'
-import { getSender } from '../../helper/logic'
+import { getOnline, getSender } from '../../helper/logic'
 import { getUserDetails } from '../../helper/sessionHelper'
 import { ErrorToast, IsEmpty } from '../../helper/formHelper'
 import { fetchAllMessagesRequest, sentMessageRequest } from '../../api_req/chatRequset'
@@ -10,38 +10,21 @@ import store from '../../redux/store/store'
 import { setSelectChat, setSingleMessage } from '../../redux/state/chatSlice'
 import { useRef } from 'react'
 import { socket } from '../Layout/Header'
-import { setSelectedChatCompare } from '../../redux/state/settingSlice'
+
+export var selectedChatCompare
 
 const MessageBox = () => {
   const renderRun = useRef(false)
   let [message, setMessage] = useState('')
   const selectedChat = useSelector((state) => state.chat.selectChat)
   const allMessages = useSelector((state) => state.chat.allMessages)
-  const selectedChatCompare = useSelector((state) => state.setting.selectedChatCompare)
+  const onlineUsers = useSelector((state) => state.setting.onlineUsers)
 
   const onTyping = (e) => {
     setMessage(e.target.value)
-
-    // if (!socketConnected) return;
-
-    // if (!typing) {
-    //     setTyping(true);
-    //     socket.emit("typing", selectUser._id, getUserDetails());
-    // }
-    // let lastTypingTime = new Date().getTime();
-    // var timerLength = 3000;
-    // setTimeout(() => {
-    //     var timeNow = new Date().getTime();
-    //     var timeDiff = timeNow - lastTypingTime;
-    //     if (timeDiff >= timerLength && typing) {
-    //         socket.emit("stop typing", selectUser._id);
-    //         setTyping(false);
-    //     }
-    // }, timerLength)
-}
+  }
 
   const onSentMessage = async () => {
-    // socket.emit('stop typing', selectUser._id)
     if (IsEmpty(message)) {
         ErrorToast('Please write a message.')
     } else {
@@ -67,13 +50,13 @@ const fetchAllMessage = async () => {
 
 useEffect(() => {
   fetchAllMessage()
-  store.dispatch(setSelectedChatCompare(selectedChat))
+  selectedChatCompare = selectedChat
 }, [selectedChat])
 
 useEffect(() => {
   if (renderRun.current === false) {
       socket.on("msg recieved", (newMsgRecieved) => {
-          if (!selectedChatCompare || selectedChatCompare?._id !== newMsgRecieved.chat._id) {
+          if (!selectedChatCompare || selectedChatCompare._id !== newMsgRecieved.chat._id) {
               // if (!notifications.includes(newMsgRecieved)) {
               //     store.dispatch(setNotification(newMsgRecieved))
               //     myChatRequest()
@@ -98,13 +81,13 @@ useEffect(() => {
                 <path d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"></path>
               </svg>
               <div className="relative">
-                <img className="object-cover w-12 h-12 rounded-full"
+                <img className="object-fill w-12 h-12 rounded-full"
                   src={getSender(selectedChat?.users, getUserDetails()).photo}
                   alt="Chat pic" />
-                {/* {
-                                    getOnline(selectUser, onlineUsers, getUserDetails()) && */}
+                {
+                  getOnline(selectedChat, onlineUsers, getUserDetails()) &&
                 <span className="h-3 w-3 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-white -bottom-0.5"></span>
-                {/* } */}
+                 } 
               </div>
               <div className="flex flex-col pl-1 md:pl-0 max-w-[170px] md:max-w-[480px]">
                 <span className="font-bold text-black truncate">
@@ -113,12 +96,12 @@ useEffect(() => {
                   }
                 </span>
                 <span className='truncate text-xs md:text-sm text-[#777e83]'>
-                  {/* {
-                                                getOnline(selectUser, onlineUsers, getUserDetails()) ? */}
-                  {/* 'Active Now' */}
-                  {/* : */}
+                  {
+                    getOnline(selectedChat, onlineUsers, getUserDetails()) ?
+                   'Active Now' 
+                   : 
                   'last seen 19/05/2022 at 03:56 pm'
-                  {/* } */}
+                   } 
                 </span>
               </div>
             </div>

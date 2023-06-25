@@ -15,14 +15,11 @@ import { profileDetails, updateProfile } from "../../api_req/auth";
 import { useEffect } from "react";
 import { getUserDetails } from "../../helper/sessionHelper";
 import ReactPaginate from "react-paginate";
-<<<<<<< HEAD
 import ChatPage from "../../pages/ChatPage";
-=======
 import store from "../../redux/store/store";
 import moment from 'moment';
 import Jobupdatemodel from "../model/Jobupdatemodel";
 import { setselectedJob } from "../../redux/state/jobslice";
->>>>>>> ffdecb0dc6969c434d41a75882b0a24b051f4aed
 // import {
 //   deleteUserAddress,
 //   loadUser,
@@ -135,7 +132,7 @@ const ProfileContent = () => {
             <div className="relative">
               <img
                 src={ProfileDetails.photo}
-                className="w-[150px] h-[150px] rounded-full object-cover border-[3px] border-[#3ad132]"
+                className="w-[150px] h-[150px] rounded-full object-fill border-[3px] border-[#3ad132]"
                 alt=""
               />
               <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">

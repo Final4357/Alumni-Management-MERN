@@ -4,6 +4,7 @@ import  profileReducer from "../state/profileslice";
 import jobReducer from "../state/jobslice"
 import chatReducer from "../state/chatSlice"
 import settingReducer from '../state/settingSlice'
+
 export default configureStore({
     reducer:{
         alumni: alumniReducer ,
