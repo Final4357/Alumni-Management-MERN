@@ -33,9 +33,9 @@ const Header = () => {
 
     return (
         <Fragment>
-            <header className="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] bg-[#2C1654] text-[#f4f4f8]">
+            <header className="w-full px-[1rem] md:px-[2rem] lg:px-[5rem] bg-[#2C1654] text-[#f4f4f8]">
                 <div className="py-3 flex justify-between items-center ">
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-3 lg:space-x-4">
                         <a href="#!" role="button">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ const Header = () => {
                         </a>
                     </div>
                     <div class="text-sm ">
-                        <ul className="flex space-x-10 text-sm font-bold uppercase ">
+                        <ul className="flex space-x-4 lg:space-x-10 text-sm font-bold uppercase ">
                             {
                                 getToken() ?
                                     <li className="dropdown dropdown-bottom dropdown-end">
@@ -106,10 +106,10 @@ const Header = () => {
                 </div>
             </header>
 
-            <div className="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] border-b shadow bg-white sticky top-0 z-50">
+            <div className="w-full px-[1rem] md:px-[2rem] lg:px-[5rem] border-b shadow bg-white sticky top-0 z-20">
                 <div className='flex justify-between items-center py-2'>
                     <Link to='/'>
-                        <img class="w-24 lg:w-32 " src="https://i.ibb.co/brSHcDm/1.jpg" />
+                        <img class="w-32 lg:w-40 " src="https://i.ibb.co/brSHcDm/1.jpg" />
                     </Link>
                     <nav className='hidden lg:block'>
                         <ul className='flex items-center gap-6 uppercase font-semibold'>

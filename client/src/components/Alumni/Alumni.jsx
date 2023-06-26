@@ -66,7 +66,7 @@ const Alumni = () => {
                     <h1 className="mb-5 text-5xl text-white font-bold">Alumni List</h1>
                 </div>
             </div>
-            <div class="w-full px-[2rem] md:px-[3rem] lg:px-[5rem]">
+            <div class="w-full px-[1rem] md:px-[3rem] lg:px-[5rem]">
                 <div className="text-sm breadcrumbs">
                     <ul>
                         <li><Link to="/">Home</Link></li>

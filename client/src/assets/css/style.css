@@ -1,3 +1,9 @@
+/* Event */
+.event-card:hover h1{
+    text-decoration: underline #2C1654;
+}
+
+
 .pagination {
     --bs-pagination-padding-x: 0.75rem;
     --bs-pagination-padding-y: 0.375rem;

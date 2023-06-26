@@ -15,6 +15,7 @@ import Profilepage from './pages/Profilepage'
 import Jobspage from './pages/Jobspage'
 import { getToken } from './helper/sessionHelper'
 import { ProtectedRoute } from './helper/protectedRoute'
+import EventPage from './pages/EventPage'
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/forgot-password' element={<Forgotpage />} />
           <Route path='/resetpassword/:resetToken' element={<Resetpage />} />
           <Route path='/alumni' element={<Alumnipage />} />
+          <Route path='/events' element={<EventPage />} />
           <Route path='/jobs' element={<Jobspage />} />
           <Route path='/alumnidetails/:id' element={<ProtectedRoute Component={Alumnidetailspage} />} />
           <Route path='/profile' element={<ProtectedRoute Component={Profilepage} />} />

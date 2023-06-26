@@ -11,7 +11,7 @@ import Job from '../components/job/Job'
 
 const Jobspage = () => {
   return (
-    <Fragment>
+    <Fragment className='relative'>
       <Header />
       <Job />
       <Footer />

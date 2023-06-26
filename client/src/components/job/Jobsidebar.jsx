@@ -16,8 +16,8 @@ const Jobsidebar = () => {
     }
     
     return (
-        <Fragment className="relative  ">
-            <div className="sticky top-20 w-[350px] h-fit">
+        <Fragment className="relative">
+            <div className="sticky top-20 w-[350px] lg:w-[300px] bg-white rounded-lg h-fit">
                 <div className="flex gap-x-4 ">
                     <div class=" h-fit w-full  border shadow rounded-lg bg-white dark:bg-gray-800">
                         <div className="flex p-4  mb-4 justify-between w-full bg-gray-200">
@@ -35,7 +35,7 @@ const Jobsidebar = () => {
                         <div class="flex flex-col justify-between  flex-1 p-4 ">
                             <div class="space-y-2">
                                 <div class="space-y-2">
-                                    <h6 class="text-base mb-4 font-medium text-black dark:text-white">
+                                    <h6 class="text-base mb-4 font-bold text-black dark:text-white">
                                         Job Type
                                     </h6>
                                     <div class="flex items-center">
@@ -131,7 +131,7 @@ const Jobsidebar = () => {
                         <div class="flex flex-col justify-between  flex-1 p-4 ">
                             <div class="space-y-2">
                                 <div class="space-y-2">
-                                    <h6 class="text-base mb-4 font-medium text-black dark:text-white">
+                                    <h6 class="text-base mb-4 font-bold text-black dark:text-white">
                                         Experience Level
                                     </h6>
                                     <div class="flex items-center">
