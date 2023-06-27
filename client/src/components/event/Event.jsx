@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const Event = () => {
     return (
         <Fragment>
-            <div className='py-16 w-full px-[2rem] md:px-[3rem] lg:px-[5rem]'>
+            <div className='py-16 w-full px-[2rem] md:px-[3rem] lg:px-[5rem] bg-slate-100'>
                 <h3 className='text-5xl lg:text-7xl font-bold lg:font-extrabold mb-4'>Upcoming Events</h3>
                 <h1 className='text-2xl '>Peek at some alumni events happening just around the corner.</h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

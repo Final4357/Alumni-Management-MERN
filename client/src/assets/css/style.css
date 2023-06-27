@@ -1,6 +1,56 @@
+/* Hero */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
 /* Event */
-.event-card:hover h1{
-    text-decoration: underline #2C1654;
+.event-card h1,
+.storie-card h1,
+.about-card-link a,
+.storie-card img,
+.trips-card img,
+.about-card-link{
+    transition: all 0.5s ease-in-out;
+}
+
+.event-card:hover h1,
+.storie-card:hover h1,
+.about-card-link:hover a{
+    text-decoration: underline 4px #2C1654;
+}
+
+/* stories */
+.storie-card:hover img,
+.trips-card:hover img{
+    transform: scale(1.15);
+}
+
+/* trips */
+.trips-card:hover h1{
+    text-decoration: underline 4px orangered;
+}
+
+/* About */
+.about-card-link:hover {
+    gap: 13px;
 }
 
 
