@@ -37,10 +37,10 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                         loading ?
                             <Loaderani />
                             :
-                            <div className='flex-1 py-2 lg:px-2 shadow-md grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 '>
+                            <div className='flex-1 py-2 lg:px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 '>
                                 {Jobs.map((item, i) => {
                                     return (
-                                        <div key={i} class="w-full h-fit bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
+                                        <div key={i} class="w-full bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
                                             <div class="flex flex-col p-6 space-y-4">
                                                 <h5 class="text-xl font-bold text-gray-900 dark:text-white">{item.position}</h5>
                                                 <div className='flex flex-wrap gap-2'>

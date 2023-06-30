@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="bg-white border-t">
+        <footer className="bg-slate-100 border-t">
             <div class="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] py-10 ">
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-0 justify-between">
                     <div className='flex flex-col space-y-5 items-center lg:items-start'>
-                        <img class="w-28" src="https://i.ibb.co/brSHcDm/1.jpg" />
+                        <img class="w-28 lg:w-40" src="https://i.ibb.co/brSHcDm/1.jpg" />
 
                         <p class="mt-3 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -60,7 +60,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div class="text-center lg:text-left">
-                        <p class="text-lg font-medium text-gray-900">Events</p>
+                        <p class="text-lg font-bold text-gray-900">Events</p>
 
                         <nav aria-label="Footer About Nav" class="mt-3">
                             <ul class="space-y-2 text-sm">
@@ -95,7 +95,7 @@ const Footer = () => {
                     </div>
 
                     <div class="text-center lg:text-left">
-                        <p class="text-lg font-medium text-gray-900">Communities</p>
+                        <p class="text-lg font-bold text-gray-900">Communities</p>
 
                         <nav aria-label="Footer Helpful Nav" class="mt-3">
                             <ul class="space-y-2 text-sm">
@@ -128,7 +128,7 @@ const Footer = () => {
                     </div>
 
                     <div class="text-center lg:text-left">
-                        <p class="text-lg font-medium text-gray-900">Programs & Perks</p>
+                        <p class="text-lg font-bold text-gray-900">Programs & Perks</p>
 
                         <nav aria-label="Footer Helpful Nav" class="mt-3">
                             <ul class="space-y-2 text-sm">
@@ -161,7 +161,7 @@ const Footer = () => {
                     </div>
 
                     <div class="text-center lg:text-left">
-                        <p class="text-lg font-medium text-gray-900">About</p>
+                        <p class="text-lg font-bold text-gray-900">About</p>
 
                         <ul class="space-y-2 text-sm mt-3">
                             <li>
@@ -208,9 +208,9 @@ const Footer = () => {
                         </div>
                         <div className='flex flex-col gap-4'>
                             <ul className='flex flex-wrap justify-center lg:justify-end gap-4'>
-                                <li><Link to='' className='text-md font-medium hover:underline'>Stanford Home</Link></li>
+                                <li><Link to='' className='text-md font-medium hover:underline'>IIUC Home</Link></li>
                                 <li><Link to='' className='text-md font-medium hover:underline'>Maps & Directions</Link></li>
-                                <li><Link to='' className='text-md font-medium hover:underline'>Search Stanford</Link></li>
+                                <li><Link to='' className='text-md font-medium hover:underline'>Search IIUC</Link></li>
                                 <li><Link to='' className='text-md font-medium hover:underline'>Emergency Info</Link></li>
                             </ul>
                             <ul className='flex flex-wrap justify-center lg:justify-end gap-4'>

@@ -25,8 +25,8 @@ const Events = () => {
                 <div className='flex flex-col items-center lg:mx-24'>
                     {
                         [...Array(5)].map((_, i) =>
-                            <div key={i} className='flex gap-5 md:gap-10 lg:gap-16 border-b border-gray-400 py-8 cursor-pointer event-card'>
-                                <div className='flex-[1]'>
+                            <div key={i} className='flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-16 border-b border-gray-400 py-8 cursor-pointer event-card'>
+                                <div className='flex-[1] text-center lg:text-left'>
                                     <h3 className='text-xl font-medium'>JUN</h3>
                                     <h2 className='text-2xl md:text-6xl font-bold'>26</h2>
                                 </div>

@@ -5,8 +5,7 @@ export const profileSlice = createSlice({
     initialState:{
         active: 1,
         ProfileDetails: "",
-        pageNo: 1,
-        perPage: 6,
+        createdJobPageNo: 1,
         searchKey: "",
         createdJobs: [],
         TotalcreatedJob: 0,
@@ -18,11 +17,8 @@ export const profileSlice = createSlice({
         setProfileDetails:(state, action)=>{
             state.ProfileDetails = action.payload
         },
-        setPageNo: (state, action) => {
-            state.pageNo = parseInt(action.payload)
-        },
-        setPerPage: (state, action) => {
-            state.perPage = parseInt(action.payload)
+        setcreatedJobPageNo: (state, action) => {
+            state.createdJobPageNo = parseInt(action.payload)
         },
         setSearchKey: (state, action) => {
             state.searchKey = action.payload
@@ -36,6 +32,6 @@ export const profileSlice = createSlice({
     }
 })
 
-export const { setActive, setProfileDetails, setPageNo, setPerPage, setSearchKey, setTotalcreatedJobs, setcreatedJobs } = profileSlice.actions
+export const { setActive, setProfileDetails, setcreatedJobPageNo, setSearchKey, setTotalcreatedJobs, setcreatedJobs } = profileSlice.actions
 
 export default profileSlice.reducer

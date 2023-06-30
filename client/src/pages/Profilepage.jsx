@@ -11,19 +11,15 @@ const Profilepage = () => {
     return (
         <Fragment>
             <Header />
-            <div className='py-16 bg-white'>
-                <div class="container mx-auto">
-                    <div className={` w-full  flex gap-2`}>
-                        <div className="w-[50px] md:w-[335px] sticky md:mt-0 mt-[18%]">
-                            <ProfileSidebar />
-                        </div>
-                        <ProfileContent />
+            <div className="w-full px-[1rem] md:px-[2rem] lg:px-[5rem] bg-slate-100 py-10 lg:py-16">
+                <div className="w-full md:flex md:gap-2">
+                    <div className="w-full md:w-[335px] fixed md:relative left-0 bottom-0">
+                        <ProfileSidebar />
                     </div>
+                    <ProfileContent />
                 </div>
             </div>
             <Footer />
-
-
         </Fragment>
     )
 }
