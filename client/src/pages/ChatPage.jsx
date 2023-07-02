@@ -11,14 +11,14 @@ const ChatPage = () => {
 
   return (
     <Fragment>
-        <div className="w-full h-[75vh] overflow-hidden">
+        <div className="w-full h-[86vh] sm:h-[85vh] lg:h-[84vh] overflow-hidden bg-slate-100">
         <div className="flex justify-start items-center bg-white w-full h-full">
           <div className={`${selectChat ? 'hidden lg:block' : 'block'}
-           bg-white w-full lg:w-1/3 h-full`}>
-            <ChatBox /*myChats={myChats} dispatch={dispatch}*/ />
+           bg-slate-100 w-full lg:w-1/3 h-full`}>
+            <ChatBox />
           </div>
           <div className={`${selectChat ? 'block' : 'hidden lg:block'}
-           bg-white w-full lg:w-2/3 h-full`}>
+           bg-slate-100 w-full lg:w-2/3 h-full`}>
             <MessageBox />
           </div>
         </div>

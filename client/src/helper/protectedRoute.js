@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom"
-import { getToken } from "./sessionHelper"
+import { getToken, getUserDetails } from "./sessionHelper"
 
 export function ProtectedRoute(props)
 {

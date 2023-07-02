@@ -7,7 +7,7 @@ const Footer = () => {
             <div class="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] py-10 ">
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-0 justify-between">
                     <div className='flex flex-col space-y-5 items-center lg:items-start'>
-                        <img class="w-28 lg:w-40" src="https://i.ibb.co/brSHcDm/1.jpg" />
+                        <img class="w-28 lg:w-40" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" />
 
                         <p class="mt-3 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.

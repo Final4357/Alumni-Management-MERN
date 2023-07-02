@@ -12,7 +12,7 @@ export const alumniRegister = async (req, res, next) => {
     try {
         if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password || !req.body.studentId ||
             !req.body.dept || !req.body.batch || !req.body.position || !req.body.company || !req.body.gender ||
-            !req.body.degree )
+            !req.body.degree || !req.body.phone || !req.body.address )
             return next(createError(401, "Please fill the all requried fields."));
         else if (IsEmail(req.body.email))
             return next(createError(401, "Invalid email address."));

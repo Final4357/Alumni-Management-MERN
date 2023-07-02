@@ -102,14 +102,13 @@ const Header = () => {
                             }
                         </ul>
                     </div>
-
                 </div>
             </header>
 
-            <div className="w-full px-[1rem] md:px-[2rem] lg:px-[5rem] border-b shadow bg-white sticky top-0 z-30">
+            <div className="bg-slate-100 w-full px-[1rem] md:px-[2rem] lg:px-[5rem] border-b shadow sticky top-0 z-30">
                 <div className='flex justify-between items-center py-2'>
                     <Link to='/'>
-                        <img class="w-32 lg:w-40 " src="https://i.ibb.co/brSHcDm/1.jpg" />
+                        <img class="w-32 lg:w-40 " src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" />
                     </Link>
                     <nav className='hidden lg:block'>
                         <ul className='flex items-center gap-6 uppercase font-semibold'>

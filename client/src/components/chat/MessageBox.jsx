@@ -73,8 +73,8 @@ useEffect(() => {
     <Fragment>
       {
         selectedChat &&
-        <div className="flex flex-col bg-white overflow-hidden flex-grow h-full">
-          <div className="flex justify-between bg-white px-2 lg:px-4 py-2 border-b-2">
+        <div className="flex flex-col w-full overflow-hidden h-full">
+          <div className="flex justify-between px-2 lg:px-4 py-2 border-b-2">
             <div className="flex flex-none space-x-1 md:space-x-3 items-center">
               <svg onClick={()=> store.dispatch(setSelectChat(null))} className='p-1 rounded-full lg:hidden block' xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" id="back-arrow">
                 <path fill="none" d="M0 0h24v24H0V0z"></path>
@@ -127,7 +127,7 @@ useEffect(() => {
 
           </div>
           {/* } */}
-          <div className="flex space-x-2 items-center bg-white px-3 lg:px-6 py-2 border">
+          <div className="flex space-x-2 items-center px-3 lg:px-6 py-2 border">
             <div className="flex space-x-2 lg:space-x-4 cursor-pointer">
               <svg viewBox="0 0 24 24" width="24" height="24" className="ekdr8vow dhq51u3o">
                 <path fill="text-gary-700"

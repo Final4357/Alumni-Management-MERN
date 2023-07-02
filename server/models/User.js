@@ -56,6 +56,12 @@ const UserSchema = new mongoose.Schema({
     degree:{
         type: String,
     },
+    phone:{
+        type: String,
+    },
+    address:{
+        type: String,
+    },
     canView:[{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "User"

@@ -17,6 +17,10 @@ const ChatSchema = new mongoose.Schema({
       type: {},
       ref: "User",
     },
+    readBy: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User"
+    }],
     groupAdmin: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "User" 

@@ -1,56 +1,56 @@
-import React, { Fragment,useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { Fragment, useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ForgetPasswordRequest } from '../../api_req/auth'
 
-import { ErrorToast, IsEmail, IsEmpty, IsPassword, getBase64} from "../../helper/formHelper";
+import { ErrorToast, IsEmail, IsEmpty, IsPassword, getBase64 } from "../../helper/formHelper";
 
 const Forgot = () => {
+  let email = useRef()
+  let navigate = useNavigate()
 
-    let emailRef = useRef()
-    let navigate = useNavigate()
-  
-    const forgetPassword = () =>{
-      let email = emailRef.value;
-  
-      if(IsEmail(email)){
-          ErrorToast("Invalid email address.")
-      }
-      else{
-        ForgetPasswordRequest(email).then((result)=>{
-          if(result) navigate('/Login')
-        })
-      }
+  const onSend = () => {
+    let email = email.value;
+
+    if (IsEmail(email)) {
+      ErrorToast("Invalid email address.")
     }
+    else {
+      ForgetPasswordRequest(email).then((result) => {
+        if (result) navigate('/Login')
+      })
+    }
+  }
   return (
-    <Fragment class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-      <img id="black" class="w-48" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" alt="" />   
-      </a>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Forgot Password 
+    <Fragment>
+      <section className="bg-slate-100">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+          <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <img id="black" class="w-48" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" alt="" />
+          </a>
+          <div className="w-full bg-slate-100 rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                Forgot Your Password?
               </h1>
-              <p class="mb-4 text-sm text-gray-700"> 
-                                We get it, stuff happens. Just enter your email address below and we'll send you a 
-                                mail to reset your password. 
-                            </p>
-              <div class="space-y-4 md:space-y-6" action="#">
-                  <div>
-                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input ref={(input)=>emailRef=input} type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
-                  </div>
-                  
-                  <button type="submit" onClick={forgetPassword} class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send an Email</button>
-                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                     <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500 ">Return to login</a>
-                  </p>
+              <p className="mb-4 text-sm text-gray-700 ">
+                We get it, stuff happens. Just enter your email address below and we'll send you a
+                mail to reset your password.
+              </p>
+              <div className="space-y-4 md:space-y-6" action="#">
+                <div>
+                  <label for="email" className="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
+                  <input ref={(i) => email = i} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-[#0C7075] focus:border-[#0C7075] block w-full p-2.5 " placeholder="name@company.com" required="" />
+                </div>
+                <button onClick={onSend} type="submit" className="w-full text-white bg-[#2C1654] hover:bg-[#2C1654]/90 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Send Password Reset Mail</button>
+                <p className="text-sm font-light text-gray-500 ">
+                  Don’t have an account yet? <Link to="/sign-up" className="font-medium text-[#2C1654] hover:underline">Sign up</Link>
+                </p>
               </div>
+            </div>
           </div>
-      </div>
-  </div>
-</Fragment>
+        </div>
+      </section>
+    </Fragment>
   )
 }
 

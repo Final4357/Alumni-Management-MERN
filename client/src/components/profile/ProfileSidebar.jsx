@@ -5,6 +5,7 @@ import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
 import {
   MdOutlineAdminPanelSettings,
   MdOutlinePassword,
+  MdPassword,
   MdOutlineTrackChanges,
 } from "react-icons/md";
 import { TbAddressBook } from "react-icons/tb";
@@ -14,6 +15,7 @@ import axios from "axios";
 import store from "../../redux/store/store";
 import { setActive } from "../../redux/state/profileslice";
 import { useSelector } from "react-redux";
+import { getUserDetails } from "../../helper/sessionHelper";
 
 const ProfileSidebar = () => {
   const navigate = useNavigate();
@@ -34,18 +36,17 @@ const ProfileSidebar = () => {
     <Fragment>
       <div className="w-full border bg-slate-100 flex md:flex-col justify-between shadow py-4 px-[1rem] md:px-4 lg:pt-8">
         <div
-        className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
-        onClick={() => store.dispatch(setActive(1))}
-      >
-        <RxPerson size={20} color={active === 1 ? "red" : ""} />
-        <span
-          className={`md:pl-3 ${
-            active === 1 ? "text-[red]" : ""
-          } md:block hidden`}
+          className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
+          onClick={() => store.dispatch(setActive(1))}
         >
-          Profile
-        </span>
-      </div> 
+          <RxPerson size={20} color={active === 1 ? "red" : ""} />
+          <span
+            className={`md:pl-3 ${active === 1 ? "text-[red]" : ""
+              } md:block hidden`}
+          >
+            Profile
+          </span>
+        </div>
 
         {/* <div
         className="flex items-center cursor-pointer w-full mb-8"
@@ -75,46 +76,61 @@ const ProfileSidebar = () => {
       </div> */}
 
         <div
-        className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
-        onClick={() => store.dispatch(setActive(4))}
-      >
-        <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
-        <span
-          className={`md:pl-3 ${
-            active === 4 ? "text-[red]" : ""
-          } hidden md:block`}
+          className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
+          onClick={() => store.dispatch(setActive(4))}
         >
-          Inbox
-        </span>
-      </div>
+          <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
+          <span
+            className={`md:pl-3 ${active === 4 ? "text-[red]" : ""
+              } hidden md:block`}
+          >
+            Inbox
+          </span>
+        </div>
+        {
+          getUserDetails().isAlumni &&
+          <>
+            <div
+              className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
+              onClick={() => store.dispatch(setActive(5))}
+            >
+              <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
+              <span
+                className={`md:pl-3 ${active === 5 ? "text-[red]" : ""
+                  } md:block hidden`}
+              >
+                Post Jobs
+              </span>
+            </div>
 
-      <div
-        className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
-        onClick={() => store.dispatch(setActive(5))}
-      >
-        <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
-        <span
-          className={`md:pl-3 ${
-            active === 5 ? "text-[red]" : ""
-          } md:block hidden`}
-        >
-          Post Jobs
-        </span>
-      </div>
+            <div
+              className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
+              onClick={() => store.dispatch(setActive(6))}
+            >
+              <RiLockPasswordLine size={20} color={active === 6 ? "red" : ""} />
+              <span
+                className={`md:pl-3 ${active === 6 ? "text-[red]" : ""
+                  } md:block hidden`}
+              >
+                Posted Jobs
+              </span>
+            </div>
+          </>
+        }
 
-      <div
-        className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
-        onClick={() => store.dispatch(setActive(6))}
-      >
-        <RiLockPasswordLine size={20} color={active === 6 ? "red" : ""} />
-        <span
-          className={`md:pl-3 ${
-            active === 6 ? "text-[red]" : ""
-          } md:block hidden`}
+        <div
+          className="flex items-center cursor-pointer p-2 md:p-0 md:w-full md:mb-8"
+          onClick={() => store.dispatch(setActive(3))}
         >
-          Posted Jobs
-        </span>
-      </div>
+          <MdPassword size={20} color={active === 3 ? "red" : ""} />
+          <span
+            className={`md:pl-3 ${active === 3 ? "text-[red]" : ""
+              } md:block hidden`}
+          >
+            Change Password
+          </span>
+        </div>
+
 
 
         {/* {user && user?.role === "Admin" && (

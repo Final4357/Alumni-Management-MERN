@@ -35,9 +35,9 @@ export const studentRegister = async (fname, lname, email, password, sid,photo) 
     })
 }
 
-export const alumniRegister = async (fname, lname, email, password, sid,dept,batch,position,company,gender,degree,photo) => {
+export const alumniRegister = async (fname, lname, email, password, sid,dept,batch,position,company,gender,degree,phone,address,photo) => {
     let URL = BaseURL + "/alumni/register";
-    let PostBody = { firstname: fname, lastname: lname, email: email, password: password, studentId: sid,dept:dept,batch:batch,position:position,company:company,gender:gender,degree:degree,photo:photo }
+    let PostBody = { firstname: fname, lastname: lname, email: email, password: password, studentId: sid,dept:dept,batch:batch,position:position,company:company,gender:gender,degree:degree,phone:phone,address:address,photo:photo }
     return await axios.post(URL, PostBody).then((res) => {
 
         if (res.status === 200) {
@@ -202,13 +202,11 @@ export const profileDetails = () =>{
     })
 }
 
-export const updateProfile = (fname, lname, email,  sid,dept,batch,position,company,gender,degree,photo,phone) =>{
+export const updateProfile = (fname, lname, email,  sid,dept,batch,position,company,gender,degree,photo,phone, address) =>{
 
-    let PostBody = {firstname: fname, lastname: lname, email: email, studentId: sid,dept:dept,batch:batch,position:position,company:company,gender:gender,degree:degree,photo:photo,phone:phone  }
+    let PostBody = {firstname: fname, lastname: lname, email: email, studentId: sid,dept:dept,batch:batch,position:position,company:company,gender:gender,degree:degree,photo:photo,phone:phone, address:address}
     let URL = BaseURL + "/updateProfile";
     return axios.put(URL, PostBody,AxiosHeader).then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
             SuccessToast("Profile Details Updated")
             return true;

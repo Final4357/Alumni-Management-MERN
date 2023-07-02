@@ -84,11 +84,12 @@ const Alumni = () => {
                     </div>
                     <div class="flex items-center">
                         <label for="voice-search" class="sr-only">Search</label>
-                        <div class="relative w-full border-md">
+                        <div class="w-auto lg:w-full border-md">
                             <input type="search" onChange={searchKeywordOnChange} id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block w-[250px] p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name" required />
                         </div>
                         <button onClick={onSearchData} class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-[#2C1654] rounded-lg border border-[#2C1654] hover:bg-[#422180] focus:ring-4 focus:outline-none  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg aria-hidden="true" class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search
+                            <svg aria-hidden="true" class="w-5 h-5 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <span className='hidden md:block'>Search</span>
                         </button>
                     </div>
                 </div>
@@ -101,7 +102,7 @@ const Alumni = () => {
                             {Alumni.map((item, i) => {
                                 return (
                                     <Link to={`/alumnidetails/${item._id}`}>
-                                        <div key={i} class="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                        <div key={i} class="bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                             <div className='flex justify-center'>
                                                 <img class="h-64 w-full object-fill" src={item.photo} alt="" />
                                             </div>
