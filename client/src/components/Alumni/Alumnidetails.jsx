@@ -98,6 +98,10 @@ const Alumnidetails = () => {
                                         <div class="pr-4 py-2 font-semibold">Contact No.</div>
                                         <div class="px-4 py-2">+88{AlumniDetails.phone}</div>
                                     </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="pr-4 py-2 font-semibold">Address</div>
+                                        <div class="px-4 py-2">{AlumniDetails.address}</div>
+                                    </div>
                                 </div>
                             </div>
                             <button

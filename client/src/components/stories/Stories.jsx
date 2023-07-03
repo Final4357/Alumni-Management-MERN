@@ -13,11 +13,11 @@ const Stories = () => {
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     <div className='border shadow cursor-pointer storie-card'>
                         <div className='w-full h-56 overflow-hidden'>
-                            <img src="https://i.ibb.co/sK3CG9f/story-img.jpg" className='w-full object-fill h-56' alt="story" srcset="" />
+                            <img src="https://gumlet.assettype.com/bdnews24-english%2F2023-06%2F68ad775d-718a-4e35-a768-5a3f85c8f900%2Fkairan_quazi_120623_01.jpg?auto=format%2Ccompress&fmt=webp&w=940" className='w-full object-fill h-56' alt="story" srcset="" />
                         </div>
                         <div className='p-7 space-y-3'>
-                            <h1 className='text-lg md:text-2xl font-bold'>IIUC Class of 2023 Commencement Highlights</h1>
-                            <h3 className='text-base lg:text-lg font-medium'>During this year’s Commencement ceremony, tennis legend and former IIUC student-athlete John McEnroe shared lessons he learned from his life, career, and time on the farm.</h3>
+                            <h1 className='text-lg md:text-2xl font-bold'>14-year-old Bangladeshi set to join SpaceX as software engineer</h1>
+                            <h3 className='text-base lg:text-lg font-medium'>Despite being only 14 years old, Bangladeshi American teen Kairan Quazi has been hired to work for SpaceX’s satellite internet team, Starlink, as a software engineer, the Los Angeles Times reports.</h3>
                         </div>
                     </div>
                     <div className='border shadow cursor-pointer storie-card'>
@@ -25,8 +25,8 @@ const Stories = () => {
                             <img src="https://i.ibb.co/sK3CG9f/story-img.jpg" className='w-full object-fill h-56' alt="story" srcset="" />
                         </div>
                         <div className='p-7 space-y-3'>
-                            <h1 className='text-lg md:text-2xl font-bold'>The Pulse of LGBTQ Health</h1>
-                            <h3 className='text-base lg:text-lg font-medium'>Two School of Medicine researchers know that better care begins with data.</h3>
+                            <h1 className='text-lg md:text-2xl font-bold'>The Job fair will begins end of July</h1>
+                            <h3 className='text-base lg:text-lg font-medium'>Better Chance to grab the attention of the various company and show your skill.</h3>
                         </div>
                     </div>
                     <div className='border shadow cursor-pointer storie-card'>
