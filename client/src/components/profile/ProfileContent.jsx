@@ -111,25 +111,17 @@ const ProfileContent = () => {
       {/* profile */}
       {active === 1 && (
         <>
-          <div className="flex justify-center w-full">
-            <div className="relative">
-              <img
-                src={ProfileDetails.photo}
-                className="w-[150px] h-[150px] rounded-full object-fill border-[3px] border-[#3ad132]"
-                alt=""
+          <div class="profile flex justify-center ">
+            <img class="w-36 h-36 rounded-full object-fill" src={ProfileDetails.photo} ref={(input) => userImgView = input} alt="" />
+            <div class="w-36 h-36 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
+              <img class="hidden absolute group-hover:block w-12" for="file-input" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
+              <input
+                type="file"
+                id='file-input'
+                className='absolute opacity-0'
+                onChange={previewImage}
+                ref={(input) => userImgRef = input}
               />
-              <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">
-                <input
-                  type="file"
-                  id="image"
-                  className="hidden"
-                  onChange={previewImage}
-                  ref={(input) => userImgRef = input}
-                />
-                <label htmlFor="image">
-                  <AiOutlineCamera />
-                </label>
-              </div>
             </div>
           </div>
           <div className="w-full py-5 md:p-5 space-y-3">
