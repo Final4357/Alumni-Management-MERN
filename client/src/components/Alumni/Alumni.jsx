@@ -61,7 +61,7 @@ const Alumni = () => {
     return (
         <Fragment>
             <div className='relative'>
-                <img className='h-48 w-full object-cover ' src="https://scontent.fcgp3-1.fna.fbcdn.net/v/t1.18169-9/1233437_519372778155565_468901969_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e3f864&_nc_ohc=d3M3vYTndAsAX9p_vBh&_nc_ht=scontent.fcgp3-1.fna&oh=00_AfA8TulQl_qb1CLyR8ecDvYO2EpJ0s6QZ-e8My7aj9V0pg&oe=6478A44C" />
+                <img className='h-48 w-full object-fill ' src="https://i.ibb.co/BTbhH66/Bvasy-PACIAAQt-Ae.jpg" />
                 <div className='top-0 left-0 bg-gray-800 w-full h-48 absolute bg-opacity-30 flex items-center justify-center'>
                     <h1 className="mb-5 text-5xl text-white font-bold">Alumni List</h1>
                 </div>

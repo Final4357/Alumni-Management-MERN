@@ -92,7 +92,7 @@ const SignupAL = () => {
                                 <img class="hidden absolute group-hover:block w-12" for="file-input" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
                                 <input
                                     type="file"
-                                    id='file-input'
+                                    id='file-input' 
                                     className='absolute opacity-0'
                                     onChange={previewImage}
                                     ref={(input) => userImgRef = input}

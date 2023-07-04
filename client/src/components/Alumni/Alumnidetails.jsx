@@ -34,7 +34,7 @@ const Alumnidetails = () => {
 
     return (
         <Fragment>
-            <div class="bg-white px-[1rem] md:px-[2rem] lg:px-[5rem] py-8 lg:py-10">
+            <div class="bg-slate-100 px-[1rem] md:px-[2rem] lg:px-[5rem] py-8 lg:py-10">
             <div className="text-md breadcrumbs mb-3">
                     <ul>
                         <li><Link to='/alumni'>Alumni</Link></li>
@@ -44,7 +44,7 @@ const Alumnidetails = () => {
                 <div class="lg:flex gap-2 space-y-3">
                     <div class="w-full lg:w-1/3 xl:w-3/12 md:mx-2">
                         {/* <!-- Profile Card --> */}
-                        <div class="w-full bg-white lg:shadow pb-3 flex flex-col justify-center">
+                        <div class="w-full bg-slate-100 lg:shadow pb-3 flex flex-col justify-center">
                             <div class="w-fit mx-auto border-t-4 border-[#2C1654]">
                                 <img class="w-[400px] h-[300px] object-fill"
                                     src={AlumniDetails.photo}
@@ -59,7 +59,7 @@ const Alumnidetails = () => {
                     </div>
                     {/* <!-- Right Side --> */}
                     <div class="w-full lg:w-2/3 xl:w-9/12 space-y-3">
-                        <div class="bg-white p-3 shadow rounded-sm">
+                        <div class="bg-slate-100 p-3 shadow rounded-sm">
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 mb-3 leading-8">
                                 <span clas="text-green-500">
                                     <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -96,7 +96,11 @@ const Alumnidetails = () => {
                                     </div>
                                     <div class="grid grid-cols-2">
                                         <div class="pr-4 py-2 font-semibold">Contact No.</div>
-                                        <div class="px-4 py-2">+8801646506191</div>
+                                        <div class="px-4 py-2">+88{AlumniDetails.phone}</div>
+                                    </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="pr-4 py-2 font-semibold">Address</div>
+                                        <div class="px-4 py-2">{AlumniDetails.address}</div>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +108,7 @@ const Alumnidetails = () => {
                                 class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-[#2C1654]/20 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show
                                 Full Information</button>
                         </div>
-                        <div class="bg-white p-3 shadow rounded-sm">
+                        <div class="bg-slate-100 p-3 shadow rounded-sm">
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="flex flex-col items-start space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                     <div class="flex gap-3 text-black">

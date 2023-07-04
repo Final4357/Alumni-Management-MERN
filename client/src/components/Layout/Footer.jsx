@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="bg-slate-100 border-t">
-            <div class="w-full px-[2rem] md:px-[3rem] lg:px-[5rem] py-10 ">
+            <div class="w-full px-[1rem] md:px-[2rem] lg:px-[5rem] py-10 ">
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-0 justify-between">
                     <div className='flex flex-col space-y-5 items-center lg:items-start'>
                         <img class="w-28 lg:w-40" src="https://i.ibb.co/XZgzRbL/1-removebg-preview.png" />
@@ -197,7 +197,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div class=" mx-auto max-w-screen-xl px-4  py-6 sm:px-6 lg:px-8 lg:py-6 border-t">
+            <div class=" w-full px-[1rem] md:px-[2rem] lg:px-[5rem] lg:py-6 border-t">
                 <div class="text-center  sm:justify-between sm:text-left ">
                     <div class="text-sm flex flex-col-reverse space-y-3 lg:space-y-0 lg:flex-row gap-5 lg:gap-0 justify-between items-center text-gray-500 ">
                         <div >

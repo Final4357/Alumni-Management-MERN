@@ -56,19 +56,19 @@ const ProfileContent = () => {
 
 
   const onUpdate = () => {
-    let fname = fnameRef.value;
-    let lname = lnameRef.value;
-    let email = emailRef.value;
-    let phone = phoneRef.value;
-    let address = addressRef.value
-    let sid = sidRef.value;
-    let dept = deptRef.value;
-    let batch = batchRef.value;
-    let position = positionRef.value;
-    let company = companyRef.value;
-    let gender = genderRef.value;
-    let degree = degreeRef.value;
-    let photo = userImgView.src;
+    let fname = fnameRef?.value;
+    let lname = lnameRef?.value;
+    let email = emailRef?.value;
+    let phone = phoneRef?.value;
+    let address = addressRef?.value
+    let sid = sidRef?.value;
+    let dept = deptRef?.value;
+    let batch = batchRef?.value;
+    let position = positionRef?.value;
+    let company = companyRef?.value;
+    let gender = genderRef?.value;
+    let degree = degreeRef?.value;
+    let photo = userImgView?.src;
 
 
     if (IsEmpty(fname)) {
@@ -107,7 +107,7 @@ const ProfileContent = () => {
 
 
   return (
-    <div className="w-full bg-slate-100 md:shadow py-6">
+    <div className="w-full bg-slate-100 md:shadow">
       {/* profile */}
       {active === 1 && (
         <>
@@ -160,9 +160,7 @@ const ProfileContent = () => {
                   required=""
                 />
               </div>
-
             </div>
-
             <div className="w-full flex flex-col lg:flex-row gap-4">
               <div className=" w-[100%]">
                 <label className="block pb-2">Email Address</label>
@@ -343,13 +341,13 @@ const PostJobs = () => {
     } else if (IsEmpty(location)) {
       ErrorToast("Location is Required !");
     } else if (IsEmpty(experience)) {
-      ErrorToast("Location is Required !");
+      ErrorToast("experience is Required !");
     } else if (IsEmpty(description)) {
       ErrorToast("Description Required !");
     } else if (IsEmpty(company)) {
       ErrorToast("Company Required !");
     } else if (IsEmpty(category)) {
-      ErrorToast("Company website is  Required !");
+      ErrorToast("Category is  Required !");
     } else {
       if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
         console.log(Jobcreaterequest)
@@ -415,7 +413,7 @@ const PostJobs = () => {
 
                 ref={(input) => (jobtypeRef = input)}
               >
-                <option disabled selected>Select a Job Type</option>
+                <option disabled selected value="">Select a Job Type</option>
                 <option value="Fulltime">Full time</option>
                 <option value="Parttime">Part time</option>
                 <option value="Internship">Internship</option>
@@ -436,7 +434,7 @@ const PostJobs = () => {
                 name="job-type"
                 ref={(input) => (experienceRef = input)}
               >
-                <option disabled selected>Select a Experience</option>
+                <option disabled selected value="">Select a Experience</option>
                 <option value="Entry">Entry (0-2 Years)</option>
                 <option value="Intermediate">Intermediate (3-5 Years)</option>
                 <option value="Expert">Expert (5 or Higher)</option>
@@ -473,7 +471,7 @@ const PostJobs = () => {
 
                 ref={(input) => (categoryRef = input)}
               >
-                <option disabled selected>Select a Category</option>
+                <option disabled selected value="">Select a Category</option>
                 <option value="Onsite">Onsite</option>
                 <option value="Remote">Remote</option>
                 <option value="Hybrid">Hybrid</option>
