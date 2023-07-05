@@ -134,7 +134,7 @@ const ProfileContent = () => {
 
 
   return (
-    <div className="w-full bg-slate-100 md:shadow py-6">
+    <div className="w-full bg-slate-100 md:shadow">
       {/* profile */}
       {active === 1 && (
         <>

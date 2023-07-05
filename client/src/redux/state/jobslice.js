@@ -22,7 +22,6 @@ export const jobSlice = createSlice({
             state.JobDetails = action.payload
         },
         setPageNo: (state, action) => {
-            debugger
             state.pageNo = parseInt(action.payload)
         },
         setPerPage: (state, action) => {
