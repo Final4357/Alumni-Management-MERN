@@ -56,51 +56,78 @@ const ProfileContent = () => {
 
 
   const onUpdate = () => {
-    let fname = fnameRef?.value;
-    let lname = lnameRef?.value;
-    let email = emailRef?.value;
-    let phone = phoneRef?.value;
-    let address = addressRef?.value
-    let sid = sidRef?.value;
-    let dept = deptRef?.value;
-    let batch = batchRef?.value;
-    let position = positionRef?.value;
-    let company = companyRef?.value;
-    let gender = genderRef?.value;
-    let degree = degreeRef?.value;
-    let photo = userImgView?.src;
+    if (getUserDetails().isAlumni) {
+      var fname = fnameRef?.value;
+      var lname = lnameRef?.value;
+      var email = emailRef?.value;
+      var sid = sidRef?.value;
+      var photo = userImgView?.src;
+      var phone = phoneRef?.value;
+      var address = addressRef?.value
+      var dept = deptRef?.value;
+      var batch = batchRef?.value;
+      var position = positionRef?.value;
+      var company = companyRef?.value;
+      var gender = genderRef?.value;
+      var degree = degreeRef?.value;
+      if (IsEmpty(fname)) {
+        ErrorToast("First Name required !");
+      } else if (IsEmpty(lname)) {
+        ErrorToast("Last Name Required !");
+      } else if (IsEmail(email)) {
+        ErrorToast("Invalid email address.");
+      } else if (IsEmpty(sid)) {
+        ErrorToast("Student Id Required !");
+      }
+      else if (IsEmpty(dept)) {
+        ErrorToast("Dept is Required !");
+      } else if (IsEmpty(batch)) {
+        ErrorToast("Batch is Required !");
+      }
+      else if (IsEmpty(position)) {
+        ErrorToast("Position Name Required !");
+      } else if (IsEmpty(company)) {
+        ErrorToast("Company is Required !");
+      } else if (IsEmpty(gender)) {
+        ErrorToast("Gender is Required !");
+      } else if (IsEmpty(degree)) {
+        ErrorToast("Degree is Required !");
+      } else if (IsEmpty(phone)) {
+        ErrorToast("Contact No is Required !");
+      } else if (IsEmpty(address)) {
+        ErrorToast("Address is Required !");
+      } else {
+        if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone, address)) {
 
-
-    if (IsEmpty(fname)) {
-      ErrorToast("First Name required !");
-    } else if (IsEmpty(lname)) {
-      ErrorToast("Last Name Required !");
-    } else if (IsEmail(email)) {
-      ErrorToast("Invalid email address.");
-    } else if (IsEmpty(sid)) {
-      ErrorToast("Student Id Required !");
-    }
-    else if (IsEmpty(dept)) {
-      ErrorToast("Dept is Required !");
-    } else if (IsEmpty(batch)) {
-      ErrorToast("Batch is Required !");
-    }
-    else if (IsEmpty(position)) {
-      ErrorToast("Position Name Required !");
-    } else if (IsEmpty(company)) {
-      ErrorToast("Company is Required !");
-    } else if (IsEmpty(gender)) {
-      ErrorToast("Gender is Required !");
-    } else if (IsEmpty(degree)) {
-      ErrorToast("Degree is Required !");
-    } else if (IsEmpty(phone)) {
-      ErrorToast("Contact No is Required !");
-    } else if (IsEmpty(address)) {
-      ErrorToast("Address is Required !");
+        } else ErrorToast("Something Went Wrong");
+      }
     } else {
-      if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone, address)) {
+      var fname = fnameRef?.value;
+      var lname = lnameRef?.value;
+      var email = emailRef?.value;
+      var sid = sidRef?.value;
+      var photo = userImgView?.src;
+      var phone = ""
+      var address = ""
+      var dept = ""
+      var batch = ""
+      var position = ""
+      var company = ""
+      var gender = ""
+      var degree = ""
+      if (IsEmpty(fname)) {
+        ErrorToast("First Name required !");
+      } else if (IsEmpty(lname)) {
+        ErrorToast("Last Name Required !");
+      } else if (IsEmail(email)) {
+        ErrorToast("Invalid email address.");
+      } else if (IsEmpty(sid)) {
+        ErrorToast("Student Id Required !");
+      } else {
+        if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone, address)) {
 
-      } else ErrorToast("Something Went Wrong");
+        } else ErrorToast("Something Went Wrong");
+      }
     }
   };
 

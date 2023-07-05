@@ -54,7 +54,7 @@ const ChatBox = () => {
                                 >
                                     <div className="relative w-14">
                                         <img className={`object-fill w-12 h-12 rounded-full bg-gray-200`}
-                                            src={getSender(items.users, getUserDetails())?.photo}
+                                            src={getSender(items.users, getUserDetails()).photo}
                                             alt="Chat pic" />
                                         {
                                             getOnline(items, onlineUsers, getUserDetails()) &&
