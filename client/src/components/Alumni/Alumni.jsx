@@ -61,7 +61,7 @@ const Alumni = () => {
     return (
         <Fragment>
             <div className='relative'>
-                <img className='h-48 w-full object-fill ' src="https://i.ibb.co/BTbhH66/Bvasy-PACIAAQt-Ae.jpg" />
+                <img className='h-48 w-full object-fill ' src="https://i.ibb.co/Qcyc6QM/IIUC.png" />
                 <div className='top-0 left-0 bg-gray-800 w-full h-48 absolute bg-opacity-30 flex items-center justify-center'>
                     <h1 className="mb-5 text-5xl text-white font-bold">Alumni List</h1>
                 </div>

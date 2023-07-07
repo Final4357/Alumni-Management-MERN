@@ -5,7 +5,8 @@ import { setProfileDetails } from "../redux/state/profileslice";
 import store from "../redux/store/store";
 import { setAlumniDetails } from "../redux/state/alumnislice";
 import { socket } from "../components/Layout/Header";
-const BaseURL = "http://localhost:8081/api/auth"
+//const BaseURL = "http://localhost:8081/api/auth"
+const BaseURL = "https://iiuc-alumni.onrender.com/api/auth"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const studentRegister = async (fname, lname, email, password, sid,photo) => {

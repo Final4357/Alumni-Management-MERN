@@ -4,7 +4,8 @@ import store from "../redux/store/store";
 import { getToken } from "../helper/sessionHelper.js";
 import { setJobDetails, setJobs, setTotalJobs } from "../redux/state/jobslice.js";
 import { setProfileDetails, setTotalcreatedJobs, setcreatedJobs } from "../redux/state/profileslice.js";
-const BaseURL = "http://localhost:8081/api/job"
+//const BaseURL = "http://localhost:8081/api/job"
+const BaseURL = "https://iiuc-alumni.onrender.com/api/job"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const Jobcreaterequest = (title,

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const About = () => {
     return (
         <Fragment>
-            <div className="hero min-h-[65vh] md:min-h-[75vh] lg:min-h-[86vh] bg-cover bg-[url('https://i.ibb.co/6R120Ht/Hero-img-01.jpg')]">
+            <div className="hero min-h-[65vh] md:min-h-[75vh] lg:min-h-[86vh] bg-cover bg-[url('https://i.ibb.co/D1rXP7F/iiuc-img.jpg')]">
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="w-full flex flex-col gap-6 lg:gap-8">

@@ -8,7 +8,8 @@ import { setOnlineUsers, setSocketConnected } from "../../redux/state/settingSli
 import store from '../../redux/store/store'
 import { Logout } from "../../api_req/auth";
 
-const ENDPOINT = "http://localhost:8081"
+//const ENDPOINT = "http://localhost:8081"
+const ENDPOINT = "https://iiuc-alumni.onrender.com"
 export var socket
 
 

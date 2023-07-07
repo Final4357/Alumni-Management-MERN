@@ -20,6 +20,10 @@
     height: 100%;
     object-fit: cover;
   }
+  .swiper-button-prev,
+  .swiper-button-next{
+     display:none;
+  }
 
 /* Event */
 .event-card h1,

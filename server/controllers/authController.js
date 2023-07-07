@@ -7,6 +7,7 @@ import { createError } from "../utils/error.js"
 import { msgBody } from '../utils/mailGenerator/actionMsg.js';
 import { sendEmail } from '../utils/mail.js';
 import { IsEmail, IsPassword } from '../utils/fromHelper.js'
+import { cloudinaryDeleteImg, productImageUpload } from '../utils/cloudinary.js'
 
 export const alumniRegister = async (req, res, next) => {
     try {
@@ -23,6 +24,8 @@ export const alumniRegister = async (req, res, next) => {
             if (user) return next(createError(400, "Email has already been registered."));
             else {
                 req.body.isAlumni = true
+                if(req.file)
+                    req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
                 const newUser = new User( req.body )
                 await newUser.save();
                 const token = jwt.sign({ id: newUser._id, isAlumni: newUser.isAlumni }, process.env.JWT, {
@@ -50,6 +53,8 @@ export const studentRegister = async (req, res, next) => {
             const user = await User.findOne({ email: req.body.email })
             if (user) return next(createError(400, "Email has already been registered."));
             else {
+                if(req.file)
+                    req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
                 const newUser = new User( req.body )
                 await newUser.save();
                 const token = jwt.sign({ id: newUser._id, isAlumni: newUser.isAlumni }, process.env.JWT, {
@@ -95,6 +100,14 @@ export const profileDetails = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
     try {
+        const user = await User.findById(
+            req.params.id,
+        );
+        if (!user) return next(createError(404, "User not found."));
+        if(req.file){
+            await cloudinaryDeleteImg(user.photo.publicId)
+            req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
+        }
         const updateProfile = await User.findByIdAndUpdate(
             req.user.id,
             { $set: req.body },
