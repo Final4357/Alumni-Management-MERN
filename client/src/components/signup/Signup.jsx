@@ -16,27 +16,34 @@ const Signup = () => {
   }
 
   const onRegistration = () => {
-    let fname = fnameRef.value;
-    let lname = lnameRef.value;
-    let email = emailRef.value;
-    let password = passwordRef.value;
-    let sid = sidRef.value;
-    let photo = userImgView.src;
+    // let fname = fnameRef.value;
+    // let lname = fnameRef.value;
+    // let email = emailRef.value;
+    // let password = passwordRef.value;
+    // let sid = sidRef.value;
+    // let photo = userImgView.src;
 
-    if (IsEmpty(fname)) {
+    if (IsEmpty(fnameRef.value)) {
       ErrorToast("First Name required !");
-    } else if (IsEmpty(lname)) {
+    } else if (IsEmpty(lnameRef.value)) {
       ErrorToast("Last Name Required !");
-    } else if (IsEmail(email)) {
+    } else if (IsEmail(emailRef.value)) {
       ErrorToast("Invalid email address.");
-    } else if (IsPassword(password)) {
+    } else if (IsPassword(passwordRef.value)) {
       ErrorToast(
         "Password must be six characters, at least one letter and one number !"
       );
-    } else if (IsEmpty(sid)) {
+    } else if (IsEmpty(sidRef.value)) {
       ErrorToast("Student Id Required !");
     } else {
-      if (studentRegister(fname, lname, email, password, sid, photo)) {
+      const formData = new FormData()
+      formData.append('firstname', fnameRef.value)
+      formData.append('lastname', lnameRef.value)
+      formData.append('email', emailRef.value)
+      formData.append('password', passwordRef.value)
+      formData.append('studentId', sidRef.value)
+      formData.append('photo', userImgRef.files[0])
+      if (studentRegister(formData)) {
         navigate("/login");
       } else navigate("/sign-up");
     }
@@ -181,7 +188,7 @@ const Signup = () => {
               <Link
                 class="mb-3 w-full   font-bold  rounded-lg py-3 bg-slate-100 hover:bg-slate-200 border-2 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none focus:shadow-sm focus:shadow-outline mt-5" to="/sign-upAL"
               >
-                  SignUp As An Alumni
+                SignUp As An Alumni
               </Link>
 
             </div>

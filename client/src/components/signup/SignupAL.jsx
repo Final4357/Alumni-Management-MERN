@@ -10,7 +10,6 @@ const SignupAL = () => {
 
     const [cpassword, setCPassword] = useState("");
     const [visible, setVisible] = useState(false);
-    const [avatar, setAvatar] = useState(null);
     const previewImage = () => {
         let ImgFile = userImgRef.files[0];
         getBase64(ImgFile).then((base64Img) => {
@@ -19,56 +18,53 @@ const SignupAL = () => {
     }
 
     const onRegistration = () => {
-        let fname = fnameRef.value;
-        let lname = lnameRef.value;
-        let email = emailRef.value;
-        let password = passwordRef.value;
-        let sid = sidRef.value;
-        let dept = deptRef.value;
-        let batch = batchRef.value;
-        let position = positionRef.value;
-        let company = companyRef.value;
-        let gender = genderRef.value;
-        let degree = degreeRef.value;
-        let phone = phoneRef.value;
-        let address = addressRef.value;
-        let photo = userImgView.src;
-
-
-        if (IsEmpty(fname)) {
+        if (IsEmpty(fnameRef.value)) {
             ErrorToast("First Name required !");
-        } else if (IsEmpty(lname)) {
+        } else if (IsEmpty(lnameRef.value)) {
             ErrorToast("Last Name Required !");
-        } else if (IsEmail(email)) {
+        } else if (IsEmail(emailRef.value)) {
             ErrorToast("Invalid email address.");
         }
-        else if (IsPassword(password)) {
-            ErrorToast(
-                "Password must be six characters, at least one letter and one number !"
-            );
-        } else if (IsEmpty(sid)) {
+        else if (IsPassword(passwordRef.value)) {
+            ErrorToast("Password must be six characters, at least one letter and one number !");
+        } else if (IsEmpty(sidRef.value)) {
             ErrorToast("Student Id Required !");
         }
-        else if (IsEmpty(dept)) {
+        else if (IsEmpty(deptRef.value)) {
             ErrorToast("Dept is Required !");
-        } else if (IsEmpty(batch)) {
+        } else if (IsEmpty(batchRef.value)) {
             ErrorToast("Batch is Required !");
         }
-        else if (IsEmpty(position)) {
+        else if (IsEmpty(positionRef.value)) {
             ErrorToast("Position Name Required !");
-        } else if (IsEmpty(company)) {
+        } else if (IsEmpty(companyRef.value)) {
             ErrorToast("Company is Required !");
-        } else if (IsEmpty(gender)) {
+        } else if (IsEmpty(genderRef.value)) {
             ErrorToast("Gender is Required !");
-        } else if (IsEmpty(phone)) {
+        } else if (IsEmpty(phoneRef.value)) {
             ErrorToast("Contact No is Required !");
-        }else if (IsEmpty(address)) {
+        }else if (IsEmpty(addressRef.value)) {
                 ErrorToast("Address is Required !");
-        } else if (IsEmpty(degree)) {
+        } else if (IsEmpty(degreeRef.value)) {
                 ErrorToast("Degree is Required !");
         } else {
-            if (alumniRegister(fname, lname, email, password, sid, dept, batch, position, company, gender, degree, phone, address, photo)) {
-               
+            const formData = new FormData()
+            formData.append('firstName', fnameRef.value)
+            formData.append('lastName', lnameRef.value)
+            formData.append('email', emailRef.value)
+            formData.append('password', passwordRef.value)
+            formData.append('studentId', sidRef.value)
+            formData.append('dept', deptRef.value)
+            formData.append('batch', batchRef.value)
+            formData.append('position', positionRef.value)
+            formData.append('company', companyRef.value)
+            formData.append('gender', genderRef.value)
+            formData.append('degree', degreeRef.value)
+            formData.append('phone', phoneRef.value)
+            formData.append('address', addressRef.value)
+            formData.append('photo', userImgRef.files[0])
+
+            if (alumniRegister(formData)) {
                 navigate("/login");
             } else navigate("/sign-up");
         }

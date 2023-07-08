@@ -57,81 +57,73 @@ const ProfileContent = () => {
 
   const onUpdate = () => {
     if (getUserDetails().isAlumni) {
-      var fname = fnameRef?.value;
-      var lname = lnameRef?.value;
-      var email = emailRef?.value;
-      var sid = sidRef?.value;
-      var photo = userImgView?.src;
-      var phone = phoneRef?.value;
-      var address = addressRef?.value
-      var dept = deptRef?.value;
-      var batch = batchRef?.value;
-      var position = positionRef?.value;
-      var company = companyRef?.value;
-      var gender = genderRef?.value;
-      var degree = degreeRef?.value;
-      if (IsEmpty(fname)) {
+      if (IsEmpty(fnameRef.value)) {
         ErrorToast("First Name required !");
-      } else if (IsEmpty(lname)) {
+      } else if (IsEmpty(lnameRef.value)) {
         ErrorToast("Last Name Required !");
-      } else if (IsEmail(email)) {
+      } else if (IsEmail(emailRef.value)) {
         ErrorToast("Invalid email address.");
-      } else if (IsEmpty(sid)) {
+      } else if (IsEmpty(sidRef.value)) {
         ErrorToast("Student Id Required !");
       }
-      else if (IsEmpty(dept)) {
+      else if (IsEmpty(deptRef.value)) {
         ErrorToast("Dept is Required !");
-      } else if (IsEmpty(batch)) {
+      } else if (IsEmpty(batchRef?.value)) {
         ErrorToast("Batch is Required !");
       }
-      else if (IsEmpty(position)) {
+      else if (IsEmpty(positionRef.value)) {
         ErrorToast("Position Name Required !");
-      } else if (IsEmpty(company)) {
+      } else if (IsEmpty(companyRef.value)) {
         ErrorToast("Company is Required !");
-      } else if (IsEmpty(gender)) {
+      } else if (IsEmpty(genderRef.value)) {
         ErrorToast("Gender is Required !");
-      } else if (IsEmpty(degree)) {
+      } else if (IsEmpty(degreeRef.value)) {
         ErrorToast("Degree is Required !");
-      } else if (IsEmpty(phone)) {
+      } else if (IsEmpty(phoneRef.value)) {
         ErrorToast("Contact No is Required !");
-      } else if (IsEmpty(address)) {
+      } else if (IsEmpty(addressRef.value)) {
         ErrorToast("Address is Required !");
       } else {
-        if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone, address)) {
+        const formData = new FormData()
+        formData.append('firstName', fnameRef.value)
+        formData.append('lastName', lnameRef.value)
+        formData.append('email', emailRef.value)
+        formData.append('studentId', sidRef.value)
+        formData.append('dept', deptRef.value)
+        formData.append('batch', batchRef.value)
+        formData.append('position', positionRef.value)
+        formData.append('company', companyRef.value)
+        formData.append('gender', genderRef.value)
+        formData.append('degree', degreeRef.value)
+        formData.append('phone', phoneRef.value)
+        formData.append('address', addressRef.value)
+        formData.append('photo', userImgRef.files[0])
+        if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
       }
     } else {
-      var fname = fnameRef?.value;
-      var lname = lnameRef?.value;
-      var email = emailRef?.value;
-      var sid = sidRef?.value;
-      var photo = userImgView?.src;
-      var phone = ""
-      var address = ""
-      var dept = ""
-      var batch = ""
-      var position = ""
-      var company = ""
-      var gender = ""
-      var degree = ""
-      if (IsEmpty(fname)) {
+      if (IsEmpty(fnameRef.value)) {
         ErrorToast("First Name required !");
-      } else if (IsEmpty(lname)) {
+      } else if (IsEmpty(lnameRef.value)) {
         ErrorToast("Last Name Required !");
-      } else if (IsEmail(email)) {
+      } else if (IsEmail(emailRef.value)) {
         ErrorToast("Invalid email address.");
-      } else if (IsEmpty(sid)) {
+      } else if (IsEmpty(sidRef.value)) {
         ErrorToast("Student Id Required !");
       } else {
-        if (updateProfile(fname, lname, email, sid, dept, batch, position, company, gender, degree, photo, phone, address)) {
+        const formData = new FormData()
+        formData.append('firstName', fnameRef.value)
+        formData.append('lastName', lnameRef.value)
+        formData.append('email', emailRef.value)
+        formData.append('studentId', sidRef.value)
+        formData.append('photo', userImgRef.files[0])
+        if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
       }
     }
   };
-
-
 
   return (
     <div className="w-full bg-slate-100 md:shadow">
