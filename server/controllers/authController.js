@@ -100,12 +100,12 @@ export const profileDetails = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
     try {
-        const user = await User.findById(
-            req.params.id,
-        );
-        if (!user) return next(createError(404, "User not found."));
+        //const user = await User.findById(
+        //    req.user.id,
+        //);
+        //if (!user) return next(createError(404, "User not found."));
         if(req.file){
-            await cloudinaryDeleteImg(user.photo.publicId)
+        //    await cloudinaryDeleteImg(user.photo.publicId)
             req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
         }
         const updateProfile = await User.findByIdAndUpdate(

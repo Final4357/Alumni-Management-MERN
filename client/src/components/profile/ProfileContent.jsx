@@ -131,7 +131,7 @@ const ProfileContent = () => {
       {active === 1 && (
         <>
           <div class="profile flex justify-center ">
-            <img class="w-36 h-36 rounded-full object-fill" src={ProfileDetails.photo} ref={(input) => userImgView = input} alt="" />
+            <img class="w-36 h-36 rounded-full object-fill" src={ProfileDetails.photo?.url} ref={(input) => userImgView = input} alt="" />
             <div class="w-36 h-36 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
               <img class="hidden absolute group-hover:block w-12" for="file-input" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
               <input
