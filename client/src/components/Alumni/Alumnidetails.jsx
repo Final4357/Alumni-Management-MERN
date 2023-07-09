@@ -47,7 +47,7 @@ const Alumnidetails = () => {
                         <div class="w-full bg-slate-100 lg:shadow pb-3 flex flex-col justify-center">
                             <div class="w-fit mx-auto border-t-4 border-[#2C1654]">
                                 <img class="w-[400px] h-[300px] object-fill"
-                                    src={AlumniDetails.photo.url}
+                                    src={AlumniDetails.photo?.url}
                                     loading="lazy"
                                     alt="Alumni photo" />
                             </div>
