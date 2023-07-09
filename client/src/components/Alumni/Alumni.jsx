@@ -104,7 +104,7 @@ const Alumni = () => {
                                     <Link to={`/alumnidetails/${item._id}`}>
                                         <div key={i} class="bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                             <div className='flex justify-center'>
-                                                <img class="h-64 w-full object-fill" src={item.photo} alt="" />
+                                                <img class="h-64 w-full object-fill" src={item.photo.url} alt="" loading="lazy"/>
                                             </div>
                                             <div className='flex w-full flex-col text-center p-2 gap-1 '>
                                                 <h1 className='text-lg font-extrabold'>{item.firstname + ' ' + item.lastname}</h1>

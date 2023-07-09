@@ -65,12 +65,12 @@ const Footer = () => {
                         <nav aria-label="Footer About Nav" class="mt-3">
                             <ul class="space-y-2 text-sm">
                                 <li>
-                                    <a
+                                    <Link
                                         class="text-gray-700 transition hover:text-gray-700/75"
-                                        href="/"
+                                        to="/events"
                                     >
                                         Featured Events
-                                    </a>
+                                    </Link>
                                 </li>
 
                                 <li>
@@ -165,13 +165,13 @@ const Footer = () => {
 
                         <ul class="space-y-2 text-sm mt-3">
                             <li>
-                                <a
+                                <Link
                                     class="flex items-center justify-center lg:justify-start gap-1.5"
-                                    href="/"
+                                    to="/about"
                                 >
 
                                     <span class="text-gray-700">About IIUCAA</span>
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
@@ -189,9 +189,9 @@ const Footer = () => {
                                 </span>
                             </li>
                             <li class="flex justify-center lg:justify-start gap-1.5">
-                                <span class="text-gray-700">
+                                <Link to='/contact' class="text-gray-700">
                                 Contact Us
-                                </span>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -208,10 +208,12 @@ const Footer = () => {
                         </div>
                         <div className='flex flex-col gap-4'>
                             <ul className='flex flex-wrap justify-center lg:justify-end gap-4'>
-                                <li><Link to='' className='text-md font-medium hover:underline'>IIUC Home</Link></li>
-                                <li><Link to='' className='text-md font-medium hover:underline'>Maps & Directions</Link></li>
-                                <li><Link to='' className='text-md font-medium hover:underline'>Search IIUC</Link></li>
-                                <li><Link to='' className='text-md font-medium hover:underline'>Emergency Info</Link></li>
+                                <li><Link to='https://www.iiuc.ac.bd/' className='text-md font-medium hover:underline'>IIUC Home</Link></li>
+                                <li><Link 
+                                to='https://www.google.com/maps/place/International+Islamic+University+Chittagong/@22.4965971,91.7210784,15z/data=!4m6!3m5!1s0x30ad2777a615585d:0xdcf908f6e4f3a713!8m2!3d22.4965971!4d91.7210784!16zL20vMDkwejU0?entry=ttu'
+                                 className='text-md font-medium hover:underline'>Maps & Directions</Link></li>
+                                <li><Link to='https://www.iiuc.ac.bd/' className='text-md font-medium hover:underline'>Search IIUC</Link></li>
+                                <li><Link to='https://www.iiuc.ac.bd/home/quick-contact' className='text-md font-medium hover:underline'>Emergency Info</Link></li>
                             </ul>
                             <ul className='flex flex-wrap justify-center lg:justify-end gap-4'>
                                 <li><Link to='' className='text-md font-medium hover:underline'>Terms of Us</Link></li>

@@ -82,7 +82,7 @@ useEffect(() => {
               </svg>
               <div className="relative">
                 <img className="object-fill w-12 h-12 rounded-full"
-                  src={getSender(selectedChat?.users, getUserDetails()).photo}
+                  src={getSender(selectedChat?.users, getUserDetails()).photo?.url}
                   alt="Chat pic" />
                 {
                   getOnline(selectedChat, onlineUsers, getUserDetails()) &&

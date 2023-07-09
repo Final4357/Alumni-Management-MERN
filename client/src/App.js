@@ -17,6 +17,7 @@ import { getToken } from './helper/sessionHelper'
 import { ProtectedRoute } from './helper/protectedRoute'
 import EventPage from './pages/EventPage'
 import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route path='/events' element={<EventPage />} />
           <Route path='/jobs' element={<Jobspage />} />
           <Route path='/about' element={<AboutPage />} />
+          <Route path='/contact' element={<ContactPage />} />
           <Route path='/alumnidetails/:id' element={<ProtectedRoute Component={Alumnidetailspage} />} />
           <Route path='/profile' element={<ProtectedRoute Component={Profilepage} />} />
           <Route path={'*'} element={<Notfoundpage />} />

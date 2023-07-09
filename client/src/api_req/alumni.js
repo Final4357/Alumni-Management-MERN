@@ -1,9 +1,9 @@
 import axios from "axios";
-import { ErrorToast, SuccessToast } from "../helper/formHelper.js";
+import { ErrorToast } from "../helper/formHelper.js";
 import store from "../redux/store/store";
 import { setAlumni, setAlumniDetails, setAlumniTotal } from "../redux/state/alumnislice";
 import { getToken } from "../helper/sessionHelper.js";
-//const BaseURL = "http://localhost:8081/api/alumni"
+// const BaseURL = "http://localhost:8081/api/alumni"
 const BaseURL = "https://iiuc-alumni.onrender.com/api/alumni"
 const AxiosHeader = { headers: { "token": getToken() } }
 

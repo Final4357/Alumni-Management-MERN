@@ -92,7 +92,7 @@ const Message = ({ messages }) => {
                                             (
                                                 <div className='flex max-w-sm space-x-3 mt-3 mr-24 md:mr-12'>
                                                     <div className="flex-shrink-0 h-8 w-8 rounded-full mt-auto relative">
-                                                        <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo} alt="Sender pic" />
+                                                        <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo?.url} alt="Sender pic" />
                                                         {
                                                             onlineUsers.find((u) => u.userId === msg.sender._id)
                                                             &&
@@ -115,7 +115,7 @@ const Message = ({ messages }) => {
                                                         <div className="mt-px max-w-sm mr-24 md:mr-12">
                                                             <div className='flex w-full space-x-3'>
                                                                 <div className="flex-shrink-0 h-8 w-8 mt-auto rounded-full relative">
-                                                                    <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo} alt="Sender pic" />
+                                                                    <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo?.url} alt="Sender pic" />
                                                                     {
                                                                         onlineUsers.find((u) => u.userId === msg.sender._id)
                                                                         &&
