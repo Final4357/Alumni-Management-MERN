@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import Event from "../models/Event.js"
 import { createService, deleteService, updateService } from "../services/crud.js"
 import { detailsByIDService } from "../services/detailsById.js"
@@ -21,9 +22,9 @@ export const deleteEvent = async (req,res,next) =>{
 
 export const eventList = async (req, res, next) =>{
     let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
-    let searchArray = [{title: searchRgx},{venue: searchRgx}]
+    let searchArray = [{title: searchRgx}]
     let match = { date: { $gte: new Date() }}
-    let project = {userId:0,updatedAt:0}
+    let project = {userId:0,desc:0,openTo:0,link:0,eventWebsite:0,createdAt:0,updatedAt:0}
     let sort = {date: 1}
     
     let result =await listService(req, Event, searchArray, match, project, sort)

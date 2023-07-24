@@ -7,7 +7,6 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { heroImg } from '../../static/data'
 
 const Hero = () => {
-    console.log(heroImg)
     return (
         <Fragment>
             <Swiper

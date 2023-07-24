@@ -3,7 +3,6 @@ import { ErrorToast, SuccessToast } from "../helper/formHelper";
 import { getToken, getUserDetails, removeSessions, setToken, setUserDetails } from "../helper/sessionHelper.js";
 import { setProfileDetails } from "../redux/state/profileslice";
 import store from "../redux/store/store";
-import { setAlumniDetails } from "../redux/state/alumnislice";
 import { socket } from "../components/Layout/Header";
 // const BaseURL = "http://localhost:8081/api/auth"
 const BaseURL = "https://iiuc-alumni.onrender.com/api/auth"
@@ -12,20 +11,15 @@ const AxiosHeader = { headers: { "token": getToken() } }
 export const studentRegister = async (formData) => {
     let URL = BaseURL + "/register";
     await axios.post(URL, formData).then((res) => {
-
         if (res.status === 200) {
-
             SuccessToast("Registration Successfull.")
             return true;
         } else {
-
             ErrorToast("Something Went Wrong")
             return false;
         }
     }).catch((err) => {
-
         if (err.response.data.status === 400) {
-
             ErrorToast(err.response.data.message)
             return false;
         } else {
@@ -38,20 +32,15 @@ export const studentRegister = async (formData) => {
 export const alumniRegister = async (formData) => {
     let URL = BaseURL + "/alumni/register";
     return await axios.post(URL, formData).then((res) => {
-
         if (res.status === 200) {
-
             SuccessToast("Registration Successfull.")
             return true;
         } else {
-
             ErrorToast("Something Went Wrong")
             return false;
         }
     }).catch((err) => {
-
         if (err.response.data.status === 400) {
-
             ErrorToast(err.response.data.message)
             return false;
         } else {

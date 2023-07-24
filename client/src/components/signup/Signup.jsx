@@ -15,14 +15,7 @@ const Signup = () => {
     })
   }
 
-  const onRegistration = () => {
-    // let fname = fnameRef.value;
-    // let lname = fnameRef.value;
-    // let email = emailRef.value;
-    // let password = passwordRef.value;
-    // let sid = sidRef.value;
-    // let photo = userImgView.src;
-
+  const onRegistration = async () => {
     if (IsEmpty(fnameRef.value)) {
       ErrorToast("First Name required !");
     } else if (IsEmpty(lnameRef.value)) {
@@ -43,9 +36,9 @@ const Signup = () => {
       formData.append('password', passwordRef.value)
       formData.append('studentId', sidRef.value)
       formData.append('photo', userImgRef.files[0])
-      if (studentRegister(formData)) {
-        navigate("/login");
-      } else navigate("/sign-up");
+      
+      const result = await studentRegister(formData)
+      if (result) navigate("/login")
     }
   };
 

@@ -3,8 +3,15 @@ import { Fragment } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { ImLocation } from 'react-icons/im'
 import ReactPaginate from 'react-paginate'
+import moment from 'moment/moment'
+import store from '../../redux/store/store'
+import { setPageNo } from '../../redux/state/eventSlice'
+import { Link } from 'react-router-dom'
 
-const Events = () => {
+const Events = ({events, TotalEvent}) => {
+    const handlePageClick = async (e) => {
+        store.dispatch(setPageNo(e.selected + 1))
+    };
     return (
         <Fragment>
             <div className='relative'>
@@ -19,32 +26,32 @@ const Events = () => {
             <div className='w-full px-[1rem] md:px-[2rem] lg:px-[5rem] py-5'>
                 <div className='w-full py-8 text-center space-y-5'>
                     <h1 className='text-4xl md:text-7xl font-bold'>University Events</h1>
-                    <h4 className='text-lg lg:text-2xl font-semibold'>Browse upcoming events in the Stanford community.</h4>
+                    <h4 className='text-lg lg:text-2xl font-semibold'>Browse upcoming events in the IIUC community.</h4>
                 </div>
 
                 <div className='flex flex-col items-center lg:mx-24'>
                     {
-                        [...Array(5)].map((_, i) =>
-                            <div key={i} className='flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-16 border-b border-gray-400 py-8 cursor-pointer event-card'>
+                        events.map((item, i) =>
+                            <Link to={`/eventdetails/${item._id}`} key={i} className='w-full flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-16 border-b border-gray-400 py-8 cursor-pointer event-card'>
                                 <div className='flex-[1] text-center lg:text-left'>
-                                    <h3 className='text-xl font-medium'>JUN</h3>
-                                    <h2 className='text-2xl md:text-6xl font-bold'>26</h2>
+                                    <h3 className='text-xl font-semibold'>{moment(item.date).format("MMM")}</h3>
+                                    <h2 className='text-2xl md:text-6xl font-bold'>{moment(item.date).format("D")}</h2>
                                 </div>
                                 <div className='flex-[3] space-y-3'>
-                                    <h3 className='text-base font-semibold'>Class/Presentation/Seminar</h3>
-                                    <h1 className='text-lg md:text-2xl font-bold'>IIUC Bio-X Talks in English (T.I.E.) - via Zoom </h1>
+                                    <h3 className='text-base font-semibold'>{item.topic}</h3>
+                                    <h1 className='text-lg md:text-2xl font-bold'>{item.title} </h1>
                                     <div class="flex w-full gap-4">
                                         <div className='w-7 h-7'>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="su-inline-block su-flex-shrink-0 su-mt-2 md:su-mt-3 su-mr-06em su-w-[1em]"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         </div>
-                                        <h3 className='text-xl font-medium'>Monday, June 26, 2023 | 12pm to 1pm</h3>
+                                        <h3 className='text-xl font-medium'>{moment(item.date).format('dddd, D MMMM, YYYY')} | {item.startTime} to {item.endTime}</h3>
                                     </div>
                                     <div class="flex w-full gap-4">
                                         <ImLocation className='w-6 h-6 ' />
-                                        <h3 className='text-xl font-medium'>Virtual</h3>
+                                        <h3 className='text-xl font-medium'>{item.venue}</h3>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         )
                     }
                 </div>
@@ -63,10 +70,10 @@ const Events = () => {
                             breakLabel="..."
                             breakClassName="page-item"
                             breakLinkClassName="page-link"
-                            pageCount={10 / 5}
+                            pageCount={TotalEvent / 5}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
-                            // onPageChange={handlePageClick}
+                            onPageChange={handlePageClick}
                             containerClassName="pagination"
                             activeClassName="active"
                         />

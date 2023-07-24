@@ -17,7 +17,7 @@ const SignupAL = () => {
         })
     }
 
-    const onRegistration = () => {
+    const onRegistration = async () => {
         if (IsEmpty(fnameRef.value)) {
             ErrorToast("First Name required !");
         } else if (IsEmpty(lnameRef.value)) {
@@ -47,10 +47,12 @@ const SignupAL = () => {
                 ErrorToast("Address is Required !");
         } else if (IsEmpty(degreeRef.value)) {
                 ErrorToast("Degree is Required !");
+        }else if (!userImgRef.files[0]) {
+            ErrorToast("Image is Required !");
         } else {
             const formData = new FormData()
-            formData.append('firstName', fnameRef.value)
-            formData.append('lastName', lnameRef.value)
+            formData.append('firstname', fnameRef.value)
+            formData.append('lastname', lnameRef.value)
             formData.append('email', emailRef.value)
             formData.append('password', passwordRef.value)
             formData.append('studentId', sidRef.value)
@@ -63,10 +65,8 @@ const SignupAL = () => {
             formData.append('phone', phoneRef.value)
             formData.append('address', addressRef.value)
             formData.append('photo', userImgRef.files[0])
-
-            if (alumniRegister(formData)) {
-                navigate("/login");
-            } else navigate("/sign-up");
+            const result = await alumniRegister(formData)
+            if (result) navigate("/login");
         }
     };
 

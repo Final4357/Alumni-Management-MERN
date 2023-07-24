@@ -1,7 +1,5 @@
 import React, { Fragment, useRef, useState, } from 'react'
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
-import { ErrorToast, IsEmail, IsEmpty, IsPassword, getBase64 } from "../../helper/formHelper";
+import { ErrorToast, IsEmail, IsPassword } from "../../helper/formHelper";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginRequest } from '../../api_req/auth';
 

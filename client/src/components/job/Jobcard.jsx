@@ -7,6 +7,7 @@ import { jobListRequest } from '../../api_req/jobrequest';
 import ReactPaginate from 'react-paginate';
 import { setPageNo } from '../../redux/state/jobslice';
 import Loaderani from '../loader/Loaderani'
+import { Link } from 'react-router-dom';
 
 const Jobcard = ({ Jobs, TotalJob, perPage }) => {
 
@@ -40,7 +41,7 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                             <div className='flex-1 py-2 lg:px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 '>
                                 {Jobs.map((item, i) => {
                                     return (
-                                        <div key={i} class="w-full bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
+                                        <Link to={item.link} target='blank' key={i} class="w-full bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
                                             <div class="flex flex-col p-6 space-y-4">
                                                 <h5 class="text-xl font-bold text-gray-900 dark:text-white">{item.position}</h5>
                                                 <div className='flex flex-wrap gap-2'>
@@ -49,10 +50,6 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                                                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">{item.experience}</span>
                                                 </div>
                                                 <span class="text-lg font-bold text-black dark:text-white">{item.company}</span>
-                                                {/* <div className='flex gap-1 items-center'>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-1"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"></path></svg>
-                                                    <span class="text-sm font-semibold text-gray-800 dark:text-gray-400"> Location: {item.location}</span>
-                                                </div> */}
                                                 <div class="flex w-full gap-1">
                                                     <div className='w-7 h-7'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 mr-1"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"></path></svg>
@@ -71,7 +68,7 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                                                     <a href="#" class=" w-full items-center px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View</a>
                                                 </div> */}
                                             </div>
-                                        </div>
+                                        </Link>
                                     )
                                 })
                                 }
