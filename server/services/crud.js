@@ -11,8 +11,12 @@ export const createService = async (Req, Model) =>{
 
 export const updateService = async (Req, Model) =>{
     try {
-        let data = await Model.updateOne({_id: Req.params.id, userId: Req.user.id}, Req.body)
-        return { status: "success", data: data}
+        let data = await Model.findByIdAndUpdate(
+            Req.params.id,
+            { $set: Req.body },
+            { new: true });
+        if(data) return { status: 200, data: data}
+        else return { status: "fail", data: data }
     } catch (error) {
         return { status: "fail", data: error.toString()}
     }
@@ -20,8 +24,9 @@ export const updateService = async (Req, Model) =>{
 
 export const deleteService = async (Req, Model) =>{
     try {
-        let data = await Model.deleteMany({_id: Req.params.id, userId: Req.user.id})
-        return { status: "success", data: data}
+        let data = await Model.deleteMany({_id: Req.params.id})
+        if(data) return { status: 200, data: data}
+        else return { status: "fail", data: "Something wents wrong."}
     } catch (error) {
         return { status: "fail", data: error.toString()}
     }

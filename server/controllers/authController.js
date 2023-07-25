@@ -42,7 +42,6 @@ export const alumniRegister = async (req, res, next) => {
 }
 
 export const studentRegister = async (req, res, next) => {
-	console.log(req.file)
     try {
         if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password || !req.body.studentId)
             return next(createError(401, "Please fill the all requried fields."));

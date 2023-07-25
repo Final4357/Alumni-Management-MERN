@@ -6,7 +6,7 @@ export const msgBody = (msg) =>{
         product: {
             // Appears in header & footer of e-mails
             name: 'IIUC Alumni Association',
-            link: 'https://iiuc-alumni-accociation.edu.ac.bd/'
+            link: 'https://iiuc-alumni.onrender.com'
         }
     });
 

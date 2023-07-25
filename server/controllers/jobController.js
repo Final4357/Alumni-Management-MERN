@@ -11,13 +11,27 @@ export const createJobPost = async (req,res,next) =>{
 }
 
 export const updateJobPost = async (req,res,next) =>{
-    let result =await updateService(req, Job)
-    if(result) res.status(200).send(result)
+    let data = await Job.findById(req.params.id)
+    if(!data) return res.status(404).send("Job not found.")
+    if(data.userId === req.user.id || req.user.isAdmin){
+        let result = await updateService(req, Job)
+        if(result.status===200) return res.status(200).send(result.data)
+        else return res.status(401).send(result.data)
+    }else{
+        return res.status(403).send("You are not authorized.")
+    }
 }
 
 export const deleteJobPost = async (req,res,next) =>{
-    let result=await deleteService(req, Job);
-    res.status(200).send(result)
+    let data = await Job.findById(req.params.id)
+    if(!data) return res.status(404).send("Job not found.")
+    if(data.userId === req.user.id || req.user.isAdmin){
+        let result = await deleteService(req, Job)
+        if(result.status===200) return res.status(200).send("Job has been deleted.")
+        else return res.status(401).json(result.data)
+    }else{
+        return res.status(403).send("You are not authorized.")
+    }
 }
 
 export const jobList = async (req, res, next) =>{

@@ -3,13 +3,13 @@ import { ErrorToast } from "../helper/formHelper.js";
 import store from "../redux/store/store";
 import { setAlumni, setAlumniDetails, setAlumniTotal } from "../redux/state/alumnislice";
 import { getToken } from "../helper/sessionHelper.js";
-//const BaseURL = "http://localhost:8081/api/alumni"
- const BaseURL = "https://iiuc-alumni.onrender.com/api/alumni"
+//const BaseURL = "http://localhost:8081/api/user"
+ const BaseURL = "https://iiuc-alumni.onrender.com/api/user"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const alumniListRequest = async (pageNo, perPage, searchKey) => {
     try {
-        let url = BaseURL + `/list?pageNo=${pageNo}&perPage=${perPage}&searchKey=${searchKey}`;
+        let url = BaseURL + `/alumniList?pageNo=${pageNo}&perPage=${perPage}&searchKey=${searchKey}`;
         const result = await axios.get(url);
 
         if (result.status === 200) {

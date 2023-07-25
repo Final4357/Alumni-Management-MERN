@@ -9,6 +9,6 @@ router.route('/').post(verifyToken, verifyAdmin, uploadPhoto.single('photo'), cr
 router.route('/:id').put(verifyToken, verifyAdmin, uploadPhoto.single('photo'), updateNews)
 router.route('/:id').delete(verifyToken, verifyAdmin, deleteNews)
 router.route('/list').get(newsList)
-router.route('/details/:id').get(NewsDetailsById)
+router.route('/details/:id').get(verifyToken, verifyAdmin, NewsDetailsById)
 
 export default router;

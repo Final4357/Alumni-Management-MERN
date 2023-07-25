@@ -23,7 +23,7 @@ export const sendEmail = (subject, message, send_to) =>{
         if (err) {
           console.log(err);
         } else {
-          console.log(info);
+          console.log("Mail has been sent.");
         }
       });
 };
