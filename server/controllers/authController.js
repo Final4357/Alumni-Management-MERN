@@ -105,7 +105,7 @@ export const updateProfile = async (req, res, next) => {
         );
         if (!user) return next(createError(404, "User not found."));
         if(req.file){
-            await cloudinaryDeleteImg(user.photo.publicId)
+            if(user.photo.publicId) await cloudinaryDeleteImg(user.photo.publicId)
             req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
         }
         const updateProfile = await User.findByIdAndUpdate(

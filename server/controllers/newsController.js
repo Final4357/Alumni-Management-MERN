@@ -20,13 +20,13 @@ export const updateNews = async (req,res,next) =>{
         );
         if (!news) return next(createError(404, "News not found."));
         if(req.file){
-            await cloudinaryDeleteImg(news.photo.publicId)
+            if(news.photo.publicId) await cloudinaryDeleteImg(news.photo.publicId)
             req.body.photo = await productImageUpload(req.file, `Alumni-Management/News`)
         }
         let result =await updateService(req, News)
         if(result) res.status(200).send(result)
     } catch (error) {
-        next(err);
+        next(error);
     }
 }
 

@@ -29,7 +29,7 @@ export const addAdmin = async (req, res, next) => {
                     const resetUrl = `${process.env.ADMIN_FRONTEND_URL}/auth/signin`;
                     let mailBody = {
                         name: newUser.firstname,
-                        intro: `You have received this email because you have been appointe as a new admin in IIUC Alumni website.\n Your credentials is:- \n Email: ${newUser.email}\nPassword: admin012`,
+                        intro: `You have received this email because you have been appointe as a new admin in IIUC Alumni website.</br> Your credentials is:- </br> Email: ${newUser.email}\nPassword: admin012`,
                         instructions: 'Click the button below to login your account and change your password :',
                         color: '#50C878',
                         text: 'Login',
@@ -43,6 +43,49 @@ export const addAdmin = async (req, res, next) => {
                     await sendEmail(subject, message, send_to);
                     const { password, ...otherDetails } = newUser._doc;
                     return res.status(200).json({ data: {...otherDetails}, msg: "Admin has been created."})
+                }
+            }
+        }
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const addAlumni = async (req, res, next) => {
+    try {
+        if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.studentId ||
+            !req.body.dept || !req.body.batch || !req.body.position || !req.body.company || !req.body.gender ||
+            !req.body.degree || !req.body.phone || !req.body.address)
+            return next(createError(401, "Please fill the all requried fields."));
+        else if (IsEmail(req.body.email))
+            return next(createError(401, "Invalid email address."));
+        else {
+            const user = await User.findOne({ email: req.body.email })
+            if (user) return next(createError(400, "Email has already been registered."));
+            else {
+                req.body.password = `alum012${req.body.batch}`
+                req.body.isAlumni = true
+                if (req.file)
+                    req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
+                const newUser = new User(req.body)
+                let data = await newUser.save();
+                if (data) {
+                    let mailBody = {
+                        name: newUser.firstname,
+                        intro: 'Greetings from IIUC Alumni Association! We hope this message finds you in good health and high spirits. As a new member of our alumni community, we want to ensure that you stay connected and updated with all the exciting happenings in our alumni network. \n To maintain accurate and up-to-date records, we kindly request you to review and update your personal information and user credentials. Your updated details will enable us to provide you with tailored alumni news and events.',
+                        instructions: `To proceed with the update, simply follow these easy steps: \n 1. Visit our alumni website at https://iiuc-alumni.onrender.com \n 2. Log in using your existing credentials username: ${newUser.email}, password: alum012${req.body.batch} . \n 3. Navigate to the "My Account" section. \n 4. Review your personal information, including contact details, current occupation, and any other relevant details. \n 5. If any changes are required, please update the information accordingly. \n 6. Ensure your user credentials, such as email and password, are accurate and secure. \n Rest assured that your data security and privacy are of utmost importance to us. We employ robust security measures to safeguard your information and ensure a seamless user experience.`,
+                         color: '',
+                         text: '',
+                         link: '',
+                        outro: 'Thank you for being an integral part of our alumni community. Your continued engagement and participation enrich the lives of our fellow alumni and contribute to the collective success of our alma mater. \n\n Wishing you continued success in your endeavors.'
+                    };
+                    const message = msgBody(mailBody);
+                    const subject = "Change Password Request";
+                    const send_to = newUser.email;
+
+                    await sendEmail(subject, message, send_to);
+                    const { password, isAdmin, isAlumni, ...otherDetails } = newUser._doc;
+                    return res.status(200).json({ data: {...otherDetails}, msg: "Alumni has been created."})
                 }
             }
         }
@@ -67,7 +110,7 @@ export const updateUser = async (req, res, next) => {
         );
         if (!user) return next(createError(404, "User not found."));
         if (req.file) {
-            if (user.photo) await cloudinaryDeleteImg(user.photo.publicId)
+            if (user.photo.publicId) await cloudinaryDeleteImg(user.photo.publicId)
             req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
         }
         const updateProfile = await updateService(req, User)
@@ -85,7 +128,7 @@ export const deleteUser = async (req, res, next) => {
             req.params.id,
         );
         if (!user) return next(createError(404, "User not found."));
-        if (user.photo) await cloudinaryDeleteImg(user.photo.publicId)
+        if (user.photo.publicId) await cloudinaryDeleteImg(user.photo.publicId)
         let result = await deleteService(req, User);
         if (result.status === 200) return res.status(200).send("User has been deleted.")
         else return res.status(401).json(result.data)

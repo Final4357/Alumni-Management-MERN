@@ -6,6 +6,7 @@ import { listService } from "../services/listSevice.js"
 
 
 export const createEvent = async (req,res,next) =>{
+    console.log(req.body)
     let result =await createService(req, Event)
     if(result) res.status(200).send(result)
 }

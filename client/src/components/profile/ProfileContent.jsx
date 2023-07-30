@@ -21,17 +21,6 @@ import moment from 'moment';
 import Jobupdatemodel from "../model/Jobupdatemodel";
 import { setselectedJob, setJobDetails } from "../../redux/state/jobslice";
 import Reset from "../reset/Reset";
-// import {
-//   deleteUserAddress,
-//   loadUser,
-//   updatUserAddress,
-//   updateUserInformation,
-// } from "../../redux/actions/user";
-// import { Country, State } from "country-state-city";
-// import { useEffect } from "react";
-// import { toast } from "react-toastify";
-// import axios from "axios";
-// import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 const ProfileContent = () => {
   let fnameRef, lnameRef, emailRef, phoneRef, addressRef, sidRef, deptRef, batchRef, positionRef, companyRef, genderRef, degreeRef, userImgRef, userImgView = useRef()
