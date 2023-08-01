@@ -153,7 +153,7 @@ const Jobupdatemodel = ({ closeModal }) => {
                                             id="apply-link"
                                             name=""
                                             placeholder="https://www.djangoproject.com/apply"
-                                            defaultValue={moment(Jobdetails?.deadlineDate).format("yyyy-MM-D")}
+                                            defaultValue={moment(Jobdetails?.deadlineDate).format("YYYY-MM-DD")}
                                         // value={ Date(Jobdetails.deadlineDate)}
                                         />
                                     </div>

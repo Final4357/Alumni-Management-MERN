@@ -1,4 +1,5 @@
 import User from "../models/User.js"
+import Job from "../models/Job.js"
 import mongoose from "mongoose";
 import { detailsByIDService } from "../services/detailsById.js"
 import { listService } from "../services/listSevice.js"
@@ -165,4 +166,12 @@ export const studentList = async (req, res, next) => {
     let sort = { createdAt: -1 }
     let result = await listService(req, User, searchArray, match, project, sort)
     if (result) res.status(200).json(result)
+}
+
+export const countUsers = async (req, res, next) => {
+        let userData = await User.find({isAdmin:false},{ password: 0, company:0, position:0, batch:0, address:0, phone:0, gender: 0, isAdmin: 0, canView: 0, updatedAt: 0 }).limit(6).sort("-createdAt")
+        let user = await User.countDocuments()
+        let alumni = await User.countDocuments({isAlumni:true})
+        let job = await Job.countDocuments({})
+        res.status(200).json({userData:userData, user:user, alumni:alumni, job:job})
 }

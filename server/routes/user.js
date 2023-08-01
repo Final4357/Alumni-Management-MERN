@@ -1,5 +1,5 @@
 import express from 'express'
-import { addAdmin, addAlumni, adminList, alumniList, deleteUser, studentList, updateUser, userDetailsById } from '../controllers/userController.js'
+import { addAdmin, addAlumni, adminList, alumniList, countUsers, deleteUser, studentList, updateUser, userDetailsById } from '../controllers/userController.js'
 import { verifyAdmin, verifyToken } from '../middlewares/auth.js'
 import { uploadPhoto } from '../middlewares/uploadImage.js';
 
@@ -14,5 +14,7 @@ router.route('/:id').delete(verifyToken, verifyAdmin, deleteUser)
 router.route('/alumniList').get(alumniList)
 router.route('/studentList').get(verifyToken, verifyAdmin, studentList)
 router.route('/adminList').get(verifyToken, verifyAdmin, adminList)
+
+router.route('/count').get(verifyToken, verifyAdmin, countUsers)
 
 export default router;

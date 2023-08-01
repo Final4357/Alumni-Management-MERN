@@ -137,6 +137,7 @@ export const updateProfile = (formData) =>{
     return axios.put(URL, formData, AxiosHeader).then((res) => {
         if (res.status === 200) {
             SuccessToast("Profile Details Updated")
+            setUserDetails(res.data.data)
             return true;
         } else {
             ErrorToast("Something Went Wrong")

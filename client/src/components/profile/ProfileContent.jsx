@@ -285,8 +285,6 @@ const ProfileContent = () => {
           <Reset />
         </div>
       )}
-
-      {/* Track order */}
       {active === 5 && (
         <div>
           <PostJobs />
