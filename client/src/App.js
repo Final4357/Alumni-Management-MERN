@@ -20,10 +20,21 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import NewsPage from './pages/NewsPage'
 import EventDetailsPage from './pages/EventDetailsPage'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import Loader from './components/Loader'
 
 
 const App = () => {
-  return (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 2000);
+  }, []);
+
+  return loading ? (
+    <Loader />
+  ) :  (
     <Fragment>
       <BrowserRouter>
         <Routes>
