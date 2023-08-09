@@ -349,7 +349,7 @@ const PostJobs = () => {
     } else {
       if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
         console.log(Jobcreaterequest)
-      } else navigate("/profile");
+      } else navigate("/jobs");
     }
   };
 
@@ -570,6 +570,7 @@ const PostedJobs = () => {
   const onUpdate = (id) => {
     store.dispatch(setselectedJob(id))
     setShowModal(true);
+    setUpdate(true);
   };
 
   const onDelete = async (id) => {

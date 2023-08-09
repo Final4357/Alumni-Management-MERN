@@ -10,7 +10,7 @@ const AxiosHeader = { headers: { "token": getToken() } }
 
 export const studentRegister = async (formData) => {
     let URL = BaseURL + "/register";
-    await axios.post(URL, formData).then((res) => {
+    return await axios.post(URL, formData).then((res) => {
         if (res.status === 200) {
             SuccessToast("Registration Successfull.")
             return true;

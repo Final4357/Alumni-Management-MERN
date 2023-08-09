@@ -5,79 +5,88 @@ import { detailsByIDService } from "../services/detailsById.js"
 import { listService } from "../services/listSevice.js"
 
 
-export const createJobPost = async (req,res,next) =>{
-    let result =await createService(req, Job)
-    if(result) res.status(200).send(result)
+export const createJobPost = async (req, res, next) => {
+    let result = await createService(req, Job)
+    if (result) res.status(200).send(result)
 }
 
-export const updateJobPost = async (req,res,next) =>{
-    let data = await Job.findById(req.params.id)
-    if(!data) return res.status(404).send("Job not found.")
-    if(data.userId === req.user.id || req.user.isAdmin){
+export const updateJobPost = async (req, res, next) => {
+
+    if(req.user.isAdmin){
         let result = await updateService(req, Job)
-        if(result.status===200) return res.status(200).send(result.data)
+        if (result.status === 200) return res.status(200).send(result.data)
         else return res.status(401).send(result.data)
-    }else{
-        return res.status(403).send("You are not authorized.")
     }
+    else{
+        let data = await Job.find({_id:req.params.id,userId:req.user.id})
+        if (!data) return res.status(404).send("Job not found.")
+        let result = await updateService(req, Job)
+        if (result.status === 200) return res.status(200).send(result.data)
+        else return res.status(401).send(result.data)
+    }
+   
 }
 
-export const deleteJobPost = async (req,res,next) =>{
-    let data = await Job.findById(req.params.id)
-    if(!data) return res.status(404).send("Job not found.")
-    if(data.userId === req.user.id || req.user.isAdmin){
+export const deleteJobPost = async (req, res, next) => {
+    
+    if(req.user.isAdmin){
         let result = await deleteService(req, Job)
-        if(result.status===200) return res.status(200).send("Job has been deleted.")
+        if (result.status === 200) return res.status(200).send("Job has been deleted.")
         else return res.status(401).json(result.data)
-    }else{
-        return res.status(403).send("You are not authorized.")
+    }
+    else{
+        let data = await Job.find({_id:req.params.id,userId:req.user.id})
+        if (!data) return res.status(404).send("Job not found.")
+        let result = await deleteService(req, Job)
+        if (result.status === 200) return res.status(200).send("Job has been deleted.")
+        else return res.status(401).json(result.data)
     }
 }
 
-export const jobList = async (req, res, next) =>{
-    const Category = ['Onsite','Remote','Hybrid']
-    const Experience = ['Entry','Intermediate','Expert']
-    const Type = ['Parttime','Fulltime','Internship','Contractual','Freelance']
-    let category 
-    let experience 
-    let type 
+export const jobList = async (req, res, next) => {
+    const Category = ['Onsite', 'Remote', 'Hybrid']
+    const Experience = ['Entry', 'Intermediate', 'Expert']
+    const Type = ['Parttime', 'Fulltime', 'Internship', 'Contractual', 'Freelance']
+    let category
+    let experience
+    let type
     let sort
 
     req.query.category ? (category = req.query.category.split(",")) : (category = [...Category]);
     req.query.experience ? (experience = req.query.experience.split(",")) : (experience = [...Experience]);
     req.query.type ? (type = req.query.type.split(",")) : (type = [...Type]);
-    let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
-    
-    if(req.query.sort==='OldToNew') sort = {createdAt: 1}
-    else if(req.query.sort==='FtoC') sort = {deadlineDate: -1}
-    else if(req.query.sort==='CtoF') sort = {deadlineDate: 1}
-    else sort = {createdAt: -1}
+    let searchRgx = { '$regex': req.query.searchKey, $options: 'i' }
 
-    let searchArray = [{company: searchRgx},{position: searchRgx}]
-    let match = { category : { $in: category }, experience: { $in: experience }, type: { $in: type}, deadlineDate: { $gte: new Date() }}
-    let project = {userId:0,updatedAt:0}
-    
-    let result =await listService(req, Job, searchArray, match, project, sort)
-    if(result) res.status(200).json(result)
+    if (req.query.sort === 'OldToNew') sort = { createdAt: 1 }
+    else if (req.query.sort === 'FtoC') sort = { deadlineDate: -1 }
+    else if (req.query.sort === 'CtoF') sort = { deadlineDate: 1 }
+    else sort = { createdAt: -1 }
+
+    let searchArray = [{ company: searchRgx }, { position: searchRgx }]
+    let match = { category: { $in: category }, experience: { $in: experience }, type: { $in: type }, deadlineDate: { $gte: new Date() } }
+    let project = { userId: 0, updatedAt: 0 }
+
+    let result = await listService(req, Job, searchArray, match, project, sort)
+    if (result) res.status(200).json(result)
 }
 
-export const jobListCreateByOwn = async (req, res, next) =>{
-    let searchRgx = {'$regex': req.query.searchKey, $options: 'i'}
-    let sort = {createdAt: -1}
+export const jobListCreateByOwn = async (req, res, next) => {
+    let searchRgx = { '$regex': req.query.searchKey, $options: 'i' }
+    let sort = { createdAt: -1 }
 
-    let searchArray = [{company: searchRgx},{position: searchRgx}]
+    let searchArray = [{ company: searchRgx }, { position: searchRgx }]
     let match = { userId: mongoose.Types.ObjectId(req.user.id) }
-    let project = {updatedAt:0}
-    
-    let result =await listService(req, Job, searchArray, match, project, sort)
-    if(result) res.status(200).json(result)
+    let project = { updatedAt: 0 }
+
+    let result = await listService(req, Job, searchArray, match, project, sort)
+    if (result) res.status(200).json(result)
 }
 
-export const jobDetailsById = async (req,res,next) =>{
+export const jobDetailsById = async (req, res, next) => {
     let match = {
         _id: mongoose.Types.ObjectId(req.params.id)
     }
-    let project = {userId:0, updatedAt:0}
-    let result =await detailsByIDService(req, Job, match, project)
-    if(result) res.status(200).json(result)
+    let project = { userId: 0, updatedAt: 0 }
+    let result = await detailsByIDService(req, Job, match, project)
+    if (result) res.status(200).json(result)
 }

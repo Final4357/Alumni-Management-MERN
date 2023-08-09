@@ -14,16 +14,17 @@ import '../../assets/css/style.css'
 const Alumni = () => {
     let [loading, setloading] = useState(false);
     let [searchKeyword, setSearchKeyword] = useState("0");
+    let [dept, setDept] = useState("");
     let [perPage, setPerPage] = useState(4);
     let [pageNo, setPageNo] = useState(1);
 
     useEffect(() => {
         (async () => {
             setloading(true);
-            await alumniListRequest(pageNo, perPage, searchKeyword);
+            await alumniListRequest(pageNo, perPage, searchKeyword, dept);
             setloading(false);
         })();
-    },[]) 
+    }, [dept])
 
     let Alumni = useSelector((state) => (state.alumni.Alumni));
     let Total = useSelector((state) => (state.alumni.Total))
@@ -32,14 +33,20 @@ const Alumni = () => {
     const perPageOnChange = async (e) => {
         setPerPage(parseInt(e.target.value))
         setloading(true);
-        await alumniListRequest(1, e.target.value, searchKeyword);
+        await alumniListRequest(1, e.target.value, searchKeyword,dept);
         setloading(false);
     }
+    // const deptOnChange = async (e) => {
+    //     setPerPage(parseInt(e.target.value))
+    //     setloading(true);
+    //     await alumniListRequest(1, e.target.value, searchKeyword);
+    //     setloading(false);
+    // }
 
     const handlePageClick = async (e) => {
         setPageNo(e.selected)
         setloading(true);
-        await alumniListRequest(e.selected + 1, perPage, searchKeyword);
+        await alumniListRequest(e.selected + 1, perPage, searchKeyword,dept);
         setloading(false);
     };
 
@@ -48,14 +55,14 @@ const Alumni = () => {
         if ((e.target.value).length === 0) {
             setSearchKeyword("0")
             setloading(true);
-            await alumniListRequest(1, perPage, "0");
+            await alumniListRequest(1, perPage, "0",dept);
             setloading(false);
         }
     }
 
     const onSearchData = async () => {
         setloading(true);
-        await alumniListRequest(1, perPage, searchKeyword)
+        await alumniListRequest(1, perPage, searchKeyword,dept)
         setloading(false);
     }
     return (
@@ -74,13 +81,26 @@ const Alumni = () => {
                     </ul>
                 </div>
                 <div className='flex flex-col md:flex-row items-start md:items-center md:justify-between gap-3 md:gap-0 py-3'>
-                    <div className='flex gap-3 items-center'>
-                        <select onChange={perPageOnChange} id="lsit" class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#2C1654] dark:focus:border-[#2C1654]">
-                            <option selected value="4"> 4 Per Page </option>
-                            <option value="8"> 8 Per Page </option>
-                            <option value="12"> 12 Per Page </option>
-                            <option value="16"> 16 Per Page </option>
-                        </select>
+                    <div className='flex gap-5'>
+                        <div className='flex gap-3 items-center'>
+                            <select onChange={perPageOnChange} id="lsit" class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#2C1654] focus:border-[#2C1654] block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#2C1654] dark:focus:border-[#2C1654]">
+                                <option selected value="4"> 4 Per Page </option>
+                                <option value="8"> 8 Per Page </option>
+                                <option value="12"> 12 Per Page </option>
+                                <option value="16"> 16 Per Page </option>
+                            </select>
+                        </div>
+                        <div className=' flex items-center justify-center text-center'>
+                            <span className='font-bold text-gray-500 text-base'>Dept :</span>
+                            <select
+                                onChange={(e) => setDept(e.target.value)}
+                                id="sort" class=" bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected={dept === ""} value="">ALL</option>
+                                <option selected={dept === "CSE"} value="CSE">CSE</option>
+                                <option selected={dept === "EEE"} value="EEE">EEE</option>
+                                <option selected={dept === "ETE"} value="ETE">ETE </option>
+                            </select>
+                        </div>
                     </div>
                     <div class="flex items-center">
                         <label for="voice-search" class="sr-only">Search</label>
@@ -104,7 +124,7 @@ const Alumni = () => {
                                     <Link to={`/alumnidetails/${item._id}`}>
                                         <div key={i} class="bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                             <div className='flex justify-center'>
-                                                <img class="h-64 w-full object-fill" src={item.photo.url} alt="" loading="lazy"/>
+                                                <img class="h-64 w-full object-fill" src={item.photo.url} alt="" loading="lazy" />
                                             </div>
                                             <div className='flex w-full flex-col text-center p-2 gap-1 '>
                                                 <h1 className='text-lg font-extrabold'>{item.firstname + ' ' + item.lastname}</h1>

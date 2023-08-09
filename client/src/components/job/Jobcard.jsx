@@ -17,7 +17,7 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
     const handlePageClick = async (e) => {
         store.dispatch(setPageNo(e.selected + 1))
     };
-    console.log(Jobs)
+    
 
     return (
         <Fragment className="">

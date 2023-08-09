@@ -7,9 +7,9 @@ const BaseURL = "http://localhost:8081/api/user"
  //const BaseURL = "https://iiuc-alumni.onrender.com/api/user"
 const AxiosHeader = { headers: { "token": getToken() } }
 
-export const alumniListRequest = async (pageNo, perPage, searchKey) => {
+export const alumniListRequest = async (pageNo, perPage, searchKey,dept) => {
     try {
-        let url = BaseURL + `/alumniList?pageNo=${pageNo}&perPage=${perPage}&searchKey=${searchKey}`;
+        let url = BaseURL + `/alumniList?pageNo=${pageNo}&perPage=${perPage}&searchKey=${searchKey}&dept=${dept}`;
         const result = await axios.get(url);
 
         if (result.status === 200) {

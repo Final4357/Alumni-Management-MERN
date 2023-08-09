@@ -35,7 +35,7 @@ const Alumnidetails = () => {
     return (
         <Fragment>
             <div class="bg-slate-100 px-[1rem] md:px-[2rem] lg:px-[5rem] py-8 lg:py-10">
-            <div className="text-md breadcrumbs mb-3">
+                <div className="text-md breadcrumbs mb-3">
                     <ul>
                         <li><Link to='/alumni'>Alumni</Link></li>
                         <li>Alumni Details</li>
@@ -134,7 +134,7 @@ const Alumnidetails = () => {
                                 </div>
                                 <ul
                                     class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
-                                    
+                                    {getUserDetails()._id !== params.id &&
                                         <li class="flex items-center py-3">
                                             <span>Connect</span>
                                             <span class="  ml-auto ">
@@ -144,7 +144,7 @@ const Alumnidetails = () => {
                                                 </button>
                                             </span>
                                         </li>
-                                    
+                                    }
                                     <li class="flex items-center py-3">
                                         <span>Member since</span>
                                         <span class="ml-auto">{moment(AlumniDetails.createdAt).format("D MMM, YYYY")}</span>

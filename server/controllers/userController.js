@@ -43,7 +43,7 @@ export const addAdmin = async (req, res, next) => {
 
                     await sendEmail(subject, message, send_to);
                     const { password, ...otherDetails } = newUser._doc;
-                    return res.status(200).json({ data: {...otherDetails}, msg: "Admin has been created."})
+                    return res.status(200).json({ data: { ...otherDetails }, msg: "Admin has been created." })
                 }
             }
         }
@@ -75,9 +75,9 @@ export const addAlumni = async (req, res, next) => {
                         name: newUser.firstname,
                         intro: 'Greetings from IIUC Alumni Association! We hope this message finds you in good health and high spirits. As a new member of our alumni community, we want to ensure that you stay connected and updated with all the exciting happenings in our alumni network. </br> To maintain accurate and up-to-date records, we kindly request you to review and update your personal information and user credentials. Your updated details will enable us to provide you with tailored alumni news and events.',
                         instructions: `To proceed with the update, simply follow these easy steps: </br> 1. Visit our alumni website at https://iiuc-alumni.onrender.com </br> 2. Log in using your existing credentials username: ${newUser.email}, password: alum012${req.body.batch} . </br> 3. Navigate to the "My Account" section. </br> 4. Review your personal information, including contact details, current occupation, and any other relevant details. </br> 5. If any changes are required, please update the information accordingly. </br> 6. Ensure your user credentials, such as email and password, are accurate and secure. </br> Rest assured that your data security and privacy are of utmost importance to us. We employ robust security measures to safeguard your information and ensure a seamless user experience.`,
-                         color: '',
-                         text: '',
-                         link: '',
+                        color: '',
+                        text: '',
+                        link: '',
                         outro: 'Thank you for being an integral part of our alumni community. Your continued engagement and participation enrich the lives of our fellow alumni and contribute to the collective success of our alma mater. </br></br> Wishing you continued success in your endeavors.'
                     };
                     const message = msgBody(mailBody);
@@ -86,7 +86,7 @@ export const addAlumni = async (req, res, next) => {
 
                     await sendEmail(subject, message, send_to);
                     const { password, isAdmin, isAlumni, ...otherDetails } = newUser._doc;
-                    return res.status(200).json({ data: {...otherDetails}, msg: "Alumni has been created."})
+                    return res.status(200).json({ data: { ...otherDetails }, msg: "Alumni has been created." })
                 }
             }
         }
@@ -139,9 +139,14 @@ export const deleteUser = async (req, res, next) => {
 }
 
 export const alumniList = async (req, res, next) => {
+    const Dept = ['CSE', 'EEE', 'ETE', 'BBA', 'ELL']
+    let dept
+
+    req.query.dept ? (dept = req.query.dept.split(",")) : (dept = [...Dept]);
+
     let searchRgx = { '$regex': req.query.searchKey, $options: 'i' }
     let searchArray = [{ firstname: searchRgx }, { lastname: searchRgx }, { dept: searchRgx }, { company: searchRgx }, { position: searchRgx }]
-    let match = { isAlumni: true }
+    let match = { isAlumni: true, dept: { $in: dept} }
     let project = { password: 0, email: 0, gender: 0, isAlumni: 0, isAdmin: 0, studentId: 0, canView: 0, updatedAt: 0 }
     let sort = { createdAt: -1 }
     let result = await listService(req, User, searchArray, match, project, sort)
@@ -169,9 +174,9 @@ export const studentList = async (req, res, next) => {
 }
 
 export const countUsers = async (req, res, next) => {
-        let userData = await User.find({isAdmin:false},{ password: 0, company:0, position:0, batch:0, address:0, phone:0, gender: 0, isAdmin: 0, canView: 0, updatedAt: 0 }).limit(6).sort("-createdAt")
-        let user = await User.countDocuments()
-        let alumni = await User.countDocuments({isAlumni:true})
-        let job = await Job.countDocuments({})
-        res.status(200).json({userData:userData, user:user, alumni:alumni, job:job})
+    let userData = await User.find({ isAdmin: false }, { password: 0, company: 0, position: 0, batch: 0, address: 0, phone: 0, gender: 0, isAdmin: 0, canView: 0, updatedAt: 0 }).limit(6).sort("-createdAt")
+    let user = await User.countDocuments()
+    let alumni = await User.countDocuments({ isAlumni: true })
+    let job = await Job.countDocuments({})
+    res.status(200).json({ userData: userData, user: user, alumni: alumni, job: job })
 }
