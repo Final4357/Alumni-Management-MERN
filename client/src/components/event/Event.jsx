@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment/moment'
+import { T24hrTo12hr } from '../../helper/timeConvert';
 
 const Event = ({events}) => {
     return (
@@ -25,7 +26,7 @@ const Event = ({events}) => {
                                         <div className='w-7 h-7'>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="su-inline-block su-flex-shrink-0 su-mt-2 md:su-mt-3 su-mr-06em su-w-[1em]"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         </div>
-                                        <h3 className='text-lg font-medium'>{moment(item.date).format('dddd, D MMMM, YYYY')} | {item.startTime} to {item.endTime}</h3>
+                                        <h3 className='text-lg font-medium'>{moment(item.date).format('dddd, D MMMM, YYYY')} | {T24hrTo12hr(item.startTime) + " to " + T24hrTo12hr(item.endTime)}</h3>
                                     </div>
                                     <div class="flex w-full gap-4">
                                         <div className='w-7 h-7'>

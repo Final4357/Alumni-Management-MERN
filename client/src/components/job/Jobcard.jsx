@@ -17,6 +17,7 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
     const handlePageClick = async (e) => {
         store.dispatch(setPageNo(e.selected + 1))
     };
+    console.log(Jobs)
 
     return (
         <Fragment className="">
@@ -39,9 +40,9 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                             <Loaderani />
                             :
                             <div className='flex-1 py-2 lg:px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 '>
-                                {Jobs.map((item, i) => {
-                                    return (
-                                        <Link to={item.link} target='blank' key={i} class="w-full bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
+                                {Jobs.map((item, i) => 
+                                  
+                                        <a href={item.link.includes('//') ? item.link :`//${item.link}`} key={i} class="w-full bg-white border border-gray-200 rounded-lg shadow transition-shadow delay-100 hover:cursor-pointer hover:drop-shadow-2xl dark:bg-gray-800 dark:border-gray-700">
                                             <div class="flex flex-col p-6 space-y-4">
                                                 <h5 class="text-xl font-bold text-gray-900 dark:text-white">{item.position}</h5>
                                                 <div className='flex flex-wrap gap-2'>
@@ -68,9 +69,8 @@ const Jobcard = ({ Jobs, TotalJob, perPage }) => {
                                                     <a href="#" class=" w-full items-center px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View</a>
                                                 </div> */}
                                             </div>
-                                        </Link>
+                                        </a>
                                     )
-                                })
                                 }
                             </div>
                     }

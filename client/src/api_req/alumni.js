@@ -3,8 +3,8 @@ import { ErrorToast } from "../helper/formHelper.js";
 import store from "../redux/store/store";
 import { setAlumni, setAlumniDetails, setAlumniTotal } from "../redux/state/alumnislice";
 import { getToken } from "../helper/sessionHelper.js";
-//const BaseURL = "http://localhost:8081/api/user"
- const BaseURL = "https://iiuc-alumni.onrender.com/api/user"
+const BaseURL = "http://localhost:8081/api/user"
+ //const BaseURL = "https://iiuc-alumni.onrender.com/api/user"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const alumniListRequest = async (pageNo, perPage, searchKey) => {

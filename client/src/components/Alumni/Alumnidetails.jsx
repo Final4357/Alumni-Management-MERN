@@ -134,8 +134,7 @@ const Alumnidetails = () => {
                                 </div>
                                 <ul
                                     class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow">
-                                    {
-                                        !getUserDetails().isAlumni &&
+                                    
                                         <li class="flex items-center py-3">
                                             <span>Connect</span>
                                             <span class="  ml-auto ">
@@ -145,7 +144,7 @@ const Alumnidetails = () => {
                                                 </button>
                                             </span>
                                         </li>
-                                    }
+                                    
                                     <li class="flex items-center py-3">
                                         <span>Member since</span>
                                         <span class="ml-auto">{moment(AlumniDetails.createdAt).format("D MMM, YYYY")}</span>
