@@ -86,7 +86,7 @@ const ProfileContent = () => {
         formData.append('degree', degreeRef.value)
         formData.append('phone', phoneRef.value)
         formData.append('address', addressRef.value)
-        formData.append('photo', userImgRef.files[0])
+        if(userImgRef.files[0]) formData.append('photo', userImgRef.files[0])
         if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
