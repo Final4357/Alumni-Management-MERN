@@ -30,7 +30,7 @@ export const addAdmin = async (req, res, next) => {
                     const resetUrl = `${process.env.ADMIN_FRONTEND_URL}/auth/signin`;
                     let mailBody = {
                         name: newUser.firstname,
-                        intro: `You have received this email because you have been appointe as a new admin in IIUC Alumni website.</br> Your credentials is:- </br> Email: ${newUser.email}\nPassword: admin012`,
+                        intro: `You have received this email because you have been appointe as a new admin in IIUC Alumni website.</br> Your credentials is:- </br> Email: ${newUser.email}</br>Password: admin012`,
                         instructions: 'Click the button below to login your account and change your password :',
                         color: '#50C878',
                         text: 'Login',
@@ -73,12 +73,12 @@ export const addAlumni = async (req, res, next) => {
                 if (data) {
                     let mailBody = {
                         name: newUser.firstname,
-                        intro: 'Greetings from IIUC Alumni Association! We hope this message finds you in good health and high spirits. As a new member of our alumni community, we want to ensure that you stay connected and updated with all the exciting happenings in our alumni network. \n To maintain accurate and up-to-date records, we kindly request you to review and update your personal information and user credentials. Your updated details will enable us to provide you with tailored alumni news and events.',
-                        instructions: `To proceed with the update, simply follow these easy steps: \n 1. Visit our alumni website at https://iiuc-alumni.onrender.com \n 2. Log in using your existing credentials username: ${newUser.email}, password: alum012${req.body.batch} . \n 3. Navigate to the "My Account" section. \n 4. Review your personal information, including contact details, current occupation, and any other relevant details. \n 5. If any changes are required, please update the information accordingly. \n 6. Ensure your user credentials, such as email and password, are accurate and secure. \n Rest assured that your data security and privacy are of utmost importance to us. We employ robust security measures to safeguard your information and ensure a seamless user experience.`,
+                        intro: 'Greetings from IIUC Alumni Association! We hope this message finds you in good health and high spirits. As a new member of our alumni community, we want to ensure that you stay connected and updated with all the exciting happenings in our alumni network. </br> To maintain accurate and up-to-date records, we kindly request you to review and update your personal information and user credentials. Your updated details will enable us to provide you with tailored alumni news and events.',
+                        instructions: `To proceed with the update, simply follow these easy steps: </br> 1. Visit our alumni website at https://iiuc-alumni.onrender.com </br> 2. Log in using your existing credentials username: ${newUser.email}, password: alum012${req.body.batch} . </br> 3. Navigate to the "My Account" section. </br> 4. Review your personal information, including contact details, current occupation, and any other relevant details. </br> 5. If any changes are required, please update the information accordingly. </br> 6. Ensure your user credentials, such as email and password, are accurate and secure. </br> Rest assured that your data security and privacy are of utmost importance to us. We employ robust security measures to safeguard your information and ensure a seamless user experience.`,
                          color: '',
                          text: '',
                          link: '',
-                        outro: 'Thank you for being an integral part of our alumni community. Your continued engagement and participation enrich the lives of our fellow alumni and contribute to the collective success of our alma mater. \n\n Wishing you continued success in your endeavors.'
+                        outro: 'Thank you for being an integral part of our alumni community. Your continued engagement and participation enrich the lives of our fellow alumni and contribute to the collective success of our alma mater. </br></br> Wishing you continued success in your endeavors.'
                     };
                     const message = msgBody(mailBody);
                     const subject = "Change Password Request";

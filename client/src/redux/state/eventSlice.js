@@ -4,6 +4,7 @@ export const eventSlice = createSlice({
     name: 'event',
     initialState:{
         pageNo: 1,
+        eventDetails: null,
         eventList: [],
         Total: 0,
     },
@@ -17,12 +18,12 @@ export const eventSlice = createSlice({
         setEventTotal: (state, action)=>{
             state.Total = action.payload
         },
-        // setAlumniDetails:(state, action)=>{
-        //     state.AlumniDetails = action.payload
-        // },
+        setEventDetails:(state, action)=>{
+            state.eventDetails = action.payload
+        },
        
     }
 })
 
-export const {setPageNo, setEvent, setEventTotal} = eventSlice.actions
+export const {setPageNo, setEvent, setEventTotal, setEventDetails} = eventSlice.actions
 export default eventSlice.reducer

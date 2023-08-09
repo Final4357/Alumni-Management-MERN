@@ -18,8 +18,8 @@ import { ProtectedRoute } from './helper/protectedRoute'
 import EventPage from './pages/EventPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
-import EventDetails from './components/event/EventDetails'
 import NewsPage from './pages/NewsPage'
+import EventDetailsPage from './pages/EventDetailsPage'
 
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/alumni' element={<Alumnipage />} />
           <Route path='/events' element={<EventPage />} />
           <Route path='/news' element={<NewsPage />} />
-          <Route path='/eventdetails/:id' element={<EventDetails />} />
+          <Route path='/eventdetails/:id' element={<EventDetailsPage />} />
           <Route path='/jobs' element={<Jobspage />} />
           <Route path='/about' element={<AboutPage />} />
           <Route path='/contact' element={<ContactPage />} />

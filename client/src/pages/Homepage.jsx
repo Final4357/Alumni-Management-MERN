@@ -26,7 +26,7 @@ const Homepage = () => {
       <Hero />
       <News News={newsList}/>
       <Event events={eventList}/>
-      <Trips />
+      {/* <Trips /> */}
       <Footer />
     </div>
   )
