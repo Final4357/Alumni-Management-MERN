@@ -106,7 +106,7 @@ const ProfileContent = () => {
         formData.append('lastName', lnameRef.value)
         formData.append('email', emailRef.value)
         formData.append('studentId', sidRef.value)
-        formData.append('photo', userImgRef.files[0])
+        if(userImgRef.files[0]) formData.append('photo', userImgRef.files[0])
         if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
@@ -580,7 +580,7 @@ const PostedJobs = () => {
   };
 
   const mainModal = (
-    <Jobupdatemodel closeModal={closeModal} handleCloseButton={handleCloseButton}>
+    <Jobupdatemodel closeModal={closeModal} handleCloseButton={handleCloseButton} setUpdate={setUpdate}>
 
     </Jobupdatemodel>
   );
