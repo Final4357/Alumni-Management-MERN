@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { jobDetailsById, updateJobdetails } from '../../api_req/jobrequest';
 import moment from 'moment';
 
-const Jobupdatemodel = ({ closeModal }) => {
+const Jobupdatemodel = ({ closeModal, setUpdate }) => {
     let titleRef, salaryRef, linktoRef, jobtypeRef, locaitonRef, experienceRef, descriptionRef, companyRef, dateRef, categoryRef = useRef();
     let navigate = useNavigate();
     let Jobdetails = useSelector((state) => (state.job.JobDetails));
@@ -54,6 +54,7 @@ const Jobupdatemodel = ({ closeModal }) => {
         } else {
             if (updateJobdetails(Jobdetails._id, title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
                 closeModal()
+                setUpdate(true)
             } else navigate("/profile");
         }
     };

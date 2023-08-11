@@ -3,9 +3,8 @@ import { ErrorToast } from "../helper/formHelper.js";
 import store from "../redux/store/store";
 import { getToken } from "../helper/sessionHelper.js";
 import { setEvent, setEventDetails, setEventTotal } from "../redux/state/eventSlice.js";
-const BaseURL = "http://localhost:8081/api/event"
-//  const BaseURL = "https://iiuc-alumni.onrender.com/api/event"
-//const BaseURL = "https://admin-iiuc-alumni.onrender.com/api/event"
+// const BaseURL = "http://localhost:8081/api/event"
+ const BaseURL = "https://iiuc-alumni.onrender.com/api/event"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const eventListRequest = async (pageNo, perPage) => {

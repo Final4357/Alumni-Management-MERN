@@ -64,7 +64,7 @@ const Message = ({ messages }) => {
                                                 {
                                                     isSenderSingleMsg(messages, msg, i) ||
                                                         (isPlaceDate(messages, i) && isPlaceDate(messages, i + 1)) ||
-                                                        (isPlaceDate(messages, i) && msg.sender._id !== messages[i + 1].sender._id) ?
+                                                        (isPlaceDate(messages, i) && msg?.sender._id !== messages[i + 1]?.sender._id) ?
                                                         (
                                                             <div className="bg-[#0C7075] text-white p-2 mt-1 ml-24 md:ml-0 rounded-l-[20px] rounded-r-[20px]">
                                                                 <p className="text-sm font-normal px-1 md:px-3">{msg.content}</p>
@@ -88,13 +88,13 @@ const Message = ({ messages }) => {
                                             </div>
                                         ) : isSenderSingleMsg(messages, msg, i) ||
                                             (isPlaceDate(messages, i) && isPlaceDate(messages, i + 1)) ||
-                                            (isPlaceDate(messages, i) && msg.sender._id !== messages[i + 1].sender._id) ?
+                                            (isPlaceDate(messages, i) && msg?.sender._id !== messages[i + 1]?.sender._id) ?
                                             (
                                                 <div className='flex max-w-sm space-x-3 mt-3 mr-24 md:mr-12'>
                                                     <div className="flex-shrink-0 h-8 w-8 rounded-full mt-auto relative">
-                                                        <img className="object-cover w-8 h-8 rounded-full" src={msg.sender.photo?.url} alt="Sender pic" />
+                                                        <img className="object-cover w-8 h-8 rounded-full" src={msg?.sender.photo?.url} alt="Sender pic" />
                                                         {
-                                                            onlineUsers.find((u) => u.userId === msg.sender._id)
+                                                            onlineUsers.find((u) => u.userId === msg?.sender._id)
                                                             &&
                                                         <span className="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-gray-50 -bottom-0.5"></span>
                                                         }

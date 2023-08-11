@@ -4,7 +4,7 @@ import {
   AiOutlineCamera,
   AiOutlineDelete,
 } from "react-icons/ai";
-import { setSearchKey, setcreatedJobPageNo } from '../../redux/state/profileslice';
+import { setActive, setSearchKey, setcreatedJobPageNo } from '../../redux/state/profileslice';
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
@@ -74,8 +74,8 @@ const ProfileContent = () => {
         ErrorToast("Address is Required !");
       } else {
         const formData = new FormData()
-        formData.append('firstName', fnameRef.value)
-        formData.append('lastName', lnameRef.value)
+        formData.append('firstname', fnameRef.value)
+        formData.append('lastname', lnameRef.value)
         formData.append('email', emailRef.value)
         formData.append('studentId', sidRef.value)
         formData.append('dept', deptRef.value)
@@ -86,7 +86,7 @@ const ProfileContent = () => {
         formData.append('degree', degreeRef.value)
         formData.append('phone', phoneRef.value)
         formData.append('address', addressRef.value)
-        formData.append('photo', userImgRef.files[0])
+        if(userImgRef.files[0]) formData.append('photo', userImgRef.files[0])
         if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
@@ -102,11 +102,11 @@ const ProfileContent = () => {
         ErrorToast("Student Id Required !");
       } else {
         const formData = new FormData()
-        formData.append('firstName', fnameRef.value)
-        formData.append('lastName', lnameRef.value)
+        formData.append('firstname', fnameRef.value)
+        formData.append('lastname', lnameRef.value)
         formData.append('email', emailRef.value)
         formData.append('studentId', sidRef.value)
-        formData.append('photo', userImgRef.files[0])
+        if(userImgRef.files[0]) formData.append('photo', userImgRef.files[0])
         if (updateProfile(formData)) {
 
         } else ErrorToast("Something Went Wrong");
@@ -313,7 +313,7 @@ const PostJobs = () => {
   let titleRef, salaryRef, linktoRef, jobtypeRef, locaitonRef, experienceRef, descriptionRef, companyRef, dateRef, categoryRef = useRef();
   let navigate = useNavigate();
 
-  const onCreate = () => {
+  const onCreate = async () => {
     let title = titleRef.value;
     let salary = salaryRef.value;
     let linkto = linktoRef.value;
@@ -347,9 +347,10 @@ const PostJobs = () => {
     } else if (IsEmpty(category)) {
       ErrorToast("Category is  Required !");
     } else {
-      if (Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)) {
-        console.log(Jobcreaterequest)
-      } else navigate("/jobs");
+      const result = await Jobcreaterequest(title, salary, linkto, date, jobtype, location, description, company, experience, category)
+      if (result) {
+        store.dispatch(setActive(6))
+      }
     }
   };
 
@@ -580,7 +581,7 @@ const PostedJobs = () => {
   };
 
   const mainModal = (
-    <Jobupdatemodel closeModal={closeModal} handleCloseButton={handleCloseButton}>
+    <Jobupdatemodel closeModal={closeModal} handleCloseButton={handleCloseButton} setUpdate={setUpdate}>
 
     </Jobupdatemodel>
   );

@@ -4,8 +4,8 @@ import store from "../redux/store/store";
 import { getToken } from "../helper/sessionHelper";
 import { setAllMessages, setMyChats, setNewMessage, setSelectChat, setSingleMessage } from "../redux/state/chatSlice";
 import { socket } from "../components/Layout/Header";
- const BaseURL = "http://localhost:8081/api"
-//const BaseURL = "https://iiuc-alumni.onrender.com/api"
+//  const BaseURL = "http://localhost:8081/api"
+const BaseURL = "https://iiuc-alumni.onrender.com/api"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const myChatRequest = async () =>{

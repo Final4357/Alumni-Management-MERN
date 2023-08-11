@@ -2,8 +2,8 @@ import axios from "axios";
 import { ErrorToast } from "../helper/formHelper.js";
 import store from "../redux/store/store.js";
 import { setNews, setNewsTotal } from "../redux/state/newsSlice.js";
-const BaseURL = "http://localhost:8081/api/news"
-// const BaseURL = "https://iiuc-alumni.onrender.com/api/news"
+// const BaseURL = "http://localhost:8081/api/news"
+const BaseURL = "https://iiuc-alumni.onrender.com/api/news"
 
 export const newsListRequest = async (pageNo, perPage) => {
     try {
