@@ -108,11 +108,13 @@ export const updateProfile = async (req, res, next) => {
             if(user.photo.publicId) await cloudinaryDeleteImg(user.photo.publicId)
             req.body.photo = await productImageUpload(req.file, `Alumni-Management/Users`)
         }
+        
         const updateProfile = await User.findByIdAndUpdate(
             req.user.id,
             { $set: req.body },
             { new: true });
-        const { _id,password, tokens, createdAt, ...otherDetails } = updateProfile._doc;
+            console.log(updateProfile)
+        const { _id,password,  createdAt, ...otherDetails } = updateProfile._doc;
         res.status(200).json({ data: {...otherDetails}})
     } catch (err) {
         next(err);
